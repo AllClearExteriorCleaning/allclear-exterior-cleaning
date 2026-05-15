@@ -13,6 +13,19 @@
 
 <body>
 
+<!-- NAV (REUSABLE) -->
+<div id="nav"></div>
+
+<script>
+fetch("/nav.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("nav").innerHTML = data;
+  });
+</script>
+
+<!-- HEADER -->
+
 <header class="header">
 <div class="container">
 
@@ -26,6 +39,8 @@ Reliable gutter cleaning and blockage removal across Eastleigh and nearby areas.
 
 </div>
 </header>
+
+<!-- HERO -->
 
 <section class="hero">
 <div class="container">
@@ -47,6 +62,8 @@ Regular gutter maintenance helps prevent blockages and keeps your guttering syst
 </div>
 </section>
 
+<!-- SERVICES -->
+
 <section class="services">
 <div class="container">
 
@@ -66,10 +83,6 @@ We aim to provide a reliable and professional local service with attention to de
 
 </div>
 </section>
-
-<footer class="footer">
-<p>© 2026 All Clear Exterior Cleaning</p>
-</footer>
 
 </body>
 </html>
