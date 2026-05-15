@@ -1,27 +1,20 @@
 <nav class="nav" aria-label="Main navigation">
   <div class="container nav-inner">
 
-    <!-- BRAND / LOGO -->
-    <a href="/index.html" class="logo" aria-label="All Clear Exterior Cleaning Home">
+    <a href="/index.html" class="logo">
       All Clear Exterior Cleaning
     </a>
 
-    <!-- MOBILE BUTTON -->
     <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
       ☰ Menu
     </button>
 
-    <!-- NAV LINKS -->
     <div class="links">
 
-      <a href="/index.html" class="nav-link">Home</a>
+      <a href="/index.html">Home</a>
 
-      <!-- WINDOW CLEANING -->
       <div class="dropdown">
-        <button class="dropbtn" aria-expanded="false">
-          Window Cleaning
-        </button>
-
+        <button class="dropbtn">Window Cleaning</button>
         <div class="dropdown-content">
           <a href="/winchester.html">Winchester</a>
           <a href="/andover.html">Andover</a>
@@ -31,12 +24,8 @@
         </div>
       </div>
 
-      <!-- GUTTER CLEARING -->
       <div class="dropdown">
-        <button class="dropbtn" aria-expanded="false">
-          Gutter Clearing
-        </button>
-
+        <button class="dropbtn">Gutter Clearing</button>
         <div class="dropdown-content">
           <a href="/gutter-clearing-winchester.html">Winchester</a>
           <a href="/gutter-clearing-andover.html">Andover</a>
@@ -46,12 +35,8 @@
         </div>
       </div>
 
-      <!-- STRONG LOCAL SEO LINKS (IMPORTANT UPGRADE) -->
       <div class="dropdown">
-        <button class="dropbtn" aria-expanded="false">
-          More Services
-        </button>
-
+        <button class="dropbtn">More Services</button>
         <div class="dropdown-content">
           <a href="/fascia-soffit-cleaning.html">Fascia & Soffit Cleaning</a>
           <a href="/conservatory-cleaning.html">Conservatory Cleaning</a>
@@ -59,7 +44,6 @@
         </div>
       </div>
 
-      <!-- CALL CTA (IMPORTANT FOR CONVERSION) -->
       <a class="nav-cta" href="tel:07305572453">
         Call 07305 572453
       </a>
@@ -67,19 +51,3 @@
     </div>
   </div>
 </nav>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-  const toggle = document.querySelector(".nav-toggle");
-  const links = document.querySelector(".links");
-
-  if (toggle) {
-    toggle.addEventListener("click", function () {
-      const isOpen = links.classList.toggle("open");
-      toggle.setAttribute("aria-expanded", isOpen);
-    });
-  }
-
-});
-</script>
