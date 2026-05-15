@@ -13,55 +13,16 @@
 
 <body>
 
-<!-- NAVIGATION -->
+<!-- NAV (REUSABLE) -->
+<div id="nav"></div>
 
-<nav class="nav">
-  <div class="container nav-inner">
-
-    <a href="index.html" class="logo">
-      All Clear Exterior Cleaning
-    </a>
-
-    <div class="links">
-
-      <a href="index.html">Home</a>
-
-      <div class="dropdown">
-        <button class="dropbtn">
-          Window Cleaning
-        </button>
-
-        <div class="dropdown-content">
-          <a href="winchester.html">Winchester</a>
-          <a href="andover.html">Andover</a>
-          <a href="basingstoke.html">Basingstoke</a>
-          <a href="eastleigh.html">Eastleigh</a>
-          <a href="amesbury.html">Amesbury</a>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <button class="dropbtn">
-          Gutter Clearing
-        </button>
-
-        <div class="dropdown-content">
-          <a href="gutter-clearing-winchester.html">Winchester</a>
-          <a href="gutter-clearing-andover.html">Andover</a>
-          <a href="gutter-clearing-basingstoke.html">Basingstoke</a>
-          <a href="gutter-clearing-eastleigh.html">Eastleigh</a>
-          <a href="gutter-clearing-amesbury.html">Amesbury</a>
-        </div>
-      </div>
-
-    </div>
-
-    <a class="nav-btn" href="tel:07305572453">
-      Call Now
-    </a>
-
-  </div>
-</nav>
+<script>
+fetch("/nav.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("nav").innerHTML = data;
+  });
+</script>
 
 <!-- HEADER -->
 
@@ -126,20 +87,6 @@ We focus on providing dependable exterior cleaning services with honest workmans
 
 </div>
 </section>
-
-<!-- FOOTER -->
-
-<footer class="footer">
-<p>© 2026 All Clear Exterior Cleaning</p>
-
-<p>
-Window Cleaning • Gutter Clearing • Fascia Cleaning • Conservatory Cleaning
-</p>
-
-<p style="font-size:12px;opacity:0.7;">
-Serving Winchester, Andover, Basingstoke, Eastleigh, Amesbury and surrounding Hampshire areas.
-</p>
-</footer>
 
 </body>
 </html>
