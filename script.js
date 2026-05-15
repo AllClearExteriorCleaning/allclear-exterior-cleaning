@@ -9,7 +9,7 @@ function calculateQuote() {
 }
 
 /* =========================
-   NAVIGATION (SAFE + FETCH READY)
+   NAVIGATION (FINAL CLEAN VERSION)
 ========================= */
 
 function initNav() {
@@ -33,23 +33,12 @@ function initNav() {
 
     btn.addEventListener("click", (e) => {
       e.preventDefault();
-      const parent = btn.closest(".dropdown");
-      parent.classList.toggle("open");
+      btn.closest(".dropdown").classList.toggle("open");
     });
   });
 }
 
-/* =========================
-   WAIT FOR NAV TO EXIST
-========================= */
-
-const navObserver = new MutationObserver(() => {
-  if (document.querySelector(".nav-toggle")) {
-    initNav();
-  }
-});
-
-navObserver.observe(document.body, {
-  childList: true,
-  subtree: true
+/* fallback init (for non-fetch cases like index) */
+document.addEventListener("DOMContentLoaded", () => {
+  initNav();
 });
