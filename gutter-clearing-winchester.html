@@ -13,24 +13,18 @@
 
 <body>
 
-<nav class="nav">
-<div class="container nav-inner">
+<!-- NAV (REUSABLE) -->
+<div id="nav"></div>
 
-<div class="logo">All Clear Exterior Cleaning</div>
+<script>
+fetch("/nav.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("nav").innerHTML = data;
+  });
+</script>
 
-<div class="links">
-<a href="index.html">Home</a>
-<a href="winchester.html">Winchester</a>
-<a href="andover.html">Andover</a>
-<a href="basingstoke.html">Basingstoke</a>
-<a href="eastleigh.html">Eastleigh</a>
-<a href="amesbury.html">Amesbury</a>
-</div>
-
-<a class="nav-btn" href="tel:07305572453">Call Now</a>
-
-</div>
-</nav>
+<!-- HEADER -->
 
 <header class="header">
 <div class="container">
@@ -45,6 +39,8 @@ Reliable gutter cleaning and blockage removal across Winchester and surrounding 
 
 </div>
 </header>
+
+<!-- HERO -->
 
 <section class="hero">
 <div class="container">
@@ -66,6 +62,8 @@ We work with homeowners across Kings Worthy, Weeke, Shawford, Littleton and surr
 </div>
 </section>
 
+<!-- SERVICES -->
+
 <section class="services">
 <div class="container">
 
@@ -75,37 +73,25 @@ We work with homeowners across Kings Worthy, Weeke, Shawford, Littleton and surr
 
 <div class="card">
 <h3>Moss & Debris Removal</h3>
-<p>
-We remove moss, leaves and built-up debris from gutters to restore proper water flow.
-</p>
+<p>We remove moss, leaves and built-up debris from gutters to restore proper water flow.</p>
 </div>
 
 <div class="card">
 <h3>Downpipe Checks</h3>
-<p>
-Blocked downpipes can cause serious overflow problems, so we check downpipes are flowing correctly.
-</p>
+<p>We check downpipes are flowing correctly to prevent hidden blockages.</p>
 </div>
 
 <div class="card">
 <h3>Visual Inspection</h3>
-<p>
-We carry out a visual inspection of your guttering while cleaning to identify obvious issues or heavy build-up.
-</p>
+<p>We inspect guttering during cleaning to identify heavy build-up or obvious issues.</p>
 </div>
 
 </div>
-
-<p>
-Many properties across Winchester experience gutter problems due to nearby trees, moss from roofs and seasonal debris build-up. During autumn and winter especially, gutters can quickly become blocked if they are not maintained regularly.
-</p>
-
-<p>
-Our gutter clearing service is suitable for detached homes, semi-detached properties, bungalows and many other residential properties. We focus on providing a straightforward and reliable service without unnecessary upselling or pressure.
-</p>
 
 </div>
 </section>
+
+<!-- SEO -->
 
 <section class="seo">
 <div class="container">
@@ -113,28 +99,21 @@ Our gutter clearing service is suitable for detached homes, semi-detached proper
 <h2>Why Regular Gutter Clearing Matters</h2>
 
 <p>
-Gutters are designed to move rainwater safely away from your property. When gutters become blocked, water can overflow onto walls, fascias, soffits and around foundations. Over time this can lead to staining, damp patches and unnecessary exterior damage.
-</p>
-
-<p>
-Regular gutter maintenance can help prevent:
+Gutters are designed to move rainwater safely away from your property. When gutters become blocked, water can overflow and cause staining, damp patches and exterior damage.
 </p>
 
 <ul>
-<li>Overflowing gutters during heavy rain</li>
-<li>Water damage to walls and brickwork</li>
-<li>Moss and debris build-up</li>
-<li>Blocked downpipes</li>
-<li>Excess moisture around the property</li>
-<li>Premature wear to guttering systems</li>
+<li>Prevent overflowing gutters</li>
+<li>Reduce water damage risk</li>
+<li>Limit moss and debris build-up</li>
+<li>Improve gutter performance</li>
+<li>Protect fascias and soffits</li>
 </ul>
-
-<p>
-Many homeowners only notice gutter problems once overflowing starts occurring. Preventative gutter clearing is often far more cost-effective than waiting until larger problems develop.
-</p>
 
 </div>
 </section>
+
+<!-- AREAS -->
 
 <section class="areas">
 <div class="container">
@@ -145,65 +124,10 @@ Many homeowners only notice gutter problems once overflowing starts occurring. P
 Kings Worthy, Weeke, Shawford, Littleton and surrounding villages.
 </p>
 
-<p>
-If you are unsure whether we cover your area, feel free to get in touch and we will be happy to help.
-</p>
-
 </div>
 </section>
 
-<section class="services">
-<div class="container">
-
-<h2>Why Choose All Clear Exterior Cleaning</h2>
-
-<div class="grid">
-
-<div class="card">
-<h3>Reliable Local Service</h3>
-<p>
-We provide reliable exterior cleaning services across Hampshire with a focus on customer satisfaction.
-</p>
-</div>
-
-<div class="card">
-<h3>Professional Approach</h3>
-<p>
-We take pride in carrying out every job carefully and professionally.
-</p>
-</div>
-
-<div class="card">
-<h3>Exterior Cleaning Specialists</h3>
-<p>
-Alongside gutter clearing, we also provide window cleaning, fascia cleaning and conservatory exterior cleaning.
-</p>
-</div>
-
-</div>
-
-<p>
-Our goal is to provide a dependable local service that homeowners can rely on throughout the year. Whether you need a one-off gutter clear or regular exterior cleaning services, we aim to make the process simple and hassle-free.
-</p>
-
-</div>
-</section>
-
-<section class="areas">
-<div class="container">
-
-<h2>Our Hampshire Service Areas</h2>
-
-<p>
-<a href="winchester.html">Window Cleaning Winchester</a> |
-<a href="andover.html">Window Cleaning Andover</a> |
-<a href="basingstoke.html">Window Cleaning Basingstoke</a> |
-<a href="eastleigh.html">Window Cleaning Eastleigh</a> |
-<a href="amesbury.html">Window Cleaning Amesbury</a>
-</p>
-
-</div>
-</section>
+<!-- CTA -->
 
 <section class="contact">
 <div class="container">
@@ -211,21 +135,13 @@ Our goal is to provide a dependable local service that homeowners can rely on th
 <h2>Get a Free Gutter Clearing Quote</h2>
 
 <p>
-If you are looking for professional gutter clearing in Winchester, contact All Clear Exterior Cleaning today for a free quote.
+Contact All Clear Exterior Cleaning today for professional gutter clearing in Winchester.
 </p>
 
 <a class="btn" href="tel:07305572453">Call 07305 572453</a>
 
 </div>
 </section>
-
-<footer class="footer">
-<p>© 2026 All Clear Exterior Cleaning</p>
-
-<p style="font-size:12px;opacity:0.7;">
-Serving Winchester, Andover, Basingstoke, Eastleigh, Amesbury and surrounding Hampshire areas.
-</p>
-</footer>
 
 </body>
 </html>
