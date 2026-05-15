@@ -9,43 +9,42 @@ function calculateQuote() {
 }
 
 /* =========================
-   MOBILE NAV MENU
+   NAV INITIALISATION (FIXED)
 ========================= */
 
-document.addEventListener("DOMContentLoaded", function () {
-
+function initNav() {
   const toggle = document.querySelector(".nav-toggle");
   const nav = document.querySelector(".links");
 
-  if (toggle && nav) {
-    toggle.addEventListener("click", function () {
-      const isOpen = nav.classList.toggle("open");
-      toggle.setAttribute("aria-expanded", isOpen);
-    });
-  }
+  if (!toggle || !nav) return;
 
-  /* dropdown click support for mobile */
+  toggle.addEventListener("click", function () {
+    const isOpen = nav.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", isOpen);
+  });
+
+  /* dropdown click support */
   document.querySelectorAll(".dropbtn").forEach(btn => {
     btn.addEventListener("click", function (e) {
-      const parent = e.target.closest(".dropdown");
-      parent.classList.toggle("open");
+      e.preventDefault();
+
+      const dropdown = btn.parentElement;
+      dropdown.classList.toggle("open");
     });
   });
 
-  /* close menu when clicking outside */
+  /* close when clicking outside */
   document.addEventListener("click", function (e) {
     const navWrap = document.querySelector(".nav");
-    const links = document.querySelector(".links");
 
     if (!navWrap.contains(e.target)) {
-      links?.classList.remove("open");
+      nav.classList.remove("open");
 
       document.querySelectorAll(".dropdown").forEach(d => {
         d.classList.remove("open");
       });
 
-      document.querySelector(".nav-toggle")?.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-expanded", "false");
     }
   });
-
-});
+}
