@@ -13,54 +13,16 @@
 
 <body>
 
-<!-- NAVIGATION -->
-<nav class="nav">
-  <div class="container nav-inner">
+<!-- NAV (REUSABLE) -->
+<div id="nav"></div>
 
-    <a href="index.html" class="logo">
-      All Clear Exterior Cleaning
-    </a>
-
-    <div class="links">
-
-      <a href="index.html">Home</a>
-
-      <div class="dropdown">
-        <button class="dropbtn">
-          Window Cleaning
-        </button>
-
-        <div class="dropdown-content">
-          <a href="winchester.html">Winchester</a>
-          <a href="andover.html">Andover</a>
-          <a href="basingstoke.html">Basingstoke</a>
-          <a href="eastleigh.html">Eastleigh</a>
-          <a href="amesbury.html">Amesbury</a>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <button class="dropbtn">
-          Gutter Clearing
-        </button>
-
-        <div class="dropdown-content">
-          <a href="gutter-clearing-winchester.html">Winchester</a>
-          <a href="gutter-clearing-andover.html">Andover</a>
-          <a href="gutter-clearing-basingstoke.html">Basingstoke</a>
-          <a href="gutter-clearing-eastleigh.html">Eastleigh</a>
-          <a href="gutter-clearing-amesbury.html">Amesbury</a>
-        </div>
-      </div>
-
-    </div>
-
-    <a class="nav-btn" href="tel:07305572453">
-      Call Now
-    </a>
-
-  </div>
-</nav>
+<script>
+fetch("/nav.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("nav").innerHTML = data;
+  });
+</script>
 
 <!-- HERO -->
 <header class="header">
@@ -107,34 +69,22 @@
 
       <div class="card">
         <h3>Window Cleaning</h3>
-
-        <p>
-          Professional streak-free window cleaning available on regular 4 or 8 weekly rounds.
-        </p>
+        <p>Professional streak-free window cleaning available on regular 4 or 8 weekly rounds.</p>
       </div>
 
       <div class="card">
         <h3>Gutter Clearing</h3>
-
-        <p>
-          Removal of moss, leaves and debris to help prevent overflowing gutters and blockages.
-        </p>
+        <p>Removal of moss, leaves and debris to help prevent overflowing gutters and blockages.</p>
       </div>
 
       <div class="card">
         <h3>Fascia & Soffit Cleaning</h3>
-
-        <p>
-          Restore the appearance of your property with professional exterior UPVC cleaning.
-        </p>
+        <p>Restore the appearance of your property with professional exterior UPVC cleaning.</p>
       </div>
 
       <div class="card">
         <h3>Conservatory Cleaning</h3>
-
-        <p>
-          Exterior conservatory cleaning to improve appearance and remove built-up dirt.
-        </p>
+        <p>Exterior conservatory cleaning to improve appearance and remove built-up dirt.</p>
       </div>
 
     </div>
@@ -142,7 +92,7 @@
   </div>
 </section>
 
-<!-- WHY CHOOSE US -->
+<!-- WHY CHOOSE -->
 <section class="seo">
   <div class="container">
 
@@ -156,7 +106,6 @@
 
     <p>
       We provide reminder texts before scheduled visits and take pride in carrying out every job carefully and professionally.
-      Our aim is to make exterior cleaning simple and hassle-free for homeowners across Hampshire.
     </p>
 
   </div>
@@ -172,26 +121,17 @@
 
       <div class="card">
         <h3>1. Request a Quote</h3>
-
-        <p>
-          Contact us with your property details and we will provide a free no-obligation quote.
-        </p>
+        <p>Contact us with your property details and we will provide a free no-obligation quote.</p>
       </div>
 
       <div class="card">
         <h3>2. Schedule Your Visit</h3>
-
-        <p>
-          We arrange a convenient visit and send a reminder text before arrival.
-        </p>
+        <p>We arrange a convenient visit and send a reminder text before arrival.</p>
       </div>
 
       <div class="card">
         <h3>3. Enjoy a Cleaner Property</h3>
-
-        <p>
-          We carry out the work professionally and leave your property looking cleaner and well maintained.
-        </p>
+        <p>We carry out the work professionally and leave your property looking cleaner and well maintained.</p>
       </div>
 
     </div>
@@ -199,7 +139,7 @@
   </div>
 </section>
 
-<!-- LOCAL SEO -->
+<!-- AREAS -->
 <section class="areas">
   <div class="container">
 
@@ -208,11 +148,6 @@
     <p>
       We provide exterior cleaning services across Winchester, Andover, Basingstoke,
       Eastleigh, Amesbury and surrounding Hampshire villages.
-    </p>
-
-    <p>
-      Areas covered include Kings Worthy, Weeke, Chandlers Ford, Fair Oak, Oakley,
-      Old Basing, Ludgershall, Bulford and many surrounding areas.
     </p>
 
   </div>
@@ -259,22 +194,13 @@
     <h2>Frequently Asked Questions</h2>
 
     <h3>How often should windows be cleaned?</h3>
-
-    <p>
-      Most customers choose either a 4 or 8 weekly cleaning schedule depending on their preference and property location.
-    </p>
+    <p>Most customers choose either a 4 or 8 weekly cleaning schedule depending on their preference and property location.</p>
 
     <h3>Do you clean frames and sills?</h3>
-
-    <p>
-      Yes, our window cleaning service includes exterior frames and sills during each visit.
-    </p>
+    <p>Yes, our window cleaning service includes exterior frames and sills during each visit.</p>
 
     <h3>Do I need to be home?</h3>
-
-    <p>
-      In many cases you do not need to be home, provided we have safe access to the required areas.
-    </p>
+    <p>In many cases you do not need to be home, provided we have safe access to the required areas.</p>
 
   </div>
 </section>
@@ -285,29 +211,12 @@
 
     <h2>Get a Free Quote Today</h2>
 
-    <p>
-      Fast response from your local Hampshire exterior cleaning company.
-    </p>
+    <p>Fast response from your local Hampshire exterior cleaning company.</p>
 
     <a class="btn" href="tel:07305572453">Call 07305 572453</a>
 
   </div>
 </section>
-
-<!-- FOOTER -->
-<footer class="footer">
-
-  <p>© 2026 All Clear Exterior Cleaning</p>
-
-  <p>
-    Window Cleaning • Gutter Clearing • Fascia Cleaning • Conservatory Cleaning
-  </p>
-
-  <p style="font-size:12px;opacity:0.7;">
-    Serving Winchester, Andover, Basingstoke, Eastleigh, Amesbury and surrounding Hampshire areas.
-  </p>
-
-</footer>
 
 </body>
 </html>
