@@ -12,23 +12,18 @@
 
 <body>
 
-<nav class="nav">
-  <div class="container nav-inner">
-    <div class="logo">All Clear Exterior Cleaning</div>
+<!-- NAVIGATION (REUSABLE) -->
+<div id="nav"></div>
 
-    <div class="links">
-      <a href="index.html">Home</a>
-      <a href="winchester.html">Winchester</a>
-      <a href="andover.html">Andover</a>
-      <a href="basingstoke.html">Basingstoke</a>
-      <a href="eastleigh.html">Eastleigh</a>
-      <a href="amesbury.html">Amesbury</a>
-    </div>
+<script>
+fetch("nav.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("nav").innerHTML = data;
+  });
+</script>
 
-    <a class="nav-btn" href="tel:07305572453">Call Now</a>
-  </div>
-</nav>
-
+<!-- HEADER -->
 <header class="header">
   <div class="container">
     <h1>Window Cleaning Winchester</h1>
@@ -36,6 +31,7 @@
   </div>
 </header>
 
+<!-- HERO -->
 <section class="hero">
   <div class="container">
     <h2>Reliable Window Cleaning in Winchester</h2>
@@ -43,6 +39,7 @@
   </div>
 </section>
 
+<!-- AREAS -->
 <section class="areas">
   <div class="container">
     <h2>Areas Covered</h2>
@@ -50,6 +47,7 @@
   </div>
 </section>
 
+<!-- OTHER AREAS -->
 <section class="areas">
   <div class="container">
     <h2>Other Areas</h2>
@@ -63,12 +61,14 @@
   </div>
 </section>
 
+<!-- CTA -->
 <section class="contact">
   <div class="container">
     <a class="btn" href="tel:07305572453">Call for Quote</a>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer class="footer">
   <p>© 2026 All Clear Exterior Cleaning</p>
   <p style="font-size:12px;opacity:0.7;">
