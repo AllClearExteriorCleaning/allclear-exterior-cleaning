@@ -13,6 +13,19 @@
 
 <body>
 
+<!-- NAV (REUSABLE) -->
+<div id="nav"></div>
+
+<script>
+fetch("/nav.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("nav").innerHTML = data;
+  });
+</script>
+
+<!-- HEADER -->
+
 <header class="header">
 <div class="container">
 
@@ -26,6 +39,8 @@ Professional gutter cleaning and blockage removal across Basingstoke and surroun
 
 </div>
 </header>
+
+<!-- HERO -->
 
 <section class="hero">
 <div class="container">
@@ -46,6 +61,8 @@ We cover areas including Chineham, Oakley, Old Basing and Brighton Hill.
 
 </div>
 </section>
+
+<!-- SERVICES -->
 
 <section class="services">
 <div class="container">
@@ -68,16 +85,8 @@ Keeping gutters clear can help reduce:
 <li>Water damage around the property</li>
 </ul>
 
-<p>
-We provide straightforward and reliable gutter maintenance for residential properties across the Basingstoke area.
-</p>
-
 </div>
 </section>
-
-<footer class="footer">
-<p>© 2026 All Clear Exterior Cleaning</p>
-</footer>
 
 </body>
 </html>
