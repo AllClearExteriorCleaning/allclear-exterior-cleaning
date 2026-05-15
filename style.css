@@ -38,7 +38,7 @@ body {
 
 .links {
   display: flex;
-  gap: 15px;
+  gap: 14px;
   flex-wrap: wrap;
 }
 
@@ -71,7 +71,7 @@ body {
 }
 
 /* SECTIONS */
-.hero, .services, .areas, .contact {
+.hero, .services, .seo-text, .areas, .contact {
   padding: 60px 20px;
   text-align: center;
 }
