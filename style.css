@@ -99,7 +99,15 @@ body {
   color: #0b63ce;
 }
 
-/* DESKTOP DROPDOWN */
+/* DESKTOP DROPDOWN (FIXED) */
+
+@media (min-width: 900px) {
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+}
+
+/* DROPDOWN PANEL */
 
 .dropdown-content {
   display: none;
@@ -126,12 +134,8 @@ body {
   background: #f3f6fb;
 }
 
-/* desktop hover dropdown */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
+/* MOBILE ACTIVE DROPDOWN */
 
-/* ACTIVE MOBILE DROPDOWN */
 .dropdown.open .dropdown-content {
   display: block;
 }
