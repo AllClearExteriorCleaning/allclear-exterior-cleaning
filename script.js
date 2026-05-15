@@ -9,21 +9,28 @@ function calculateQuote() {
 }
 
 /* =========================
-   NAVIGATION (FIXED FOR FETCHED NAV)
+   NAVIGATION (SAFE + FETCH READY)
 ========================= */
 
 function initNav() {
   const toggle = document.querySelector(".nav-toggle");
   const links = document.querySelector(".links");
 
-  if (toggle && links) {
-    toggle.addEventListener("click", () => {
-      const isOpen = links.classList.toggle("open");
-      toggle.setAttribute("aria-expanded", isOpen);
-    });
-  }
+  if (!toggle || !links) return;
+
+  // prevent double binding
+  if (toggle.dataset.bound === "true") return;
+  toggle.dataset.bound = "true";
+
+  toggle.addEventListener("click", () => {
+    const isOpen = links.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", isOpen);
+  });
 
   document.querySelectorAll(".dropbtn").forEach(btn => {
+    if (btn.dataset.bound === "true") return;
+    btn.dataset.bound = "true";
+
     btn.addEventListener("click", (e) => {
       e.preventDefault();
       const parent = btn.closest(".dropdown");
@@ -32,15 +39,17 @@ function initNav() {
   });
 }
 
-/* run AFTER nav is injected */
-document.addEventListener("DOMContentLoaded", () => {
-  initNav();
+/* =========================
+   WAIT FOR NAV TO EXIST
+========================= */
 
-  /* re-run after fetch injection delay */
-  const navCheck = setInterval(() => {
-    if (document.querySelector(".nav-toggle")) {
-      initNav();
-      clearInterval(navCheck);
-    }
-  }, 100);
+const navObserver = new MutationObserver(() => {
+  if (document.querySelector(".nav-toggle")) {
+    initNav();
+  }
+});
+
+navObserver.observe(document.body, {
+  childList: true,
+  subtree: true
 });
