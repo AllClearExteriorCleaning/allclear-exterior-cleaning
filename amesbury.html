@@ -21,6 +21,8 @@ fetch("/nav.html")
   .then(res => res.text())
   .then(data => {
     document.getElementById("nav").innerHTML = data;
+
+    initNav(); // 🔥 REQUIRED FOR MOBILE MENU TO WORK
   });
 </script>
 
@@ -73,7 +75,6 @@ fetch("/nav.html")
 
       <div class="card">
         <h3>Regular Window Cleaning</h3>
-
         <p>
           Reliable 4 or 8 weekly window cleaning rounds available across Amesbury and surrounding villages.
         </p>
@@ -81,7 +82,6 @@ fetch("/nav.html")
 
       <div class="card">
         <h3>Frames & Sills Included</h3>
-
         <p>
           Exterior frames and sills are cleaned during each visit for a complete finish.
         </p>
@@ -89,7 +89,6 @@ fetch("/nav.html")
 
       <div class="card">
         <h3>Professional Equipment</h3>
-
         <p>
           We use professional window cleaning equipment to help achieve consistent and streak-free results.
         </p>
