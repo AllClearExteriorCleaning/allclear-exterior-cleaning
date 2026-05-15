@@ -9,36 +9,43 @@ function calculateQuote() {
 }
 
 /* =========================
-   NAVIGATION (FINAL CLEAN VERSION)
+   NAVIGATION (ROBUST FETCH SAFE VERSION)
 ========================= */
 
 function initNav() {
   const toggle = document.querySelector(".nav-toggle");
   const links = document.querySelector(".links");
 
-  if (!toggle || !links) return;
+  if (!toggle || !links) return false;
 
-  // prevent double binding
-  if (toggle.dataset.bound === "true") return;
-  toggle.dataset.bound = "true";
+  if (!toggle.dataset.bound) {
+    toggle.dataset.bound = "true";
 
-  toggle.addEventListener("click", () => {
-    const isOpen = links.classList.toggle("open");
-    toggle.setAttribute("aria-expanded", isOpen);
-  });
+    toggle.addEventListener("click", () => {
+      const isOpen = links.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", isOpen);
+    });
+  }
 
   document.querySelectorAll(".dropbtn").forEach(btn => {
-    if (btn.dataset.bound === "true") return;
-    btn.dataset.bound = "true";
+    if (!btn.dataset.bound) {
+      btn.dataset.bound = "true";
 
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      btn.closest(".dropdown").classList.toggle("open");
-    });
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        btn.closest(".dropdown").classList.toggle("open");
+      });
+    }
   });
+
+  return true;
 }
 
-/* fallback init (for non-fetch cases like index) */
+/* KEEP CHECKING UNTIL NAV EXISTS (THIS IS THE FIX) */
 document.addEventListener("DOMContentLoaded", () => {
-  initNav();
+  const check = setInterval(() => {
+    if (initNav()) {
+      clearInterval(check);
+    }
+  }, 100);
 });
