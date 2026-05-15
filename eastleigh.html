@@ -13,55 +13,16 @@
 
 <body>
 
-<!-- NAVIGATION -->
+<!-- NAV (REUSABLE) -->
+<div id="nav"></div>
 
-<nav class="nav">
-  <div class="container nav-inner">
-
-    <a href="index.html" class="logo">
-      All Clear Exterior Cleaning
-    </a>
-
-    <div class="links">
-
-      <a href="index.html">Home</a>
-
-      <div class="dropdown">
-        <button class="dropbtn">
-          Window Cleaning
-        </button>
-
-        <div class="dropdown-content">
-          <a href="winchester.html">Winchester</a>
-          <a href="andover.html">Andover</a>
-          <a href="basingstoke.html">Basingstoke</a>
-          <a href="eastleigh.html">Eastleigh</a>
-          <a href="amesbury.html">Amesbury</a>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <button class="dropbtn">
-          Gutter Clearing
-        </button>
-
-        <div class="dropdown-content">
-          <a href="gutter-clearing-winchester.html">Winchester</a>
-          <a href="gutter-clearing-andover.html">Andover</a>
-          <a href="gutter-clearing-basingstoke.html">Basingstoke</a>
-          <a href="gutter-clearing-eastleigh.html">Eastleigh</a>
-          <a href="gutter-clearing-amesbury.html">Amesbury</a>
-        </div>
-      </div>
-
-    </div>
-
-    <a class="nav-btn" href="tel:07305572453">
-      Call Now
-    </a>
-
-  </div>
-</nav>
+<script>
+fetch("/nav.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("nav").innerHTML = data;
+  });
+</script>
 
 <!-- HERO -->
 
@@ -162,142 +123,6 @@
 
   </div>
 </section>
-
-<!-- WHY CHOOSE US -->
-
-<section class="services">
-  <div class="container">
-
-    <h2>Why Choose All Clear Exterior Cleaning</h2>
-
-    <div class="grid">
-
-      <div class="card">
-        <h3>Reliable Local Service</h3>
-
-        <p>
-          We provide dependable window cleaning services across Eastleigh and surrounding villages.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>Reminder Texts</h3>
-
-        <p>
-          Customers receive a reminder text before scheduled cleaning visits.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>Professional Approach</h3>
-
-        <p>
-          We take pride in providing a professional and straightforward service every visit.
-        </p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- AREAS -->
-
-<section class="areas">
-  <div class="container">
-
-    <h2>Areas Covered Around Eastleigh</h2>
-
-    <p>
-      Chandlers Ford • Bishopstoke • Fair Oak • Horton Heath • Surrounding Hampshire Villages
-    </p>
-
-  </div>
-</section>
-
-<!-- INTERNAL LINKS -->
-
-<section class="areas">
-  <div class="container">
-
-    <h2>Our Local Service Areas</h2>
-
-    <p>
-      <a href="winchester.html">Window Cleaning Winchester</a> |
-      <a href="andover.html">Window Cleaning Andover</a> |
-      <a href="basingstoke.html">Window Cleaning Basingstoke</a> |
-      <a href="eastleigh.html">Window Cleaning Eastleigh</a> |
-      <a href="amesbury.html">Window Cleaning Amesbury</a>
-    </p>
-
-    <p>
-      <a href="gutter-clearing-eastleigh.html">Gutter Clearing Eastleigh</a>
-    </p>
-
-  </div>
-</section>
-
-<!-- FAQ -->
-
-<section class="seo">
-  <div class="container">
-
-    <h2>Frequently Asked Questions</h2>
-
-    <h3>How often should windows be cleaned?</h3>
-
-    <p>
-      Most customers choose either a 4 or 8 weekly cleaning schedule depending on their preferences and property location.
-    </p>
-
-    <h3>Do you clean frames and sills?</h3>
-
-    <p>
-      Yes, our window cleaning service includes exterior frames and sills during each visit.
-    </p>
-
-    <h3>Do I need to be home?</h3>
-
-    <p>
-      In many cases customers do not need to be home as long as access is available.
-    </p>
-
-  </div>
-</section>
-
-<!-- CTA -->
-
-<section class="contact">
-  <div class="container">
-
-    <h2>Get a Free Window Cleaning Quote</h2>
-
-    <p>
-      Contact All Clear Exterior Cleaning today for professional window cleaning in Eastleigh.
-    </p>
-
-    <a class="btn" href="tel:07305572453">
-      Call 07305 572453
-    </a>
-
-  </div>
-</section>
-
-<!-- FOOTER -->
-
-<footer class="footer">
-
-  <p>© 2026 All Clear Exterior Cleaning</p>
-
-  <p>
-    Window Cleaning • Gutter Clearing • Fascia Cleaning • Conservatory Cleaning
-  </p>
-
-  <p style="font-size:12px;opacity:0.7;">
-    Serving Winchester, Andover, Basingstoke, Eastleigh, Amesbury and surrounding Hampshire areas.
-  </p>
-
-</footer>
 
 </body>
 </html>
