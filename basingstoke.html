@@ -21,6 +21,8 @@ fetch("/nav.html")
   .then(res => res.text())
   .then(data => {
     document.getElementById("nav").innerHTML = data;
+
+    initNav();
   });
 </script>
 
@@ -99,6 +101,8 @@ fetch("/nav.html")
 
   </div>
 </section>
+
+<script src="script.js"></script>
 
 </body>
 </html>
