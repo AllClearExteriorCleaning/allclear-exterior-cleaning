@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Window Cleaning Winchester | Local Window Cleaners</title>
-  <meta name="description" content="Professional window cleaning in Winchester with regular 4 or 8 weekly service. Reliable local exterior cleaning.">
+  <title>Window Cleaning Winchester | Local Window Cleaners Winchester</title>
+
+  <meta name="description" content="Professional window cleaning in Winchester with reliable 4 or 8 weekly window cleaning services across Kings Worthy, Weeke, Shawford and surrounding areas.">
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -16,65 +17,171 @@
 <div id="nav"></div>
 
 <script>
-fetch("nav.html")
+fetch("/nav.html")
   .then(res => res.text())
   .then(data => {
     document.getElementById("nav").innerHTML = data;
+
+    initNav();
   });
 </script>
 
 <!-- HEADER -->
 <header class="header">
   <div class="container">
+
     <h1>Window Cleaning Winchester</h1>
-    <p>Trusted local window cleaners in Winchester</p>
+
+    <p>
+      Trusted local window cleaners across Winchester and surrounding Hampshire villages.
+    </p>
+
+    <a class="btn" href="tel:07305572453">
+      Get a Free Quote
+    </a>
+
   </div>
 </header>
 
 <!-- HERO -->
 <section class="hero">
   <div class="container">
+
     <h2>Reliable Window Cleaning in Winchester</h2>
-    <p>Regular 4 or 8 weekly window cleaning across Winchester and surrounding villages.</p>
+
+    <p>
+      All Clear Exterior Cleaning provides professional window cleaning services across Winchester and nearby areas.
+      We offer regular 4 or 8 weekly cleaning visits to help keep homes clean, maintained and looking their best throughout the year.
+    </p>
+
+    <p>
+      We clean exterior windows, frames and sills using professional equipment designed to provide reliable and streak-free results.
+      Whether you require regular maintenance or a one-off clean, we aim to provide a dependable and straightforward local service.
+    </p>
+
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services">
+  <div class="container">
+
+    <h2>Our Window Cleaning Service</h2>
+
+    <div class="grid">
+
+      <div class="card">
+        <h3>Regular Window Cleaning</h3>
+
+        <p>
+          Reliable 4 or 8 weekly window cleaning rounds available throughout Winchester and surrounding villages.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Frames & Sills Included</h3>
+
+        <p>
+          Exterior frames and sills are cleaned during every visit for a complete finish.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Professional Equipment</h3>
+
+        <p>
+          We use professional window cleaning equipment to help achieve reliable and streak-free results.
+        </p>
+      </div>
+
+    </div>
+
   </div>
 </section>
 
 <!-- AREAS -->
 <section class="areas">
   <div class="container">
-    <h2>Areas Covered</h2>
-    <p>Kings Worthy • Weeke • Shawford • Littleton</p>
+
+    <h2>Areas Covered Around Winchester</h2>
+
+    <p>
+      Kings Worthy, Weeke, Shawford, Littleton and surrounding Hampshire villages.
+    </p>
+
+  </div>
+</section>
+
+<!-- SEO -->
+<section class="seo">
+  <div class="container">
+
+    <h2>Professional Exterior Cleaning Across Winchester</h2>
+
+    <p>
+      Many homeowners across Winchester choose regular scheduled window cleaning visits to help maintain the appearance of their property throughout the year.
+    </p>
+
+    <p>
+      Regular window cleaning helps keep glass, frames and sills looking cleaner for longer while improving the overall appearance of the property.
+    </p>
+
+    <p>
+      We provide reminder texts before scheduled visits and focus on delivering reliable service, clear communication and consistent results.
+    </p>
+
   </div>
 </section>
 
 <!-- OTHER AREAS -->
 <section class="areas">
   <div class="container">
-    <h2>Other Areas</h2>
+
+    <h2>Other Areas We Cover</h2>
+
     <p>
-      <a href="winchester.html">Winchester</a> |
-      <a href="andover.html">Andover</a> |
-      <a href="basingstoke.html">Basingstoke</a> |
-      <a href="eastleigh.html">Eastleigh</a> |
-      <a href="amesbury.html">Amesbury</a>
+      <a href="/winchester.html">Winchester</a> |
+      <a href="/andover.html">Andover</a> |
+      <a href="/basingstoke.html">Basingstoke</a> |
+      <a href="/eastleigh.html">Eastleigh</a> |
+      <a href="/amesbury.html">Amesbury</a>
     </p>
+
   </div>
 </section>
 
 <!-- CTA -->
 <section class="contact">
   <div class="container">
-    <a class="btn" href="tel:07305572453">Call for Quote</a>
+
+    <h2>Get a Free Window Cleaning Quote</h2>
+
+    <p>
+      Contact All Clear Exterior Cleaning today for reliable window cleaning in Winchester.
+    </p>
+
+    <a class="btn" href="tel:07305572453">
+      Call 07305 572453
+    </a>
+
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer class="footer">
-  <p>© 2026 All Clear Exterior Cleaning</p>
-  <p style="font-size:12px;opacity:0.7;">
-    Serving Winchester, Andover, Basingstoke, Eastleigh, Amesbury and surrounding Hampshire areas.
-  </p>
+  <div class="container">
+
+    <p>© 2026 All Clear Exterior Cleaning</p>
+
+    <p style="font-size:12px;opacity:0.7;">
+      Serving Winchester, Andover, Basingstoke, Eastleigh, Amesbury and surrounding Hampshire areas.
+    </p>
+
+  </div>
 </footer>
+
+<!-- SCRIPT -->
+<script src="script.js"></script>
 
 </body>
 </html>
