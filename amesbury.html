@@ -21,8 +21,6 @@ fetch("/nav.html")
   .then(res => res.text())
   .then(data => {
     document.getElementById("nav").innerHTML = data;
-
-    initNav(); // 🔥 REQUIRED FOR MOBILE MENU TO WORK
   });
 </script>
 
@@ -98,6 +96,9 @@ fetch("/nav.html")
 
   </div>
 </section>
+
+<!-- SCRIPT (IMPORTANT) -->
+<script src="/script.js"></script>
 
 </body>
 </html>
