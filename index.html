@@ -1,97 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Exterior Cleaning Hampshire | Window Cleaning & Gutter Clearing Hampshire</title>
-
-  <meta name="description" content="Professional exterior cleaning services across Winchester, Andover, Basingstoke, Eastleigh and Amesbury including window cleaning, gutter clearing, fascia cleaning and conservatory cleaning.">
-
-  <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-<!-- NAV (REUSABLE) -->
-<div id="nav"></div>
-
-<script>
-fetch("/nav.html")
-  .then(res => res.text())
-  .then(data => {
-    document.getElementById("nav").innerHTML = data;
-  });
-</script>
-
-<!-- HERO -->
-<header class="header">
-  <div class="container">
-
-    <h1>Professional Exterior Cleaning Across Hampshire</h1>
-
-    <p>
-      Reliable window cleaning, gutter clearing and exterior cleaning services across Winchester,
-      Andover, Basingstoke, Eastleigh and Amesbury.
-    </p>
-
-    <a class="btn" href="tel:07305572453">Get a Free Quote</a>
-
-  </div>
-</header>
-
-<!-- INTRO -->
-<section class="hero">
-  <div class="container">
-
-    <h2>Reliable Local Exterior Cleaning Services</h2>
-
-    <p>
-      All Clear Exterior Cleaning provides professional exterior cleaning services across Hampshire.
-      We help homeowners keep their properties clean, maintained and looking their best throughout the year.
-    </p>
-
-    <p>
-      Whether you require regular window cleaning, gutter clearing, fascia cleaning or conservatory cleaning,
-      we provide a reliable and straightforward service with attention to detail and consistent results.
-    </p>
-
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section class="services">
-  <div class="container">
-
-    <h2>Our Exterior Cleaning Services</h2>
-
-    <div class="grid">
-
-      <div class="card">
-        <h3>Window Cleaning</h3>
-        <p>Professional streak-free window cleaning available on regular 4 or 8 weekly rounds.</p>
-      </div>
-
-      <div class="card">
-        <h3>Gutter Clearing</h3>
-        <p>Removal of moss, leaves and debris to help prevent overflowing gutters and blockages.</p>
-      </div>
-
-      <div class="card">
-        <h3>Fascia & Soffit Cleaning</h3>
-        <p>Restore the appearance of your property with professional exterior UPVC cleaning.</p>
-      </div>
-
-      <div class="card">
-        <h3>Conservatory Cleaning</h3>
-        <p>Exterior conservatory cleaning to improve appearance and remove built-up dirt.</p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
 <!-- WHY CHOOSE -->
 <section class="seo">
   <div class="container">
@@ -139,87 +45,72 @@ fetch("/nav.html")
   </div>
 </section>
 
-<!-- AREAS -->
-<section class="areas">
+<!-- QUOTE FORM (MAIN CONVERSION SECTION) -->
+<section class="contact" id="quote-form">
   <div class="container">
 
-    <h2>Exterior Cleaning Services Across Hampshire</h2>
+    <h2>Request a Free Quote</h2>
 
-    <p>
-      We provide exterior cleaning services across Winchester, Andover, Basingstoke,
-      Eastleigh, Amesbury and surrounding Hampshire villages.
-    </p>
+    <p>Fill in the form and we’ll get back to you with a price.</p>
+
+    <form action="https://api.web3forms.com/submit" method="POST" class="quote-form">
+
+      <input type="hidden" name="access_key" value="cfa0dbd3-f3c3-4d3d-a5ad-da28be2951d9">
+
+      <input type="hidden" name="subject" value="New Quote Request - All Clear Exterior Cleaning">
+
+      <input type="hidden" name="redirect" value="https://YOUR-PAGES-URL.pages.dev/thank-you.html">
+
+      <select name="service" required>
+        <option value="">Service Required</option>
+        <option>Window Cleaning</option>
+        <option>Gutter Clearing</option>
+        <option>Fascia & Soffit Cleaning</option>
+        <option>Conservatory Cleaning</option>
+        <option>Pressure Washing</option>
+      </select>
+
+      <input type="text" name="name" placeholder="Full Name" required>
+
+      <input type="text" name="postcode" placeholder="Postcode" required>
+
+      <input type="text" name="address" placeholder="Address" required>
+
+      <select name="bedrooms" required>
+        <option value="">Bedrooms</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5+</option>
+      </select>
+
+      <select name="storeys" required>
+        <option value="">Storeys</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+      </select>
+
+      <select name="conservatory" required>
+        <option value="">Conservatory / Extension</option>
+        <option>No</option>
+        <option>Yes</option>
+      </select>
+
+      <select name="velux" required>
+        <option value="">Velux Windows</option>
+        <option>None</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3+</option>
+      </select>
+
+      <textarea name="message" rows="4" placeholder="Anything else we should know"></textarea>
+
+      <button type="submit" class="btn">Request Quote</button>
+
+    </form>
 
   </div>
 </section>
-
-<!-- INTERNAL LINKS -->
-<section class="areas">
-  <div class="container">
-
-    <h2>Our Local Service Areas</h2>
-
-    <p>
-      <a href="winchester.html">Window Cleaning Winchester</a> |
-      <a href="gutter-clearing-winchester.html">Gutter Clearing Winchester</a>
-    </p>
-
-    <p>
-      <a href="andover.html">Window Cleaning Andover</a> |
-      <a href="gutter-clearing-andover.html">Gutter Clearing Andover</a>
-    </p>
-
-    <p>
-      <a href="basingstoke.html">Window Cleaning Basingstoke</a> |
-      <a href="gutter-clearing-basingstoke.html">Gutter Clearing Basingstoke</a>
-    </p>
-
-    <p>
-      <a href="eastleigh.html">Window Cleaning Eastleigh</a> |
-      <a href="gutter-clearing-eastleigh.html">Gutter Clearing Eastleigh</a>
-    </p>
-
-    <p>
-      <a href="amesbury.html">Window Cleaning Amesbury</a> |
-      <a href="gutter-clearing-amesbury.html">Gutter Clearing Amesbury</a>
-    </p>
-
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="seo">
-  <div class="container">
-
-    <h2>Frequently Asked Questions</h2>
-
-    <h3>How often should windows be cleaned?</h3>
-    <p>Most customers choose either a 4 or 8 weekly cleaning schedule depending on their preference and property location.</p>
-
-    <h3>Do you clean frames and sills?</h3>
-    <p>Yes, our window cleaning service includes exterior frames and sills during each visit.</p>
-
-    <h3>Do I need to be home?</h3>
-    <p>In many cases you do not need to be home, provided we have safe access to the required areas.</p>
-
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="contact">
-  <div class="container">
-
-    <h2>Get a Free Quote Today</h2>
-
-    <p>Fast response from your local Hampshire exterior cleaning company.</p>
-
-    <a class="btn" href="tel:07305572453">Call 07305 572453</a>
-
-  </div>
-</section>
-
-<!-- SCRIPT -->
-<script src="script.js"></script>
-
-</body>
-</html>
