@@ -14,6 +14,19 @@
 <!-- NAV -->
 <div id="nav"></div>
 
+<script>
+fetch("nav.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("nav").innerHTML = data;
+
+    // IMPORTANT: enables mobile menu + dropdowns
+    if (typeof initNav === "function") {
+      initNav();
+    }
+  });
+</script>
+
 <!-- WHY CHOOSE -->
 <section class="seo">
   <div class="container">
@@ -117,6 +130,9 @@
 
   </div>
 </section>
+
+<!-- IMPORTANT: make sure script.js is loaded -->
+<script src="script.js"></script>
 
 </body>
 </html>
