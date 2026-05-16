@@ -1,5 +1,4 @@
 /* RESET */
-
 * {
   margin: 0;
   padding: 0;
@@ -7,7 +6,6 @@
 }
 
 /* BODY */
-
 body {
   font-family: Arial, sans-serif;
   background: #f5f7fb;
@@ -16,7 +14,6 @@ body {
 }
 
 /* CONTAINER */
-
 .container {
   width: 92%;
   max-width: 1180px;
@@ -24,7 +21,6 @@ body {
 }
 
 /* NAVIGATION */
-
 .nav {
   background: #ffffff;
   padding: 18px 0;
@@ -50,7 +46,6 @@ body {
 }
 
 /* MOBILE TOGGLE */
-
 .nav-toggle {
   display: none;
   background: none;
@@ -60,7 +55,6 @@ body {
 }
 
 /* LINKS */
-
 .links {
   display: flex;
   align-items: center;
@@ -80,7 +74,6 @@ body {
 }
 
 /* DROPDOWN */
-
 .dropdown {
   position: relative;
 }
@@ -92,22 +85,14 @@ body {
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.2s ease;
 }
 
-.dropbtn:hover {
-  color: #0b63ce;
-}
-
-/* DESKTOP DROPDOWN (FIXED) */
-
+/* DESKTOP DROPDOWN */
 @media (min-width: 900px) {
   .dropdown:hover .dropdown-content {
     display: block;
   }
 }
-
-/* DROPDOWN PANEL */
 
 .dropdown-content {
   display: none;
@@ -127,21 +112,18 @@ body {
   padding: 14px 18px;
   color: #222;
   text-decoration: none;
-  transition: 0.2s ease;
 }
 
 .dropdown-content a:hover {
   background: #f3f6fb;
 }
 
-/* MOBILE ACTIVE DROPDOWN */
-
+/* MOBILE DROPDOWN */
 .dropdown.open .dropdown-content {
   display: block;
 }
 
 /* CTA BUTTON */
-
 .nav-btn {
   background: #0b63ce;
   color: #ffffff;
@@ -149,7 +131,6 @@ body {
   border-radius: 10px;
   text-decoration: none;
   font-weight: 700;
-  transition: 0.2s ease;
 }
 
 .nav-btn:hover {
@@ -157,7 +138,6 @@ body {
 }
 
 /* HEADER */
-
 .header {
   background: linear-gradient(135deg, #0b3d91, #1f6be0);
   color: white;
@@ -179,7 +159,6 @@ body {
 }
 
 /* SECTIONS */
-
 .hero,
 .services,
 .seo,
@@ -216,7 +195,6 @@ body {
 }
 
 /* GRID */
-
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -225,7 +203,6 @@ body {
 }
 
 /* CARDS */
-
 .card {
   background: white;
   padding: 32px;
@@ -250,13 +227,11 @@ body {
 }
 
 /* AREAS */
-
 .areas {
   background: #edf4ff;
 }
 
 /* BUTTONS */
-
 .btn {
   display: inline-block;
   margin-top: 25px;
@@ -266,15 +241,9 @@ body {
   font-weight: 700;
   text-decoration: none;
   border-radius: 10px;
-  transition: 0.2s ease;
-}
-
-.btn:hover {
-  background: #f0be18;
 }
 
 /* CONTACT */
-
 .contact {
   background: #0b3d91;
   color: white;
@@ -286,7 +255,6 @@ body {
 }
 
 /* FOOTER */
-
 .footer {
   background: #111;
   color: white;
@@ -294,14 +262,7 @@ body {
   padding: 40px 20px;
 }
 
-.footer p {
-  margin-bottom: 10px;
-  font-size: 14px;
-  opacity: 0.9;
-}
-
 /* FAQ */
-
 .seo h3 {
   margin-top: 30px;
   margin-bottom: 10px;
@@ -309,15 +270,30 @@ body {
   color: #111;
 }
 
+/* FORM (NEW - IMPORTANT) */
+.quote-form {
+  display: grid;
+  gap: 12px;
+  max-width: 600px;
+  margin: 30px auto 0;
+}
+
+.quote-form input,
+.quote-form select,
+.quote-form textarea {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+}
+
+.quote-form button {
+  border: none;
+  cursor: pointer;
+}
+
 /* MOBILE */
-
 @media (max-width: 900px) {
-
-  .nav-inner {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
 
   .nav-toggle {
     display: block;
@@ -353,18 +329,12 @@ body {
   .dropdown-content {
     position: static;
     display: none;
-    box-shadow: none;
-    border-radius: 10px;
-    margin-top: 5px;
     background: #f5f7fb;
+    box-shadow: none;
   }
 
   .dropdown.open .dropdown-content {
     display: block;
-  }
-
-  .header {
-    padding: 80px 20px;
   }
 
   .header h1 {
