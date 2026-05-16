@@ -1,17 +1,16 @@
-<!-- WHY CHOOSE -->
+/* WHY CHOOSE */
 <section class="seo">
   <div class="container">
 
     <h2>Why Choose All Clear Exterior Cleaning</h2>
 
     <p>
-      We focus on providing a dependable and professional local service across Hampshire.
-      Many of our customers use us on regular cleaning rounds because they value reliability,
-      communication and consistent results.
+      We provide a dependable and professional exterior cleaning service across Hampshire.
+      Many customers choose us for regular visits because they value reliability, clear communication and consistent results.
     </p>
 
     <p>
-      We provide reminder texts before scheduled visits and take pride in carrying out every job carefully and professionally.
+      We send reminder messages before scheduled visits and take pride in carrying out every job carefully and professionally.
     </p>
 
   </div>
@@ -27,17 +26,17 @@
 
       <div class="card">
         <h3>1. Request a Quote</h3>
-        <p>Contact us with your property details and we will provide a free no-obligation quote.</p>
+        <p>Fill in the form below with your property details and service required.</p>
       </div>
 
       <div class="card">
-        <h3>2. Schedule Your Visit</h3>
-        <p>We arrange a convenient visit and send a reminder text before arrival.</p>
+        <h3>2. We Review & Price It</h3>
+        <p>We check your details and send you a clear, no-obligation quote.</p>
       </div>
 
       <div class="card">
-        <h3>3. Enjoy a Cleaner Property</h3>
-        <p>We carry out the work professionally and leave your property looking cleaner and well maintained.</p>
+        <h3>3. We Get You Booked In</h3>
+        <p>Once approved, we arrange your first clean and confirm everything with you.</p>
       </div>
 
     </div>
@@ -45,21 +44,27 @@
   </div>
 </section>
 
-<!-- QUOTE FORM (MAIN CONVERSION SECTION) -->
+<!-- QUOTE FORM -->
 <section class="contact" id="quote-form">
   <div class="container">
 
     <h2>Request a Free Quote</h2>
 
-    <p>Fill in the form and we’ll get back to you with a price.</p>
+    <p>Fill in the form and we’ll respond with your price.</p>
 
     <form action="https://api.web3forms.com/submit" method="POST" class="quote-form">
 
+      <!-- REQUIRED WEB3FORMS KEY -->
       <input type="hidden" name="access_key" value="cfa0dbd3-f3c3-4d3d-a5ad-da28be2951d9">
 
+      <!-- EMAIL SUBJECT -->
       <input type="hidden" name="subject" value="New Quote Request - All Clear Exterior Cleaning">
 
-      <input type="hidden" name="redirect" value="https://YOUR-PAGES-URL.pages.dev/thank-you.html">
+      <!-- SUCCESS REDIRECT (FIX THIS LATER) -->
+      <input type="hidden" name="redirect" value="https://allclear-exterior-cleaning.pages.dev/thank-you.html">
+
+      <!-- HONEYPOT (ANTI SPAM) -->
+      <input type="checkbox" name="botcheck" style="display:none;">
 
       <select name="service" required>
         <option value="">Service Required</option>
@@ -74,7 +79,7 @@
 
       <input type="text" name="postcode" placeholder="Postcode" required>
 
-      <input type="text" name="address" placeholder="Address" required>
+      <input type="text" name="address" placeholder="Full Address" required>
 
       <select name="bedrooms" required>
         <option value="">Bedrooms</option>
@@ -94,11 +99,11 @@
 
       <select name="conservatory" required>
         <option value="">Conservatory / Extension</option>
-        <option>No</option>
-        <option>Yes</option>
+        <option value="No">No</option>
+        <option value="Yes">Yes</option>
       </select>
 
-      <select name="velux" required>
+      <select name="velux">
         <option value="">Velux Windows</option>
         <option>None</option>
         <option>1</option>
