@@ -20,7 +20,7 @@ body {
   margin: auto;
 }
 
-/* NAVIGATION */
+/* NAV */
 .nav {
   background: #ffffff;
   padding: 18px 0;
@@ -66,7 +66,6 @@ body {
   text-decoration: none;
   font-size: 15px;
   font-weight: 600;
-  transition: 0.2s ease;
 }
 
 .links a:hover {
@@ -94,6 +93,7 @@ body {
   }
 }
 
+/* DROPDOWN CONTENT */
 .dropdown-content {
   display: none;
   position: absolute;
@@ -126,7 +126,7 @@ body {
 /* CTA BUTTON */
 .nav-btn {
   background: #0b63ce;
-  color: #ffffff;
+  color: #fff;
   padding: 12px 18px;
   border-radius: 10px;
   text-decoration: none;
@@ -204,7 +204,7 @@ body {
 
 /* CARDS */
 .card {
-  background: white;
+  background: #fff;
   padding: 32px;
   border-radius: 18px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.07);
@@ -231,7 +231,7 @@ body {
   background: #edf4ff;
 }
 
-/* BUTTONS */
+/* BUTTON */
 .btn {
   display: inline-block;
   margin-top: 25px;
@@ -246,31 +246,15 @@ body {
 /* CONTACT */
 .contact {
   background: #0b3d91;
-  color: white;
+  color: #fff;
 }
 
 .contact h2,
 .contact p {
-  color: white;
+  color: #fff;
 }
 
-/* FOOTER */
-.footer {
-  background: #111;
-  color: white;
-  text-align: center;
-  padding: 40px 20px;
-}
-
-/* FAQ */
-.seo h3 {
-  margin-top: 30px;
-  margin-bottom: 10px;
-  font-size: 22px;
-  color: #111;
-}
-
-/* FORM (NEW - IMPORTANT) */
+/* FORM */
 .quote-form {
   display: grid;
   gap: 12px;
@@ -292,6 +276,14 @@ body {
   cursor: pointer;
 }
 
+/* FOOTER */
+.footer {
+  background: #111;
+  color: #fff;
+  text-align: center;
+  padding: 40px 20px;
+}
+
 /* MOBILE */
 @media (max-width: 900px) {
 
@@ -303,7 +295,7 @@ body {
     display: none;
     flex-direction: column;
     width: 100%;
-    background: white;
+    background: #fff;
     position: absolute;
     top: 70px;
     left: 0;
