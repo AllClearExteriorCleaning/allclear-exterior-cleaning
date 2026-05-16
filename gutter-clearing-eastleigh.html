@@ -21,6 +21,8 @@ fetch("/nav.html")
   .then(res => res.text())
   .then(data => {
     document.getElementById("nav").innerHTML = data;
+
+    initNav();
   });
 </script>
 
@@ -83,6 +85,8 @@ We aim to provide a reliable and professional local service with attention to de
 
 </div>
 </section>
+
+<script src="script.js"></script>
 
 </body>
 </html>
