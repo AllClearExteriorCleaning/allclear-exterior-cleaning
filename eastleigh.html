@@ -21,6 +21,8 @@ fetch("/nav.html")
   .then(res => res.text())
   .then(data => {
     document.getElementById("nav").innerHTML = data;
+
+    initNav();
   });
 </script>
 
@@ -67,62 +69,4 @@ fetch("/nav.html")
 <section class="services">
   <div class="container">
 
-    <h2>Our Window Cleaning Service</h2>
-
-    <div class="grid">
-
-      <div class="card">
-        <h3>Regular Window Cleaning</h3>
-
-        <p>
-          Reliable 4 or 8 weekly window cleaning rounds available across Eastleigh and surrounding villages.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>Frames & Sills Included</h3>
-
-        <p>
-          Exterior frames and sills are cleaned during each visit for a complete finish.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>Professional Equipment</h3>
-
-        <p>
-          We use professional window cleaning equipment to help achieve reliable and streak-free results.
-        </p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- LOCAL SEO -->
-
-<section class="seo">
-  <div class="container">
-
-    <h2>Professional Exterior Cleaning Across Eastleigh</h2>
-
-    <p>
-      We provide exterior cleaning services across Eastleigh, Chandlers Ford, Fair Oak,
-      Bishopstoke, Horton Heath and surrounding Hampshire villages.
-    </p>
-
-    <p>
-      Many homeowners across Eastleigh and nearby commuter areas prefer regular scheduled cleaning visits to help maintain the appearance of their property throughout the year.
-      Regular window cleaning helps keep glass, frames and sills looking cleaner for longer.
-    </p>
-
-    <p>
-      We work with homeowners across the area providing reliable and professional window cleaning with reminder texts before scheduled visits.
-    </p>
-
-  </div>
-</section>
-
-</body>
-</html>
+    <h2>Our Window Cleaning Service</h2
