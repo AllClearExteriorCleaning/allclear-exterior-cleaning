@@ -21,6 +21,8 @@ fetch("/nav.html")
   .then(res => res.text())
   .then(data => {
     document.getElementById("nav").innerHTML = data;
+
+    initNav();
   });
 </script>
 
@@ -142,6 +144,8 @@ Contact All Clear Exterior Cleaning today for professional gutter clearing in Wi
 
 </div>
 </section>
+
+<script src="script.js"></script>
 
 </body>
 </html>
