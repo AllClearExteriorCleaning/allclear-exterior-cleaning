@@ -1,105 +1,63 @@
 :root {
-    --bg-light: #D4EFFF;
-    --primary-blue: #2A66FF;
-    --dark-blue: #1A3FB2;
-    --footer-bg: #1A54F6;
-    --accent-orange: #E06A43;
-    --text-dark: #2E4A7A;
-    --text-light: #FFFFFF;
-
-    --font-impact: 'Impact', 'Arial Black', sans-serif;
-    --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --bg: #D4EFFF;
+    --blue: #2A66FF;
+    --dark: #1A3FB2;
+    --orange: #E06A43;
+    --text: #1f3f6d;
+    --white: #fff;
+    --font: Arial Black, Impact, sans-serif;
 }
 
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-}
-
-html {
-    scroll-behavior: smooth;
+    box-sizing: border-box;
 }
 
 body {
-    background-color: var(--bg-light);
-    color: var(--text-dark);
-    font-family: var(--font-body);
-    line-height: 1.65;
+    background: var(--bg);
+    font-family: Arial, sans-serif;
+    color: var(--text);
 }
 
-/* =========================
-   TYPOGRAPHY
-========================= */
-
-.section-title-large {
-    font-family: var(--font-impact);
-    font-size: 5.2rem;
-    color: var(--primary-blue);
-    text-transform: uppercase;
-    letter-spacing: -2px;
-    line-height: 0.85;
-    margin-bottom: 45px;
-    text-shadow: 3px 3px 0 rgba(42, 102, 255, 0.10);
-}
-
-/* =========================
-   HEADER
-========================= */
-
+/* HEADER */
 .main-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 18px 22px;
+    padding: 15px;
     position: sticky;
     top: 0;
-    background: var(--bg-light);
-    z-index: 1000;
+    background: var(--bg);
 }
 
-.main-header .logo {
-    font-family: var(--font-impact);
-    font-size: 2.2rem;
-    color: var(--primary-blue);
-    letter-spacing: -2px;
+.logo {
+    font-family: var(--font);
+    color: var(--blue);
+    font-size: 28px;
 }
 
 .menu-toggle {
-    font-size: 1.8rem;
+    font-size: 24px;
     background: none;
     border: none;
-    color: var(--primary-blue);
+    color: var(--blue);
 }
 
-/* =========================
-   NAV
-========================= */
-
+/* NAV */
 .nav-overlay {
     position: fixed;
     inset: 0;
-    background: var(--bg-light);
+    background: var(--bg);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
     transform: translateY(-100%);
-    transition: 0.35s ease;
-    z-index: 2000;
+    transition: 0.3s;
 }
 
 .nav-overlay.open {
     transform: translateY(0);
-}
-
-.menu-close {
-    position: absolute;
-    top: 20px;
-    right: 25px;
-    font-size: 3rem;
-    background: none;
-    border: none;
 }
 
 .nav-links {
@@ -112,93 +70,66 @@ body {
 }
 
 .nav-links a {
-    font-family: var(--font-impact);
-    font-size: 2.6rem;
-    color: var(--primary-blue);
+    font-family: var(--font);
+    font-size: 28px;
+    color: var(--blue);
     text-decoration: none;
-    letter-spacing: -1px;
 }
 
-.nav-links a:hover {
-    color: var(--accent-orange);
-}
-
-/* =========================
-   HERO (cleaner + more premium)
-========================= */
-
+/* HERO */
 .hero-section {
+    height: 80vh;
+    background: #000;
     position: relative;
-    height: 82vh;
-    min-height: 520px;
-    background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
     display: flex;
     align-items: flex-end;
-    padding: 60px 22px;
+    padding: 40px;
+    color: white;
 }
 
 .hero-bg-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.72), rgba(0,0,0,0.15));
+    background: rgba(0,0,0,0.4);
 }
 
 .hero-content {
     position: relative;
-    z-index: 2;
-    color: var(--text-light);
 }
 
 .hero-title {
-    font-family: var(--font-impact);
-    font-size: 6.5rem;
-    letter-spacing: -3px;
-    line-height: 0.85;
-    text-shadow: 4px 4px 0 rgba(0,0,0,0.25);
+    font-family: var(--font);
+    font-size: 42px;
+    max-width: 100%;
+    word-wrap: break-word;
 }
 
 .hero-subtitle {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-top: 12px;
-    margin-bottom: 28px;
-    opacity: 0.95;
+    margin-top: 10px;
 }
 
-/* cleaner button (less heavy shadow) */
 .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--primary-blue);
+    display: inline-block;
+    margin-top: 20px;
+    background: var(--blue);
+    padding: 12px 20px;
     color: white;
-    padding: 15px 26px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 800;
     text-decoration: none;
-    box-shadow: 4px 4px 0 rgba(0,0,0,0.18);
 }
 
-/* =========================
-   SECTION SPACING (important for “premium feel”)
-========================= */
-
-.services-section,
-.why-section,
-.areas-section,
-.testimonials-section {
-    padding: 95px 22px;
+/* SECTIONS */
+.section-title-large {
+    font-family: var(--font);
+    font-size: 34px;
+    color: var(--blue);
+    margin: 40px 20px;
 }
 
-/* =========================
-   SERVICES (cleaned text)
-========================= */
-
+/* SERVICES */
 .services-container {
-    background: rgba(255,255,255,0.35);
-    border-radius: 16px;
-    padding: 42px 22px;
+    margin: 20px;
+    padding: 20px;
+    background: white;
 }
 
 .service-slide {
@@ -206,106 +137,51 @@ body {
 }
 
 .service-slide.active {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    display: block;
 }
 
-.slide-text h3 {
-    font-family: var(--font-impact);
-    font-size: 3.6rem;
-    color: #fff;
-    letter-spacing: -1.5px;
-    line-height: 0.95;
-
-    /* CLEANER VERSION (no stroke, softer depth) */
-    text-shadow: 2px 2px 0 rgba(42, 102, 255, 0.85);
+/* WHY */
+.why-card {
+    margin: 20px;
 }
 
-.slide-text .accent-text {
-    font-family: var(--font-impact);
-    color: var(--accent-orange);
-    font-size: 1.3rem;
+/* AREAS */
+.areas-section {
+    text-align: center;
+    padding: 40px 20px;
 }
 
-/* =========================
-   WHY SECTION (clean premium text)
-========================= */
-
-.why-card h3 {
-    font-family: var(--font-impact);
-    font-size: 3rem;
-    color: #fff;
-    letter-spacing: -1.5px;
-    text-shadow: 2px 2px 0 rgba(42, 102, 255, 0.85);
+/* TESTIMONIALS */
+.testimonial-card {
+    margin: 20px;
 }
 
-.why-card p {
-    color: var(--primary-blue);
-    font-weight: 500;
-    font-size: 1.05rem;
-}
-
-/* =========================
-   TESTIMONIALS
-========================= */
-
-.testimonial-card h4 {
-    font-family: var(--font-impact);
-    color: var(--primary-blue);
-    font-size: 1.3rem;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
+/* FOOTER */
 .main-footer {
-    background: var(--footer-bg);
+    background: var(--dark);
     color: white;
-    padding: 65px 22px;
+    padding: 40px 20px;
 }
 
-/* =========================
-   FLOATING BUTTON (cleaner)
-========================= */
-
+/* FLOAT BUTTON */
 .floating-call-btn {
     position: fixed;
-    bottom: 22px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--accent-orange);
+    background: var(--orange);
     color: white;
-    padding: 14px 24px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+    padding: 14px 20px;
+    text-decoration: none;
 }
 
-/* =========================
-   DESKTOP
-========================= */
-
-@media (min-width: 768px) {
-
-.hero-title {
-    font-size: 7.2rem;
+/* DROPDOWN */
+.dropdown {
+    display: none;
 }
-
-.section-title-large {
-    font-size: 6rem;
+.nav-links li:hover .dropdown {
+    display: block;
 }
-
-.service-slide.active {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.slide-text {
-    width: 50%;
-}
-
+.dropdown li a {
+    font-size: 18px;
 }
