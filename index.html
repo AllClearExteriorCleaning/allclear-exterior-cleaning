@@ -4,181 +4,213 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>All Clear Exterior Cleaning | Hampshire</title>
+<title>All Clear Exterior Cleaning | Window & Gutter Cleaning Hampshire</title>
 
-<link rel="stylesheet" href="/style.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="description" content="Professional window cleaning and gutter clearing across Winchester, Andover, Basingstoke, Eastleigh and surrounding Hampshire areas. Reliable, affordable exterior cleaning.">
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
 
-<!-- NAV -->
-<header class="nav">
-  <div class="container nav-inner">
-
-    <div class="logo">All Clear Exterior Cleaning</div>
-
-    <nav class="nav-links">
-      <a href="#services">Services</a>
-      <a href="#how">How it works</a>
-      <a href="#areas">Areas</a>
-      <a class="btn-small" href="#quote">Get Quote</a>
-    </nav>
-
-  </div>
+<header class="main-header">
+    <div class="logo">ALL CLEAR</div>
+    <button class="menu-toggle" id="menuOpen" aria-label="Open Navigation">
+        <i class="fa-solid fa-bars"></i>
+    </button>
 </header>
 
-<!-- HERO -->
-<section class="hero">
+<nav class="nav-overlay" id="navOverlay">
+    <button class="menu-close" id="menuClose" aria-label="Close Navigation">&times;</button>
+    <ul class="nav-links">
+        <li><a href="#" class="active">HOME</a></li>
+        <li><a href="#about">ABOUT</a></li>
+        <li><a href="#services">SERVICES</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+    </ul>
+</nav>
 
-  <div class="container hero-inner">
+<section class="hero-section">
+    <div class="hero-bg-overlay"></div>
 
-    <h1>Reliable Exterior Cleaning You Can Trust</h1>
+    <div class="hero-content">
+        <h1 class="hero-title">HAMPSHIRE’S TRUSTED</h1>
+        <p class="hero-subtitle">Window & Exterior Cleaning Specialists</p>
 
-    <p>
-      Professional window cleaning, gutter clearing and exterior cleaning across Hampshire with consistent schedules and reliable service.
-    </p>
-
-    <div class="hero-cta">
-      <a href="#quote" class="btn-primary">Get Free Quote</a>
-      <a href="tel:07305572453" class="btn-outline">Call Now</a>
+        <a href="#contact" class="btn-primary">
+            GET A FREE QUOTE <i class="fa-solid fa-arrow-right"></i>
+        </a>
     </div>
-
-  </div>
-
 </section>
 
-<!-- TRUST STRIP -->
-<section class="trust">
-  <div class="container trust-inner">
+<section id="services" class="services-section">
+    <h2 class="section-title-large">OUR SERVICES</h2>
 
-    <div>✔ Fully Insured</div>
-    <div>✔ Regular 4 & 8 Week Visits</div>
-    <div>✔ Local Reliable Service</div>
-    <div>✔ 5★ Reputation</div>
+    <div class="services-container">
 
-  </div>
+        <div class="service-slide active">
+            <div class="slide-text">
+                <h3>GUTTER CLEARING</h3>
+                <p class="accent-text">FAST • SAFE • FULLY INSURED</p>
+            </div>
+            <div class="slide-graphic">
+                <div class="equipment-placeholder">
+                    <i class="fa-solid fa-broom-ball"></i>
+                    <span>Professional Gutter Vacuum System</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-slide">
+            <div class="slide-text">
+                <h3>WINDOW CLEANING</h3>
+                <p class="accent-text">REGULAR & ONE-OFF CLEANS</p>
+            </div>
+            <div class="slide-graphic">
+                <div class="equipment-placeholder">
+                    <i class="fa-solid fa-window-restore"></i>
+                    <span>Pure Water Reach & Wash System</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-controls">
+            <button class="ctrl-btn" id="prevSlide"><i class="fa-solid fa-arrow-left"></i></button>
+            <button class="ctrl-btn" id="nextSlide"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+
+    </div>
 </section>
 
-<!-- SERVICES -->
-<section id="services" class="section soft">
+<section id="about" class="why-section">
+    <h2 class="section-title-large">WHY CHOOSE US</h2>
 
-  <div class="container">
+    <div class="why-grid">
+        <div class="why-card">
+            <h3>Reliable.</h3>
+            <p>We turn up when we say we will and deliver consistent results every time.</p>
+        </div>
 
-    <div class="section-title">
-      <h2>Our Services</h2>
-      <p>Simple, reliable exterior cleaning solutions</p>
+        <div class="why-card">
+            <h3>Professional.</h3>
+            <p>Fully insured and trained exterior cleaning specialists using modern equipment.</p>
+        </div>
+
+        <div class="why-card">
+            <h3>Affordable.</h3>
+            <p>Clear pricing with no hidden costs. Regular maintenance plans available.</p>
+        </div>
+
+        <div class="why-card">
+            <h3>Local.</h3>
+            <p>Serving Winchester, Andover, Basingstoke, Eastleigh and surrounding Hampshire areas.</p>
+        </div>
     </div>
-
-    <div class="grid">
-
-      <div class="card">
-        <h3>Window Cleaning</h3>
-        <p>Pure water cleaning for streak-free results.</p>
-      </div>
-
-      <div class="card">
-        <h3>Gutter Clearing</h3>
-        <p>Prevent blockages, leaks and water damage.</p>
-      </div>
-
-      <div class="card">
-        <h3>UPVC Cleaning</h3>
-        <p>Restore fascias, soffits and exterior plastics.</p>
-      </div>
-
-    </div>
-
-  </div>
-
 </section>
 
-<!-- HOW IT WORKS -->
-<section id="how" class="section">
+<section class="areas-section">
+    <h2 class="section-title-large">AREAS WE COVER</h2>
 
-  <div class="container">
+    <p class="tap-reveal">LOCAL HAMPSHIRE COVERAGE</p>
 
-    <div class="section-title">
-      <h2>How it works</h2>
+    <div class="map-container">
+        <div class="london-map-placeholder">
+            <i class="fa-solid fa-map-location-dot"></i>
+            <p>Winchester • Andover • Basingstoke • Eastleigh • Amesbury</p>
+        </div>
     </div>
 
-    <div class="grid">
-
-      <div class="card">
-        <h3>1. Get a Quote</h3>
-        <p>Send your details and we respond quickly.</p>
-      </div>
-
-      <div class="card">
-        <h3>2. Book In</h3>
-        <p>We arrange a time that suits you.</p>
-      </div>
-
-      <div class="card">
-        <h3>3. We Clean</h3>
-        <p>Reliable, professional results every visit.</p>
-      </div>
-
+    <div class="areas-meta">
+        <h3>AND SURROUNDING VILLAGES</h3>
+        <p>Regular and one-off exterior cleaning available</p>
     </div>
-
-  </div>
-
 </section>
 
-<!-- AREAS -->
-<section id="areas" class="section soft">
+<section class="testimonials-section">
+    <h2 class="section-title-large">CUSTOMER FEEDBACK</h2>
 
-  <div class="container">
+    <div class="testimonials-grid">
 
-    <div class="section-title">
-      <h2>Areas We Cover</h2>
+        <div class="testimonial-card">
+            <span class="quote-mark"><i class="fa-solid fa-quote-left"></i></span>
+            <h4>Local Customer</h4>
+            <p>Great service, always reliable and my windows have never looked better.</p>
+        </div>
+
+        <div class="testimonial-card">
+            <span class="quote-mark"><i class="fa-solid fa-quote-left"></i></span>
+            <h4>Homeowner</h4>
+            <p>Booked gutter clearing and they were professional and quick. Highly recommend.</p>
+        </div>
+
     </div>
-
-    <div class="grid small">
-
-      <div class="card">Winchester</div>
-      <div class="card">Andover</div>
-      <div class="card">Basingstoke</div>
-      <div class="card">Eastleigh</div>
-      <div class="card">Amesbury</div>
-
-    </div>
-
-  </div>
-
 </section>
 
-<!-- QUOTE -->
-<section id="quote" class="quote">
+<footer id="contact" class="main-footer">
 
-  <div class="container">
+    <div class="footer-brand">
+        <h2>ALL CLEAR</h2>
 
-    <h2>Get your free quote today</h2>
+        <p>
+            All Clear Exterior Cleaning provides professional window cleaning and gutter clearing services across Hampshire.
+            We help homeowners keep their properties clean, safe and well maintained.
+        </p>
 
-    <p>Fast response. No obligation. Local trusted service.</p>
+        <p class="tagline">Reliable exterior cleaning you can count on.</p>
+    </div>
 
-    <form>
-      <input type="text" placeholder="Full Name" required>
-      <input type="text" placeholder="Postcode" required>
+    <div class="footer-details">
 
-      <select>
-        <option>Window Cleaning</option>
-        <option>Gutter Clearing</option>
-        <option>UPVC Cleaning</option>
-      </select>
+        <div class="footer-block">
+            <h3>Contact</h3>
+            <p>
+                <a href="tel:07305572453">07305 572453</a><br>
+                <a href="mailto:info@allclearexteriorcleaning.co.uk">Email us</a>
+            </p>
+        </div>
 
-      <button type="submit">Request Quote</button>
-    </form>
+        <div class="footer-block">
+            <h3>Areas</h3>
+            <p>
+                Winchester<br>
+                Andover<br>
+                Basingstoke<br>
+                Eastleigh<br>
+                Amesbury
+            </p>
+        </div>
 
-  </div>
-
-</section>
-
-<footer>
-  <div class="container">
-    <p>© 2026 All Clear Exterior Cleaning</p>
-  </div>
+    </div>
 </footer>
+
+<a href="tel:07305572453" class="floating-call-btn">
+    <i class="fa-solid fa-phone"></i> Call Now
+</a>
+
+<script>
+const menuOpen = document.getElementById('menuOpen');
+const menuClose = document.getElementById('menuClose');
+const navOverlay = document.getElementById('navOverlay');
+
+menuOpen.addEventListener('click', () => navOverlay.classList.add('open'));
+menuClose.addEventListener('click', () => navOverlay.classList.remove('open'));
+
+const slides = document.querySelectorAll('.service-slide');
+const nextBtn = document.getElementById('nextSlide');
+const prevBtn = document.getElementById('prevSlide');
+
+let currentSlide = 0;
+
+function showSlide(index) {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (index + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+}
+
+nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+</script>
 
 </body>
 </html>
