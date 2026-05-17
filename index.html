@@ -1,452 +1,195 @@
-/* ==========================================================================
-   GLOBAL STYLE VARS & INTERACTION TOKENS
-   ========================================================================== */
-:root {
-    --brand-blue: #0A58CA;
-    --brand-light-sky: #F0F6FF;
-    --brand-dark-navy: #0F172A;
-    --brand-accent-orange: #FF6B35;
-    --text-slate: #475569;
-    --text-pure-white: #FFFFFF;
-    --card-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
-    --border-radius-smooth: 12px;
-    --font-stack: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Clear Exterior Cleaning | Window & Gutter Cleaning Hampshire</title>
+    <meta name="description" content="Professional residential & commercial window cleaning, gutter clearance, and exterior maintenance across Winchester, Andover, Basingstoke, Amesbury, and Eastleigh.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="logo-brand">
+                <span class="brand-main">ALL CLEAR</span>
+                <span class="brand-sub">EXTERIOR CLEANING</span>
+            </a>
+            <nav class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="#services">Our Services</a>
+                <a href="#locations">Areas We Cover</a>
+                <a href="#quote-section" class="btn-quote-header">Get a Free Quote Now <i class="fa-solid fa-chevron-right"></i></a>
+            </nav>
+        </div>
+    </header>
 
-html {
-    scroll-behavior: smooth;
-    font-family: var(--font-stack);
-    color: var(--brand-dark-navy);
-    background-color: #FAF9F6;
-}
+    <section class="hero-viewport">
+        <div class="hero-overlay"></div>
+        <div class="hero-wrapper">
+            <div class="hero-text-block">
+                <h1>Sparkling Clean Windows & Clear Gutters Across Hampshire</h1>
+                <p>Reliable, fully insured exterior cleaning specialists serving homeowners and commercial properties with pristine results every single time.</p>
+                <div class="hero-badges">
+                    <span><i class="fa-solid fa-circle-check"></i> Fully Insured</span>
+                    <span><i class="fa-solid fa-circle-check"></i> Text Reminders Night Before</span>
+                    <span><i class="fa-solid fa-circle-check"></i> Eco-Friendly Solutions</span>
+                </div>
+            </div>
+            
+            <div class="hero-form-card" id="quote-section">
+                <h3>Request a Free Instant Quote</h3>
+                <p>Fill out the details below to secure your price estimate.</p>
+                
+                <form action="https://api.web3forms.com/submit" method="POST" class="quote-form-engine">
+                    <input type="hidden" name="access_key" value="cfa0dbd3-f3c3-4d3d-a5ad-da28be2951d9">
+                    <input type="checkbox" name="botcheck" class="hidden-honeypot" style="display: none;">
 
-/* ==========================================================================
-   HEADER UTILITY COMPONENT
-   ========================================================================== */
-.site-header {
-    background: var(--text-pure-white);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    padding: 15px 0;
-}
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" placeholder="John Doe" required>
+                    </div>
 
-.header-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" placeholder="07123 456789" required>
+                    </div>
 
-.logo-brand {
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-}
+                    <div class="form-group-full">
+                        <label for="address">Property Address *</label>
+                        <input type="text" id="address" name="address" placeholder="123 High Street, Town, Postcode" required>
+                    </div>
 
-.brand-main {
-    font-weight: 900;
-    font-size: 1.6rem;
-    color: var(--brand-blue);
-    letter-spacing: -0.5px;
-    line-height: 1;
-}
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="service">Service Required *</label>
+                            <select id="service" name="service_type" required>
+                                <option value="" disabled selected>Select Service...</option>
+                                <option value="Window Cleaning">Window Cleaning</option>
+                                <option value="Gutter Clearance">Gutter Clearance</option>
+                                <option value="Gutter & Fascia Cleaning">Gutter & Fascia Wash</option>
+                                <option value="Conservatory Cleaning">Conservatory Cleaning</option>
+                                <option value="Solar Panel Cleaning">Solar Panel Cleaning</option>
+                                <option value="Full Property Makeover">Full Package Makeover</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="storeys">Number of Storeys *</label>
+                            <select id="storeys" name="property_storeys" required>
+                                <option value="1">Bungalow (1 Storey)</option>
+                                <option value="2" selected>Standard House (2 Storeys)</option>
+                                <option value="3">Townhouse (3 Storeys)</option>
+                                <option value="4+">4+ Storeys / Commercial</option>
+                            </select>
+                        </div>
+                    </div>
 
-.brand-sub {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--brand-accent-orange);
-    letter-spacing: 1.5px;
-    margin-top: 2px;
-}
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bedrooms">Number of Bedrooms *</label>
+                            <input type="number" id="bedrooms" name="bedroom_count" min="1" max="10" value="3" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="velux">Velux Windows?</label>
+                            <select id="velux" name="has_velux">
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+                    </div>
 
-.nav-menu {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
+                    <div class="form-group-full">
+                        <label for="extensions">Conservatory or Extension present?</label>
+                        <select id="extensions" name="extensions_present">
+                            <option value="None">No conservatory or extension</option>
+                            <option value="Conservatory Only">Yes, Conservatory</option>
+                            <option value="Extension Only">Yes, Extension</option>
+                            <option value="Both">Yes, Both</option>
+                        </select>
+                    </div>
 
-.nav-menu a {
-    text-decoration: none;
-    color: var(--brand-dark-navy);
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: color 0.2s ease;
-}
+                    <button type="submit" class="btn-submit-quote">Submit Quote Request <i class="fa-solid fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
 
-.nav-menu a:hover {
-    color: var(--brand-blue);
-}
+    <section id="services" class="services-block">
+        <div class="container-center">
+            <h2 class="block-title">Our Professional Services</h2>
+            <p class="block-subtitle">Industry-leading equipment, expert crews, and a perfect finish every time.</p>
+            
+            <div class="services-card-grid">
+                <div class="service-card">
+                    <div class="card-icon"><i class="fa-solid fa-window-maximize"></i></div>
+                    <h3>Window Cleaning</h3>
+                    <p>4 or 8-weekly schedule using high-reach pure water systems. Spotless sills, frames, and glass panes dried clear naturally.</p>
+                </div>
+                <div class="service-card">
+                    <div class="card-icon"><i class="fa-solid fa-bore-hole"></i></div>
+                    <h3>Gutter Clearance</h3>
+                    <p>High-powered vacuum clearance targeting wet moss, leaves, and blockages to prevent foundational water damage.</p>
+                </div>
+                <div class="service-card">
+                    <div class="card-icon"><i class="fa-solid fa-sparkles"></i></div>
+                    <h3>Gutter & Fascia Cleaning</h3>
+                    <p>Exterior deep-wash restorations targeting organic black staining and dirt buildup along your UPVC plastics.</p>
+                </div>
+                <div class="service-card">
+                    <div class="card-icon"><i class="fa-solid fa-sun"></i></div>
+                    <h3>Solar Panel Cleans</h3>
+                    <p>Maximize your green electricity yields. Safely removing organic grime and heavy pollution film securely from ground level.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-.nav-menu .btn-quote-header {
-    background-color: var(--brand-accent-orange);
-    color: var(--text-pure-white);
-    padding: 10px 20px;
-    border-radius: 30px;
-    font-weight: 700;
-    box-shadow: 0 4px 10px rgba(255, 107, 53, 0.25);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
+    <section id="locations" class="seo-footprint-block">
+        <div class="container-center">
+            <h2 class="block-title">Local Service Hubs</h2>
+            <p class="block-subtitle">Select your nearest regional coverage area for specialized local pricing configurations.</p>
+            <div id="seo-links-container" class="seo-links-grid">
+                </div>
+        </div>
+    </section>
 
-.nav-menu .btn-quote-header:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 15px rgba(255, 107, 53, 0.35);
-    color: var(--text-pure-white);
-}
+    <footer class="site-footer">
+        <div class="footer-wrap">
+            <div class="footer-brand-side">
+                <h3>ALL CLEAR EXTERIOR CLEANING</h3>
+                <p>Delivering premier glass, gutter, and uPVC structural maintenance solutions across Hampshire. Built on prompt timing, absolute transparency, and impeccable performance guarantees.</p>
+                <p class="working-hours"><i class="fa-solid fa-clock"></i> Mon - Fri: 8:00 AM - 5:00 PM</p>
+            </div>
+            <div class="footer-contact-side">
+                <h4>Connect Direct</h4>
+                <a href="tel:07305572453" class="contact-link"><i class="fa-solid fa-phone"></i> 07305 572453</a>
+                <a href="mailto:info@allclearexteriorcleaning.co.uk" class="contact-link"><i class="fa-solid fa-envelope"></i> info@allclearexteriorcleaning.co.uk</a>
+                <p class="geo-tagline"><i class="fa-solid fa-location-dot"></i> Proudly serving Winchester, Andover, Amesbury, Basingstoke, Eastleigh, and all surrounding areas.</p>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            &copy; 2026 All Clear Exterior Cleaning. All Rights Reserved.
+        </div>
+    </footer>
 
-/* ==========================================================================
-   HERO INTERACTION VIEWPORT & GRID MATRIX LAYOUT
-   ========================================================================== */
-.hero-viewport {
-    position: relative;
-    background: url('https://images.unsplash.com/photo-1527030280862-64139fbe04ca?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
-    padding: 60px 0;
-    min-height: 85vh;
-    display: flex;
-    align-items: center;
-}
+    <script>
+        const towns = ["Winchester", "Andover", "Amesbury", "Basingstoke", "Eastleigh"];
+        const services = ["Window Cleaning", "Gutter Cleaning", "Gutter Fascia Washing", "Conservatory Cleaning", "Solar Panel Cleaning"];
+        const container = document.getElementById('seo-links-container');
 
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(10, 88, 202, 0.92) 0%, rgba(15, 23, 42, 0.85) 100%);
-    z-index: 1;
-}
-
-.hero-wrapper {
-    position: relative;
-    z-index: 2;
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 40px;
-    align-items: center;
-}
-
-@media (min-width: 992px) {
-    .hero-wrapper {
-        grid-template-columns: 1.1fr 0.9fr;
-    }
-}
-
-.hero-text-block {
-    color: var(--text-pure-white);
-}
-
-.hero-text-block h1 {
-    font-size: 3rem;
-    font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -1px;
-    margin-bottom: 20px;
-}
-
-.hero-text-block p {
-    font-size: 1.2rem;
-    opacity: 0.9;
-    margin-bottom: 30px;
-    line-height: 1.6;
-}
-
-.hero-badges {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.hero-badges span {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 600;
-    font-size: 1.05rem;
-}
-
-.hero-badges i {
-    color: var(--brand-accent-orange);
-}
-
-/* ==========================================================================
-   THE 8-FIELD CONVERSION PRICING FORM CARD
-   ========================================================================== */
-.hero-form-card {
-    background: var(--text-pure-white);
-    padding: 30px;
-    border-radius: var(--border-radius-smooth);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-}
-
-.hero-form-card h3 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--brand-dark-navy);
-    margin-bottom: 4px;
-}
-
-.hero-form-card p {
-    font-size: 0.9rem;
-    color: var(--text-slate);
-    margin-bottom: 20px;
-}
-
-.quote-form-engine {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-
-.form-group, .form-group-full {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-label {
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: var(--brand-dark-navy);
-    letter-spacing: 0.5px;
-}
-
-input[type="text"],
-input[type="tel"],
-input[type="number"],
-select {
-    width: 100%;
-    padding: 10px 14px;
-    border: 1.5px solid #E2E8F0;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    font-family: var(--font-stack);
-    color: var(--brand-dark-navy);
-    outline: none;
-    transition: border-color 0.2s ease;
-}
-
-input:focus, select:focus {
-    border-color: var(--brand-blue);
-}
-
-.btn-submit-quote {
-    background-color: var(--brand-blue);
-    color: var(--text-pure-white);
-    border: none;
-    padding: 14px;
-    font-size: 1.05rem;
-    font-weight: 700;
-    border-radius: 6px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    box-shadow: 0 4px 12px rgba(10, 88, 202, 0.2);
-    transition: background-color 0.2s ease;
-}
-
-.btn-submit-quote:hover {
-    background-color: #0849a3;
-}
-
-/* ==========================================================================
-   SERVICES & TEXT PRESENTATION BLOCKS
-   ========================================================================== */
-.services-block, .seo-footprint-block {
-    padding: 80px 0;
-}
-
-.container-center {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.block-title {
-    font-size: 2.2rem;
-    font-weight: 800;
-    text-align: center;
-    margin-bottom: 10px;
-    letter-spacing: -0.5px;
-}
-
-.block-subtitle {
-    font-size: 1.1rem;
-    color: var(--text-slate);
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto 50px auto;
-}
-
-.services-card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 30px;
-}
-
-.service-card {
-    background: var(--text-pure-white);
-    padding: 30px;
-    border-radius: var(--border-radius-smooth);
-    box-shadow: var(--card-shadow);
-    border-top: 4px solid var(--brand-blue);
-}
-
-.card-icon {
-    font-size: 2rem;
-    color: var(--brand-blue);
-    margin-bottom: 15px;
-}
-
-.service-card h3 {
-    font-size: 1.25rem;
-    margin-bottom: 10px;
-}
-
-.service-card p {
-    color: var(--text-slate);
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
-
-/* ==========================================================================
-   SEO AUTOMATION GRID LINK PILLS
-   ========================================================================== */
-.seo-footprint-block {
-    background-color: var(--brand-light-sky);
-}
-
-.seo-links-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 15px;
-}
-
-.seo-pill-link {
-    background: var(--text-pure-white);
-    padding: 14px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    color: var(--brand-dark-navy);
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-    border: 1px solid #E2E8F0;
-    transition: all 0.2s ease;
-}
-
-.seo-pill-link i {
-    color: var(--brand-blue);
-    font-size: 0.8rem;
-}
-
-.seo-pill-link hover {
-    border-color: var(--brand-blue);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-/* ==========================================================================
-   FOOTER PATTERN LAYOUT
-   ========================================================================== */
-.site-footer {
-    background: var(--brand-dark-navy);
-    color: var(--text-pure-white);
-    padding: 60px 0 30px 0;
-}
-
-.footer-wrap {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 40px;
-    padding-bottom: 40px;
-    border-bottom: 1px solid #1E293B;
-}
-
-@media (min-width: 768px) {
-    .footer-wrap {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-.footer-brand-side h3 {
-    font-size: 1.4rem;
-    color: var(--text-pure-white);
-    margin-bottom: 15px;
-}
-
-.footer-brand-side p {
-    color: #94A3B8;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 15px;
-}
-
-.working-hours {
-    font-weight: 600;
-    color: var(--brand-accent-orange) !important;
-}
-
-.footer-contact-side h4 {
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.contact-link {
-    display: block;
-    color: var(--text-pure-white);
-    text-decoration: none;
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-
-.geo-tagline {
-    margin-top: 20px;
-    font-size: 0.9rem;
-    color: #94A3B8;
-}
-
-.footer-copyright {
-    text-align: center;
-    padding-top: 30px;
-    font-size: 0.85rem;
-    color: #64748B;
-}
-
-/* MOBILE RESPONSIVE FIXES */
-@media (max-width: 768px) {
-    .nav-menu a:not(.btn-quote-header) {
-        display: none;
-    }
-    .hero-text-block h1 {
-        font-size: 2.2rem;
-    }
-}
+        if(container) {
+            towns.forEach(town => {
+                services.forEach(service => {
+                    const slug = `${service.toLowerCase().replace(/ /g, "-")}-${town.toLowerCase()}`;
+                    const a = document.createElement('a');
+                    a.href = `pages/${slug}.html`;
+                    a.className = "seo-pill-link";
+                    a.innerHTML = `<i class="fa-solid fa-location-crosshairs"></i> ${service} in <strong>${town}</strong>`;
+                    container.appendChild(a);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
