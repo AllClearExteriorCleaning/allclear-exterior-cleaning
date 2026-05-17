@@ -6,8 +6,8 @@
 
 body {
   font-family: Inter, sans-serif;
+  background: #f6f7fb;
   color: #111827;
-  background: #f7f7f7;
   line-height: 1.6;
 }
 
@@ -18,10 +18,10 @@ body {
   margin: auto;
 }
 
-/* NAV */
+/* NAV (very minimal like theirs) */
 .nav {
   background: white;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .nav-inner {
@@ -35,29 +35,30 @@ body {
   font-weight: 700;
 }
 
-/* LINKS */
-.links {
+/* NAV LINKS */
+.nav-links {
   display: flex;
-  gap: 20px;
+  gap: 18px;
 }
 
-.links a {
+.nav-links a {
   text-decoration: none;
-  color: #111;
+  color: #111827;
   font-weight: 500;
 }
 
-.cta {
+/* SMALL BUTTON */
+.btn-small {
   background: #2563eb;
-  color: white;
-  padding: 10px 14px;
+  color: white !important;
+  padding: 8px 14px;
   border-radius: 8px;
 }
 
-/* HERO (KEY STYLE MATCH) */
+/* HERO (clean, spaced, minimal) */
 .hero {
   background: white;
-  padding: 90px 0;
+  padding: 100px 0;
   text-align: center;
 }
 
@@ -68,40 +69,41 @@ body {
 }
 
 .hero p {
-  margin-top: 20px;
+  margin-top: 18px;
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
-  color: #555;
+  color: #6b7280;
 }
 
-/* BUTTONS */
-.hero-buttons {
+/* HERO CTA */
+.hero-cta {
   margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
 }
 
-.btn {
-  display: inline-block;
+.btn-primary {
+  background: #2563eb;
+  color: white;
   padding: 12px 18px;
   border-radius: 8px;
   text-decoration: none;
 }
 
-.primary {
-  background: #2563eb;
-  color: white;
+.btn-outline {
+  border: 1px solid #d1d5db;
+  color: #111827;
+  padding: 12px 18px;
+  border-radius: 8px;
+  text-decoration: none;
 }
 
-.ghost {
-  border: 1px solid #ddd;
-  color: #111;
-}
-
-/* TRUST STRIP */
-.trust-strip {
+/* TRUST STRIP (key similarity feature) */
+.trust {
   background: #f3f4f6;
-  padding: 20px 0;
-  text-align: center;
+  padding: 18px 0;
 }
 
 .trust-inner {
@@ -109,10 +111,11 @@ body {
   justify-content: center;
   gap: 30px;
   flex-wrap: wrap;
+  font-size: 14px;
 }
 
 /* SECTIONS */
-section {
+.section {
   padding: 80px 0;
 }
 
@@ -130,7 +133,7 @@ section {
   font-size: 36px;
 }
 
-/* GRID */
+/* GRID (core layout system like theirs) */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -138,27 +141,46 @@ section {
 }
 
 .grid.small {
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
 }
 
-/* CARD */
+/* CARD (very light, subtle like theirs) */
 .card {
   background: white;
-  padding: 25px;
-  border: 1px solid #eee;
+  border: 1px solid #e5e7eb;
+  padding: 22px;
   border-radius: 10px;
   text-align: center;
 }
 
-/* CTA SECTION */
-.cta-section {
+/* QUOTE SECTION */
+.quote {
   background: #111827;
   color: white;
   text-align: center;
+  padding: 90px 0;
 }
 
-.cta-section .btn {
-  margin-top: 20px;
+.quote form {
+  display: grid;
+  gap: 10px;
+  max-width: 400px;
+  margin: auto;
+}
+
+.quote input,
+.quote select {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+}
+
+.quote button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
 }
 
 /* FOOTER */
@@ -166,7 +188,7 @@ footer {
   text-align: center;
   padding: 20px;
   background: white;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #e5e7eb;
 }
 
 /* MOBILE */
@@ -176,7 +198,11 @@ footer {
     font-size: 32px;
   }
 
-  .links {
+  .hero-cta {
+    flex-direction: column;
+  }
+
+  .nav-links {
     display: none;
   }
 }
