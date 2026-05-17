@@ -6,7 +6,7 @@
 
 body {
   font-family: Inter, sans-serif;
-  background: #f6f8fc;
+  background: #f6f7fb;
   color: #0f172a;
 }
 
@@ -19,29 +19,29 @@ body {
 
 /* NAV */
 .nav {
+  background: white;
   position: sticky;
   top: 0;
-  background: rgba(255,255,255,0.9);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
   z-index: 999;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .nav-inner {
-  height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 80px;
 }
 
 .logo {
   font-weight: 800;
+  text-decoration: none;
+  color: #0f172a;
 }
 
-/* LINKS */
 .links {
   display: flex;
-  gap: 25px;
+  gap: 20px;
   align-items: center;
 }
 
@@ -51,93 +51,108 @@ body {
   font-weight: 500;
 }
 
-/* BUTTON */
-.btn {
+/* CTA */
+.cta {
   background: #2563eb;
   color: white !important;
-  padding: 10px 18px;
+  padding: 10px 16px;
   border-radius: 10px;
-  text-decoration: none;
+}
+
+/* DROPDOWN */
+.dropdown {
+  position: relative;
+}
+
+.dropbtn {
+  background: none;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  background: white;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  min-width: 200px;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }
 
 /* HERO */
 .hero {
-  background:
-    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-    url("https://images.unsplash.com/photo-1505691723518-36a5ac3b2d2c?q=80&w=2000");
-  background-size: cover;
+  background: #0f172a;
   color: white;
+  padding: 120px 0;
   text-align: center;
-  padding: 140px 0;
-}
-
-.badge {
-  display: inline-block;
-  background: rgba(255,255,255,0.15);
-  padding: 10px 16px;
-  border-radius: 999px;
-  margin-bottom: 20px;
 }
 
 .hero h1 {
-  font-size: 54px;
-  max-width: 900px;
-  margin: auto;
+  font-size: 48px;
 }
 
 .hero p {
-  margin-top: 20px;
-  opacity: 0.9;
+  margin-top: 15px;
+  opacity: 0.8;
 }
 
+/* BUTTONS */
 .hero-buttons {
   margin-top: 25px;
 }
 
-.primary {
-  background: #2563eb;
-  padding: 14px 22px;
+.btn {
+  display: inline-block;
+  padding: 12px 18px;
   border-radius: 10px;
-  color: white;
   text-decoration: none;
 }
 
-.secondary {
-  background: rgba(255,255,255,0.2);
-  padding: 14px 22px;
-  border-radius: 10px;
+.primary {
+  background: #2563eb;
   color: white;
-  text-decoration: none;
+}
+
+.ghost {
+  border: 1px solid white;
+  color: white;
 }
 
 /* TRUST */
 .trust {
-  margin-top: 40px;
+  margin-top: 30px;
   display: flex;
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+  opacity: 0.8;
 }
 
 /* SECTIONS */
 section {
-  padding: 90px 0;
+  padding: 80px 0;
 }
 
-.section-title {
+.title {
   text-align: center;
-  margin-bottom: 40px;
-}
-
-.section-title h2 {
-  font-size: 38px;
+  margin-bottom: 30px;
 }
 
 /* GRID */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
 }
 
 .grid.small .card {
@@ -147,74 +162,44 @@ section {
 /* CARD */
 .card {
   background: white;
-  padding: 30px;
-  border-radius: 18px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  padding: 25px;
+  border-radius: 14px;
   text-align: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
 }
 
-.icon {
-  font-size: 40px;
-  margin-bottom: 10px;
-}
-
-/* ALT SECTION */
+/* ALT */
 .alt {
   background: white;
 }
 
-.why {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 50px;
-}
-
-.stats {
-  display: grid;
-  gap: 15px;
-}
-
-.stat {
-  background: #f1f5f9;
-  padding: 20px;
-  border-radius: 12px;
-}
-
 /* QUOTE */
 .quote {
-  background: #0f172a;
+  background: #111827;
   color: white;
   text-align: center;
 }
 
 .quote form {
   display: grid;
-  gap: 12px;
-  max-width: 450px;
+  gap: 10px;
+  max-width: 400px;
   margin: auto;
 }
 
 .quote input,
 .quote select {
-  padding: 14px;
-  border-radius: 10px;
+  padding: 12px;
+  border-radius: 8px;
   border: none;
 }
 
 .quote button {
+  padding: 12px;
+  border: none;
   background: #2563eb;
   color: white;
-  padding: 14px;
-  border-radius: 10px;
-  border: none;
-}
-
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 25px;
-  background: #020617;
-  color: white;
+  border-radius: 8px;
 }
 
 /* MOBILE */
@@ -236,11 +221,6 @@ footer {
   }
 
   .hero h1 {
-    font-size: 34px;
+    font-size: 32px;
   }
-
-  .why {
-    grid-template-columns: 1fr;
-  }
-
 }
