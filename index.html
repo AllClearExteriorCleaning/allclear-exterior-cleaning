@@ -1,224 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Window Cleaning Hampshire | All Clear Exterior Cleaning</title>
+<title>All Clear Exterior Cleaning | Hampshire Exterior Cleaning</title>
 
-  <meta name="description" content="Professional window cleaning and exterior cleaning services across Winchester, Andover, Basingstoke, Eastleigh and surrounding Hampshire areas. Reliable 4 or 8 weekly cleaning available.">
+<meta name="description" content="Professional window cleaning and exterior cleaning services across Hampshire.">
 
-  <link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
 
-<!-- NAV -->
-<div id="nav"></div>
+<nav class="nav">
+  <div class="container nav-inner">
 
-<script>
-fetch("/nav.html")
-  .then(res => res.text())
-  .then(data => {
-    document.getElementById("nav").innerHTML = data;
+    <a href="#" class="logo">All Clear Exterior Cleaning</a>
 
-    if (typeof initNav === "function") {
-      initNav();
-    }
-  });
-</script>
+    <button class="nav-toggle">☰</button>
 
-<!-- HERO -->
-<header class="header">
-  <div class="container">
+    <div class="links">
+      <a href="#">Home</a>
+      <a href="#">Window Cleaning</a>
+      <a href="#">Gutter Clearing</a>
+      <a href="#">Areas</a>
+      <a href="#quote-form" class="nav-btn">Get Quote</a>
+    </div>
+
+  </div>
+</nav>
+
+<header class="hero">
+
+  <div class="container hero-content">
+
+    <div class="hero-badge">
+      Hampshire Exterior Cleaning Specialists
+    </div>
 
     <h1>
-      Professional Window Cleaning Across Hampshire
+      Professional Window Cleaning That Makes Your Home Stand Out
     </h1>
 
     <p>
-      Reliable exterior cleaning services for homes across Winchester, Andover, Basingstoke, Eastleigh, Amesbury and surrounding areas.
+      Reliable 4 & 8 weekly window cleaning, gutter clearing and exterior cleaning services across Hampshire.
     </p>
 
-    <a href="#quote-form" class="btn">
-      Request Free Quote
-    </a>
+    <div class="hero-buttons">
+      <a href="#quote-form" class="btn primary-btn">Request Quote</a>
+      <a href="tel:07305572453" class="btn secondary-btn">Call Now</a>
+    </div>
+
+    <div class="trust-strip">
+      <div>✓ Fully Insured</div>
+      <div>✓ Reminder Messages Sent</div>
+      <div>✓ Reliable Local Service</div>
+    </div>
 
   </div>
+
 </header>
 
-<!-- WHY CHOOSE -->
-<section class="seo">
-  <div class="container">
-
-    <h2>
-      Trusted Local Exterior Cleaning Company
-    </h2>
-
-    <p>
-      At All Clear Exterior Cleaning we provide reliable window cleaning and exterior cleaning services across Hampshire with a focus on quality, communication and dependable scheduling.
-    </p>
-
-    <p>
-      We send reminder messages before every visit and clean all frames, sills and doors as standard during each window cleaning service.
-    </p>
-
-  </div>
-</section>
-
-<!-- SERVICES -->
 <section class="services">
+
   <div class="container">
 
-    <h2>
-      Our Exterior Cleaning Services
-    </h2>
+    <div class="section-heading">
+      <span>OUR SERVICES</span>
+      <h2>Exterior Cleaning Services Across Hampshire</h2>
+    </div>
 
     <div class="grid">
 
       <div class="card">
+        <div class="icon">💧</div>
         <h3>Window Cleaning</h3>
-        <p>
-          Regular 4 or 8 weekly window cleaning using purified water for a spotless finish.
-        </p>
+        <p>Pure water window cleaning for spotless glass, frames and sills.</p>
       </div>
 
       <div class="card">
+        <div class="icon">🏠</div>
         <h3>Gutter Clearing</h3>
-        <p>
-          Professional gutter vacuum clearing to remove moss, leaves and blockages safely.
-        </p>
+        <p>Professional vacuum gutter clearing for blocked and overflowing gutters.</p>
       </div>
 
       <div class="card">
-        <h3>Fascia & Soffit Cleaning</h3>
-        <p>
-          Restore the appearance of your property with professional UPVC exterior cleaning.
-        </p>
+        <div class="icon">✨</div>
+        <h3>Fascia & Soffits</h3>
+        <p>Restore tired looking UPVC and brighten the front of your property.</p>
       </div>
 
     </div>
 
   </div>
+
 </section>
 
-<!-- HOW IT WORKS -->
-<section class="areas">
-  <div class="container">
+<section class="why-us">
 
-    <h2>
-      How Our Service Works
-    </h2>
+  <div class="container why-grid">
 
-    <div class="grid">
+    <div>
 
-      <div class="card">
-        <h3>1. Request a Quote</h3>
-        <p>
-          Complete the quick quote form below with your property details.
-        </p>
+      <span class="mini-title">WHY CHOOSE US</span>
+
+      <h2>
+        A More Reliable Exterior Cleaning Service
+      </h2>
+
+      <p>
+        We focus on quality work, communication and dependable scheduling so you always know when your clean is due.
+      </p>
+
+      <ul class="benefits">
+        <li>Reliable recurring service</li>
+        <li>Text reminders before visits</li>
+        <li>Professional equipment</li>
+        <li>Friendly local company</li>
+      </ul>
+
+    </div>
+
+    <div class="feature-card">
+
+      <div class="feature-box">
+        <h3>4 & 8 Weekly Cleans</h3>
+        <p>Flexible recurring schedules available.</p>
       </div>
 
-      <div class="card">
-        <h3>2. Receive Your Price</h3>
-        <p>
-          We’ll send you a clear quotation for your required service.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>3. Get Booked In</h3>
-        <p>
-          Once approved, we arrange your first clean and future schedule.
-        </p>
+      <div class="feature-box">
+        <h3>Fast Quotes</h3>
+        <p>Quick responses to all enquiries.</p>
       </div>
 
     </div>
 
   </div>
+
 </section>
 
-<!-- FORM -->
-<section class="contact" id="quote-form">
+<section class="quote-section" id="quote-form">
+
   <div class="container">
 
-    <h2>
-      Request a Free Quote
-    </h2>
+    <div class="section-heading light">
+      <span>FREE QUOTATION</span>
+      <h2>Request Your Quote Today</h2>
+    </div>
 
-    <p>
-      Get in touch today for a fast, free exterior cleaning quotation.
-    </p>
+    <form class="quote-form">
 
-    <form action="https://api.web3forms.com/submit" method="POST" class="quote-form">
+      <input type="text" placeholder="Full Name">
+      <input type="text" placeholder="Postcode">
+      <input type="text" placeholder="Address">
 
-      <input type="hidden" name="access_key" value="cfa0dbd3-f3c3-4d3d-a5ad-da28be2951d9">
-
-      <input type="text" name="name" placeholder="Full Name" required>
-
-      <input type="text" name="postcode" placeholder="Postcode" required>
-
-      <input type="text" name="address" placeholder="Address" required>
-
-      <select name="service" required>
-        <option value="">Service Required</option>
+      <select>
+        <option>Service Required</option>
         <option>Window Cleaning</option>
         <option>Gutter Clearing</option>
-        <option>Fascia & Soffit Cleaning</option>
-        <option>Conservatory Cleaning</option>
       </select>
 
-      <select name="bedrooms" required>
-        <option value="">Bedrooms</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5+</option>
-      </select>
-
-      <select name="storeys" required>
-        <option value="">Storeys</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-      </select>
-
-      <select name="conservatory">
-        <option value="">Conservatory</option>
-        <option>No</option>
-        <option>Yes</option>
-      </select>
-
-      <select name="velux">
-        <option value="">Velux Windows</option>
-        <option>None</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3+</option>
-      </select>
-
-      <button class="btn" type="submit">
+      <button class="btn primary-btn">
         Request Quote
       </button>
 
     </form>
 
   </div>
+
 </section>
 
-<!-- FOOTER -->
 <footer class="footer">
   <div class="container">
-
-    <p>
-      © 2026 All Clear Exterior Cleaning • Hampshire Exterior Cleaning Services
-    </p>
-
+    <p>© 2026 All Clear Exterior Cleaning</p>
   </div>
 </footer>
-
-<script src="/script.js"></script>
 
 </body>
 </html>
