@@ -29,15 +29,15 @@ body {
   position: sticky;
   top: 0;
   z-index: 999;
-  background: #ffffff;
+  background: #fff;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .nav-inner {
+  min-height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 80px;
 }
 
 .logo {
@@ -69,7 +69,7 @@ body {
 /* NAV BUTTON */
 
 .nav-btn {
-  background: #1d4ed8;
+  background: #2563eb;
   color: #fff !important;
   padding: 12px 22px;
   border-radius: 10px;
@@ -84,43 +84,48 @@ body {
 .dropbtn {
   background: none;
   border: none;
-  font: inherit;
   color: #1d1d1d;
-  cursor: pointer;
+  font-size: 16px;
   font-weight: 500;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
 }
 
-/* DROPDOWN MENU */
+/* DROPDOWN CONTENT */
 
 .dropdown-content {
   display: none;
   position: absolute;
   top: 100%;
   left: 0;
-  min-width: 280px;
   background: #fff;
-  border-radius: 12px;
+  min-width: 280px;
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
   z-index: 999;
+  padding: 10px 0;
 }
 
 .dropdown-content a {
   display: block;
-  padding: 14px 18px;
-  text-decoration: none;
+  padding: 14px 20px;
   color: #1d1d1d;
+  text-decoration: none;
+  transition: 0.2s;
 }
 
 .dropdown-content a:hover {
   background: #f5f7fb;
 }
 
+/* SHOW DROPDOWN */
+
 .dropdown:hover .dropdown-content {
   display: block;
 }
 
-/* MOBILE NAV */
+/* MOBILE BUTTON */
 
 .nav-toggle {
   display: none;
@@ -144,18 +149,18 @@ body {
 .hero-badge {
   display: inline-block;
   background: #dbeafe;
-  color: #1d4ed8;
+  color: #2563eb;
   padding: 8px 16px;
   border-radius: 100px;
+  margin-bottom: 20px;
   font-size: 14px;
   font-weight: bold;
-  margin-bottom: 20px;
 }
 
 .hero h1 {
   font-size: 56px;
   line-height: 1.2;
-  max-width: 920px;
+  max-width: 900px;
   margin: auto;
   margin-bottom: 24px;
 }
@@ -163,7 +168,7 @@ body {
 .hero p {
   max-width: 760px;
   margin: auto;
-  margin-bottom: 36px;
+  margin-bottom: 35px;
   color: #555;
   font-size: 18px;
 }
@@ -179,21 +184,21 @@ body {
 
 .btn {
   display: inline-block;
+  text-decoration: none;
   padding: 15px 28px;
   border-radius: 10px;
-  text-decoration: none;
   font-weight: bold;
 }
 
 .primary-btn {
-  background: #1d4ed8;
+  background: #2563eb;
   color: #fff;
 }
 
 .secondary-btn {
   background: #fff;
-  border: 1px solid #d1d5db;
   color: #1d1d1d;
+  border: 1px solid #d1d5db;
 }
 
 /* TRUST STRIP */
@@ -202,13 +207,13 @@ body {
   display: flex;
   justify-content: center;
   gap: 30px;
-  flex-wrap: wrap;
   margin-top: 40px;
-  font-weight: bold;
+  flex-wrap: wrap;
   color: #444;
+  font-weight: bold;
 }
 
-/* SECTION STYLING */
+/* SECTIONS */
 
 section {
   padding: 90px 0;
@@ -220,15 +225,15 @@ section {
 }
 
 .section-heading span {
-  color: #1d4ed8;
+  color: #2563eb;
   font-size: 14px;
   font-weight: bold;
   letter-spacing: 1px;
 }
 
 .section-heading h2 {
-  margin-top: 10px;
   font-size: 42px;
+  margin-top: 10px;
 }
 
 .section-heading.light span,
@@ -250,8 +255,8 @@ section {
   background: #fff;
   padding: 35px;
   border-radius: 18px;
-  text-align: center;
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  text-align: center;
   transition: 0.2s;
 }
 
@@ -282,14 +287,14 @@ section {
 }
 
 .mini-title {
-  color: #1d4ed8;
+  color: #2563eb;
   font-size: 14px;
   font-weight: bold;
 }
 
 .benefits {
   list-style: none;
-  margin-top: 24px;
+  margin-top: 25px;
 }
 
 .benefits li {
@@ -310,7 +315,7 @@ section {
 /* QUOTE SECTION */
 
 .quote-section {
-  background: #1d4ed8;
+  background: #2563eb;
 }
 
 .quote-form {
@@ -353,22 +358,34 @@ section {
     background: #fff;
     flex-direction: column;
     align-items: flex-start;
+    gap: 20px;
     padding: 30px;
     display: none;
-    gap: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
   }
 
   .links.open {
     display: flex;
   }
 
+  .dropdown {
+    width: 100%;
+  }
+
+  .dropbtn {
+    width: 100%;
+    text-align: left;
+  }
+
   .dropdown-content {
     position: static;
     display: block;
-    background: transparent;
+    background: #f5f7fb;
     box-shadow: none;
-    min-width: 100%;
-    padding-left: 15px;
+    margin-top: 10px;
+    border-radius: 10px;
+    width: 100%;
+    padding: 5px 0;
   }
 
   .hero h1 {
