@@ -8,7 +8,6 @@
 
 <link rel="stylesheet" href="/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
@@ -19,11 +18,11 @@
 
     <div class="logo">All Clear Exterior Cleaning</div>
 
-    <nav class="links">
+    <nav class="nav-links">
       <a href="#services">Services</a>
       <a href="#how">How it works</a>
       <a href="#areas">Areas</a>
-      <a class="cta" href="#quote">Get Quote</a>
+      <a class="btn-small" href="#quote">Get Quote</a>
     </nav>
 
   </div>
@@ -36,11 +35,13 @@
 
     <h1>Reliable Exterior Cleaning You Can Trust</h1>
 
-    <p>Professional window cleaning, gutter clearing and exterior cleaning across Hampshire with consistent scheduling and reliable service.</p>
+    <p>
+      Professional window cleaning, gutter clearing and exterior cleaning across Hampshire with consistent schedules and reliable service.
+    </p>
 
-    <div class="hero-buttons">
-      <a class="btn primary" href="#quote">Get Free Quote</a>
-      <a class="btn ghost" href="tel:07305572453">Call Now</a>
+    <div class="hero-cta">
+      <a href="#quote" class="btn-primary">Get Free Quote</a>
+      <a href="tel:07305572453" class="btn-outline">Call Now</a>
     </div>
 
   </div>
@@ -48,41 +49,42 @@
 </section>
 
 <!-- TRUST STRIP -->
-<section class="trust-strip">
+<section class="trust">
   <div class="container trust-inner">
 
     <div>✔ Fully Insured</div>
-    <div>✔ 4 & 8 Weekly Visits</div>
+    <div>✔ Regular 4 & 8 Week Visits</div>
     <div>✔ Local Reliable Service</div>
+    <div>✔ 5★ Reputation</div>
 
   </div>
 </section>
 
 <!-- SERVICES -->
-<section id="services" class="soft">
+<section id="services" class="section soft">
 
   <div class="container">
 
     <div class="section-title">
       <h2>Our Services</h2>
-      <p>Simple, reliable exterior cleaning services</p>
+      <p>Simple, reliable exterior cleaning solutions</p>
     </div>
 
     <div class="grid">
 
       <div class="card">
         <h3>Window Cleaning</h3>
-        <p>Pure water streak-free cleaning.</p>
+        <p>Pure water cleaning for streak-free results.</p>
       </div>
 
       <div class="card">
         <h3>Gutter Clearing</h3>
-        <p>Prevent blockages and leaks.</p>
+        <p>Prevent blockages, leaks and water damage.</p>
       </div>
 
       <div class="card">
         <h3>UPVC Cleaning</h3>
-        <p>Fascia & soffit restoration.</p>
+        <p>Restore fascias, soffits and exterior plastics.</p>
       </div>
 
     </div>
@@ -92,7 +94,7 @@
 </section>
 
 <!-- HOW IT WORKS -->
-<section id="how">
+<section id="how" class="section">
 
   <div class="container">
 
@@ -103,47 +105,18 @@
     <div class="grid">
 
       <div class="card">
-        <h3>1. Get a quote</h3>
-        <p>Send your details online or call us.</p>
+        <h3>1. Get a Quote</h3>
+        <p>Send your details and we respond quickly.</p>
       </div>
 
       <div class="card">
-        <h3>2. Book in</h3>
-        <p>We arrange a convenient time.</p>
+        <h3>2. Book In</h3>
+        <p>We arrange a time that suits you.</p>
       </div>
 
       <div class="card">
-        <h3>3. We clean</h3>
-        <p>Reliable, professional results every time.</p>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- WHY US -->
-<section class="soft">
-
-  <div class="container">
-
-    <div class="section-title">
-      <h2>Why choose us</h2>
-    </div>
-
-    <div class="grid">
-
-      <div class="card">
-        <p>✔ Reliable scheduled cleans</p>
-      </div>
-
-      <div class="card">
-        <p>✔ Reminder messages before visits</p>
-      </div>
-
-      <div class="card">
-        <p>✔ Fully insured local business</p>
+        <h3>3. We Clean</h3>
+        <p>Reliable, professional results every visit.</p>
       </div>
 
     </div>
@@ -153,12 +126,12 @@
 </section>
 
 <!-- AREAS -->
-<section id="areas">
+<section id="areas" class="section soft">
 
   <div class="container">
 
     <div class="section-title">
-      <h2>Areas we cover</h2>
+      <h2>Areas We Cover</h2>
     </div>
 
     <div class="grid small">
@@ -175,14 +148,27 @@
 
 </section>
 
-<!-- CTA -->
-<section id="quote" class="cta-section">
+<!-- QUOTE -->
+<section id="quote" class="quote">
 
   <div class="container">
 
     <h2>Get your free quote today</h2>
 
-    <a class="btn primary" href="tel:07305572453">Call 07305 572453</a>
+    <p>Fast response. No obligation. Local trusted service.</p>
+
+    <form>
+      <input type="text" placeholder="Full Name" required>
+      <input type="text" placeholder="Postcode" required>
+
+      <select>
+        <option>Window Cleaning</option>
+        <option>Gutter Clearing</option>
+        <option>UPVC Cleaning</option>
+      </select>
+
+      <button type="submit">Request Quote</button>
+    </form>
 
   </div>
 
