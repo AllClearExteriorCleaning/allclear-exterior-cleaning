@@ -6,8 +6,8 @@
 
 body {
   font-family: Inter, sans-serif;
-  background: #f6f7fb;
-  color: #111;
+  background: #f6f8fc;
+  color: #0f172a;
 }
 
 /* CONTAINER */
@@ -21,21 +21,21 @@ body {
 .nav {
   position: sticky;
   top: 0;
-  background: white;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
   z-index: 999;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
 .nav-inner {
+  height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
 }
 
 .logo {
   font-weight: 800;
-  text-decoration: none;
 }
 
 /* LINKS */
@@ -47,131 +47,179 @@ body {
 
 .links a {
   text-decoration: none;
-  color: #111;
+  color: #0f172a;
   font-weight: 500;
 }
 
-/* DROPDOWN */
-.dropdown {
-  position: relative;
-}
-
-.dropbtn {
-  background: none;
-  border: none;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background: white;
-  top: 100%;
-  min-width: 220px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-}
-
-.dropdown-content a {
-  display: block;
-  padding: 12px;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
+/* BUTTON */
+.btn {
+  background: #2563eb;
+  color: white !important;
+  padding: 10px 18px;
+  border-radius: 10px;
+  text-decoration: none;
 }
 
 /* HERO */
 .hero {
-  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-  url("https://images.unsplash.com/photo-1505691723518-36a5ac3b2d2c?auto=format&fit=crop&w=2000&q=80");
+  background:
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+    url("https://images.unsplash.com/photo-1505691723518-36a5ac3b2d2c?q=80&w=2000");
   background-size: cover;
   color: white;
   text-align: center;
   padding: 140px 0;
 }
 
+.badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  padding: 10px 16px;
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+
 .hero h1 {
-  font-size: 52px;
+  font-size: 54px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.hero p {
+  margin-top: 20px;
+  opacity: 0.9;
 }
 
 .hero-buttons {
-  margin-top: 20px;
-}
-
-.btn {
-  display: inline-block;
-  padding: 14px 20px;
-  border-radius: 10px;
-  text-decoration: none;
+  margin-top: 25px;
 }
 
 .primary {
   background: #2563eb;
+  padding: 14px 22px;
+  border-radius: 10px;
   color: white;
+  text-decoration: none;
 }
 
 .secondary {
   background: rgba(255,255,255,0.2);
+  padding: 14px 22px;
+  border-radius: 10px;
   color: white;
+  text-decoration: none;
+}
+
+/* TRUST */
+.trust {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* SECTIONS */
+section {
+  padding: 90px 0;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-title h2 {
+  font-size: 38px;
 }
 
 /* GRID */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-  gap: 20px;
+  gap: 25px;
 }
 
+.grid.small .card {
+  text-align: center;
+}
+
+/* CARD */
 .card {
   background: white;
-  padding: 25px;
-  border-radius: 15px;
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
   text-align: center;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
 }
 
-/* SECTIONS */
-section {
-  padding: 80px 0;
+.icon {
+  font-size: 40px;
+  margin-bottom: 10px;
 }
 
-.title {
-  text-align: center;
-  margin-bottom: 30px;
+/* ALT SECTION */
+.alt {
+  background: white;
+}
+
+.why {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+}
+
+.stats {
+  display: grid;
+  gap: 15px;
+}
+
+.stat {
+  background: #f1f5f9;
+  padding: 20px;
+  border-radius: 12px;
 }
 
 /* QUOTE */
 .quote {
-  background: #111827;
+  background: #0f172a;
   color: white;
   text-align: center;
 }
 
 .quote form {
   display: grid;
-  gap: 10px;
-  max-width: 400px;
+  gap: 12px;
+  max-width: 450px;
   margin: auto;
 }
 
 .quote input,
 .quote select {
-  padding: 12px;
-  border-radius: 8px;
+  padding: 14px;
+  border-radius: 10px;
   border: none;
 }
 
 .quote button {
-  padding: 12px;
   background: #2563eb;
   color: white;
+  padding: 14px;
+  border-radius: 10px;
   border: none;
-  border-radius: 8px;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 25px;
+  background: #020617;
+  color: white;
 }
 
 /* MOBILE */
 @media (max-width: 900px) {
+
   .links {
     display: none;
     position: absolute;
@@ -190,4 +238,9 @@ section {
   .hero h1 {
     font-size: 34px;
   }
+
+  .why {
+    grid-template-columns: 1fr;
+  }
+
 }
