@@ -23,18 +23,18 @@ body {
   margin: auto;
 }
 
-/* NAV */
+/* NAVIGATION */
 
 .nav {
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: 1000;
   background: #fff;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .nav-inner {
-  min-height: 80px;
+  height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -47,8 +47,6 @@ body {
   font-weight: bold;
 }
 
-/* NAV LINKS */
-
 .links {
   display: flex;
   align-items: center;
@@ -59,20 +57,10 @@ body {
   text-decoration: none;
   color: #1d1d1d;
   font-weight: 500;
-  transition: 0.2s;
 }
 
 .links a:hover {
   opacity: 0.7;
-}
-
-/* NAV BUTTON */
-
-.nav-btn {
-  background: #2563eb;
-  color: #fff !important;
-  padding: 12px 22px;
-  border-radius: 10px;
 }
 
 /* DROPDOWN */
@@ -91,8 +79,6 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* DROPDOWN CONTENT */
-
 .dropdown-content {
   display: none;
   position: absolute;
@@ -100,32 +86,53 @@ body {
   left: 0;
   background: #fff;
   min-width: 280px;
-  border-radius: 14px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-  z-index: 999;
-  padding: 10px 0;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
 }
 
 .dropdown-content a {
   display: block;
-  padding: 14px 20px;
-  color: #1d1d1d;
-  text-decoration: none;
-  transition: 0.2s;
+  padding: 14px 18px;
 }
 
 .dropdown-content a:hover {
   background: #f5f7fb;
 }
 
-/* SHOW DROPDOWN */
-
 .dropdown:hover .dropdown-content {
   display: block;
 }
 
-/* MOBILE BUTTON */
+/* BUTTONS */
+
+.nav-btn {
+  background: #2563eb;
+  color: #fff !important;
+  padding: 12px 22px;
+  border-radius: 10px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 15px 28px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.primary-btn {
+  background: #2563eb;
+  color: #fff;
+}
+
+.secondary-btn {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  color: #1d1d1d;
+}
+
+/* MOBILE MENU */
 
 .nav-toggle {
   display: none;
@@ -173,8 +180,6 @@ body {
   font-size: 18px;
 }
 
-/* BUTTONS */
-
 .hero-buttons {
   display: flex;
   justify-content: center;
@@ -182,35 +187,14 @@ body {
   flex-wrap: wrap;
 }
 
-.btn {
-  display: inline-block;
-  text-decoration: none;
-  padding: 15px 28px;
-  border-radius: 10px;
-  font-weight: bold;
-}
-
-.primary-btn {
-  background: #2563eb;
-  color: #fff;
-}
-
-.secondary-btn {
-  background: #fff;
-  color: #1d1d1d;
-  border: 1px solid #d1d5db;
-}
-
-/* TRUST STRIP */
-
 .trust-strip {
   display: flex;
   justify-content: center;
   gap: 30px;
-  margin-top: 40px;
   flex-wrap: wrap;
-  color: #444;
+  margin-top: 40px;
   font-weight: bold;
+  color: #444;
 }
 
 /* SECTIONS */
@@ -228,24 +212,18 @@ section {
   color: #2563eb;
   font-size: 14px;
   font-weight: bold;
-  letter-spacing: 1px;
 }
 
 .section-heading h2 {
-  font-size: 42px;
   margin-top: 10px;
-}
-
-.section-heading.light span,
-.section-heading.light h2 {
-  color: #fff;
+  font-size: 42px;
 }
 
 /* GRID */
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
   gap: 30px;
 }
 
@@ -255,22 +233,18 @@ section {
   background: #fff;
   padding: 35px;
   border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
   text-align: center;
-  transition: 0.2s;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
 .card:hover {
   transform: translateY(-5px);
+  transition: 0.2s;
 }
 
 .icon {
   font-size: 42px;
   margin-bottom: 20px;
-}
-
-.card h3 {
-  margin-bottom: 12px;
 }
 
 /* WHY US */
@@ -286,15 +260,9 @@ section {
   align-items: center;
 }
 
-.mini-title {
-  color: #2563eb;
-  font-size: 14px;
-  font-weight: bold;
-}
-
 .benefits {
   list-style: none;
-  margin-top: 25px;
+  margin-top: 24px;
 }
 
 .benefits li {
@@ -312,10 +280,15 @@ section {
   border-radius: 16px;
 }
 
-/* QUOTE SECTION */
+/* QUOTE */
 
 .quote-section {
   background: #2563eb;
+}
+
+.light span,
+.light h2 {
+  color: #fff;
 }
 
 .quote-form {
@@ -328,8 +301,8 @@ section {
 .quote-form input,
 .quote-form select {
   padding: 16px;
-  border-radius: 10px;
   border: none;
+  border-radius: 10px;
   font-size: 16px;
 }
 
@@ -358,10 +331,9 @@ section {
     background: #fff;
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px;
     padding: 30px;
+    gap: 20px;
     display: none;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
   }
 
   .links.open {
@@ -372,28 +344,17 @@ section {
     width: 100%;
   }
 
-  .dropbtn {
-    width: 100%;
-    text-align: left;
-  }
-
   .dropdown-content {
     position: static;
     display: block;
-    background: #f5f7fb;
     box-shadow: none;
-    margin-top: 10px;
-    border-radius: 10px;
+    background: #f5f7fb;
     width: 100%;
-    padding: 5px 0;
+    margin-top: 10px;
   }
 
   .hero h1 {
     font-size: 40px;
-  }
-
-  .section-heading h2 {
-    font-size: 34px;
   }
 
   .why-grid {
