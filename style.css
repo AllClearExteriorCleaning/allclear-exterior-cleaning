@@ -30,6 +30,7 @@ body{
   background:rgba(255,255,255,0.92);
   backdrop-filter:blur(12px);
   border-bottom:1px solid rgba(0,0,0,0.06);
+  overflow:visible;
 }
 
 .nav-inner{
@@ -37,6 +38,7 @@ body{
   justify-content:space-between;
   align-items:center;
   padding:18px 0;
+  position:relative;
 }
 
 .logo{
@@ -312,6 +314,7 @@ body{
     background:none;
     font-size:28px;
     cursor:pointer;
+    z-index:1002;
   }
 
   .links{
@@ -326,6 +329,7 @@ body{
     border-radius:0 0 18px 18px;
     box-shadow:0 12px 28px rgba(0,0,0,0.08);
     gap:18px;
+    z-index:1001;
   }
 
   .links.open{
