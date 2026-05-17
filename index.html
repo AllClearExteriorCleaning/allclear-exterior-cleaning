@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>All Clear Exterior Cleaning</title>
+  <title>Window Cleaning Hampshire | All Clear Exterior Cleaning</title>
 
-  <link rel="stylesheet" href="style.css">
+  <meta name="description" content="Professional window cleaning and exterior cleaning services across Winchester, Andover, Basingstoke, Eastleigh and surrounding Hampshire areas. Reliable 4 or 8 weekly cleaning available.">
+
+  <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
@@ -15,56 +17,120 @@
 <div id="nav"></div>
 
 <script>
-fetch("nav.html")
+fetch("/nav.html")
   .then(res => res.text())
   .then(data => {
     document.getElementById("nav").innerHTML = data;
 
-    // IMPORTANT: enables mobile menu + dropdowns
     if (typeof initNav === "function") {
       initNav();
     }
   });
 </script>
 
+<!-- HERO -->
+<header class="header">
+  <div class="container">
+
+    <h1>
+      Professional Window Cleaning Across Hampshire
+    </h1>
+
+    <p>
+      Reliable exterior cleaning services for homes across Winchester, Andover, Basingstoke, Eastleigh, Amesbury and surrounding areas.
+    </p>
+
+    <a href="#quote-form" class="btn">
+      Request Free Quote
+    </a>
+
+  </div>
+</header>
+
 <!-- WHY CHOOSE -->
 <section class="seo">
   <div class="container">
 
-    <h2>Why Choose All Clear Exterior Cleaning</h2>
+    <h2>
+      Trusted Local Exterior Cleaning Company
+    </h2>
 
     <p>
-      We provide a dependable and professional exterior cleaning service across Hampshire.
+      At All Clear Exterior Cleaning we provide reliable window cleaning and exterior cleaning services across Hampshire with a focus on quality, communication and dependable scheduling.
     </p>
 
     <p>
-      We send reminder messages before visits and take pride in quality work.
+      We send reminder messages before every visit and clean all frames, sills and doors as standard during each window cleaning service.
     </p>
 
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
+<!-- SERVICES -->
 <section class="services">
   <div class="container">
 
-    <h2>How Our Service Works</h2>
+    <h2>
+      Our Exterior Cleaning Services
+    </h2>
+
+    <div class="grid">
+
+      <div class="card">
+        <h3>Window Cleaning</h3>
+        <p>
+          Regular 4 or 8 weekly window cleaning using purified water for a spotless finish.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Gutter Clearing</h3>
+        <p>
+          Professional gutter vacuum clearing to remove moss, leaves and blockages safely.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Fascia & Soffit Cleaning</h3>
+        <p>
+          Restore the appearance of your property with professional UPVC exterior cleaning.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="areas">
+  <div class="container">
+
+    <h2>
+      How Our Service Works
+    </h2>
 
     <div class="grid">
 
       <div class="card">
         <h3>1. Request a Quote</h3>
-        <p>Fill in the form below.</p>
+        <p>
+          Complete the quick quote form below with your property details.
+        </p>
       </div>
 
       <div class="card">
-        <h3>2. We Price It</h3>
-        <p>We send a quote.</p>
+        <h3>2. Receive Your Price</h3>
+        <p>
+          We’ll send you a clear quotation for your required service.
+        </p>
       </div>
 
       <div class="card">
-        <h3>3. We Book You In</h3>
-        <p>We confirm your first clean.</p>
+        <h3>3. Get Booked In</h3>
+        <p>
+          Once approved, we arrange your first clean and future schedule.
+        </p>
       </div>
 
     </div>
@@ -76,14 +142,22 @@ fetch("nav.html")
 <section class="contact" id="quote-form">
   <div class="container">
 
-    <h2>Request a Free Quote</h2>
+    <h2>
+      Request a Free Quote
+    </h2>
+
+    <p>
+      Get in touch today for a fast, free exterior cleaning quotation.
+    </p>
 
     <form action="https://api.web3forms.com/submit" method="POST" class="quote-form">
 
       <input type="hidden" name="access_key" value="cfa0dbd3-f3c3-4d3d-a5ad-da28be2951d9">
 
       <input type="text" name="name" placeholder="Full Name" required>
+
       <input type="text" name="postcode" placeholder="Postcode" required>
+
       <input type="text" name="address" placeholder="Address" required>
 
       <select name="service" required>
@@ -124,15 +198,27 @@ fetch("nav.html")
         <option>3+</option>
       </select>
 
-      <button class="btn" type="submit">Request Quote</button>
+      <button class="btn" type="submit">
+        Request Quote
+      </button>
 
     </form>
 
   </div>
 </section>
 
-<!-- IMPORTANT: make sure script.js is loaded -->
-<script src="script.js"></script>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+
+    <p>
+      © 2026 All Clear Exterior Cleaning • Hampshire Exterior Cleaning Services
+    </p>
+
+  </div>
+</footer>
+
+<script src="/script.js"></script>
 
 </body>
 </html>
