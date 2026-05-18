@@ -323,7 +323,7 @@ input:focus, select:focus {
 }
 
 /* ==========================================================================
-   ADDED: MULTI-STEP INTERFACE ENGINE FIXED CONTROLS
+   ADDED: MULTI-STEP ENGINE STRUCTURAL CONTROLS
    ========================================================================== */
 .form-panel {
     display: none;
@@ -347,92 +347,93 @@ input:focus, select:focus {
     padding-bottom: 6px;
 }
 
-/* Progress Tracking Steps Layout Horizontal Fixes */
+/* Progress Tracking Steps Layout Horizontal Force */
 .form-progress-indicator {
     display: flex !important;
     flex-direction: row !important;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 25px;
-    width: 100%;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto 25px auto !important;
+    width: 100% !important;
+    gap: 0 !important;
 }
 
 .progress-step {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: #E2E8F0;
-    color: var(--text-slate);
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 50% !important;
+    background: #E2E8F0 !important;
+    color: var(--text-slate) !important;
     display: flex !important;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 0.9rem;
+    align-items: center !important;
+    justify-content: center !important;
+    font-weight: 700 !important;
+    font-size: 0.95rem !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    flex-shrink: 0;
+    flex-shrink: 0 !important;
 }
 
 .progress-step.active-indicator {
-    background: var(--brand-blue);
-    color: var(--text-pure-white);
-    box-shadow: 0 0 0 4px rgba(10, 88, 202, 0.15);
+    background: var(--brand-blue) !important;
+    color: var(--text-pure-white) !important;
+    box-shadow: 0 0 0 4px rgba(10, 88, 202, 0.15) !important;
 }
 
 .progress-line {
-    flex: 0 1 50px;
-    height: 3px;
-    background: #E2E8F0;
-    margin: 0 8px;
-    display: block;
+    flex: 0 1 60px !important;
+    height: 3px !important;
+    background: #E2E8F0 !important;
+    margin: 0 10px !important;
+    display: block !important;
 }
 
 /* Back/Next Utility Navigation Buttons Layout */
 .form-navigation-buttons {
-    display: flex;
-    gap: 12px;
-    margin-top: 10px;
-    justify-content: flex-end;
+    display: flex !important;
+    gap: 12px !important;
+    margin-top: 15px !important;
+    justify-content: flex-end !important;
 }
 
 .btn-step-next {
-    background-color: var(--brand-blue);
-    color: var(--text-pure-white);
-    border: none;
-    padding: 12px 24px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    border-radius: 6px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 10px rgba(10, 88, 202, 0.15);
+    background-color: var(--brand-blue) !important;
+    color: var(--text-pure-white) !important;
+    border: none !important;
+    padding: 12px 24px !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    box-shadow: 0 4px 10px rgba(10, 88, 202, 0.15) !important;
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .btn-step-next:hover {
-    background-color: #0849a3;
+    background-color: #0849a3 !important;
     transform: translateY(-1px);
 }
 
 .btn-step-prev {
-    background: #F8FAFC;
-    color: var(--text-slate);
-    border: 1.5px solid #E2E8F0;
-    padding: 12px 20px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    border-radius: 6px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+    background: #F8FAFC !important;
+    color: var(--text-slate) !important;
+    border: 1.5px solid #E2E8F0 !important;
+    padding: 12px 20px !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .btn-step-prev:hover {
-    background-color: #F1F5F9;
-    color: var(--brand-dark-navy);
+    background-color: #F1F5F9 !important;
+    color: var(--brand-dark-navy) !important;
 }
 
 /* ==========================================================================
