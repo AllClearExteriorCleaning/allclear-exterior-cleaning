@@ -526,3 +526,36 @@ input:focus, select:focus {
         grid-template-columns: 1fr !important;
     }
 }
+
+/* ==========================================================================
+   PROGRAMMATIC SEO UTILITY CLASSES (CLOUDFLARE ENGINE COMPLEMENTS)
+   ========================================================================== */
+.pseo-notice-box {
+    margin-top: 20px; 
+    padding: 15px 20px; 
+    background: var(--brand-light-sky); 
+    border-radius: 8px; 
+    border-left: 4px solid var(--brand-blue);
+    font-weight: 500; 
+    color: var(--brand-dark-navy);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.pseo-notice-box i {
+    color: var(--brand-blue);
+    font-size: 1.2rem;
+    margin-top: 2px;
+}
+
+.pseo-full-width-card {
+    grid-column: 1 / -1 !important;
+}
+
+@media (max-width: 768px) {
+    .pseo-notice-box {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
