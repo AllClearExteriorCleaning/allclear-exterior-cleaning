@@ -322,6 +322,115 @@ input:focus, select:focus {
 }
 
 /* ==========================================================================
+   ADDED: MULTI-STEP ENGINE STRUCTURAL CONTROLS
+   ========================================================================== */
+.form-panel {
+    display: none;
+}
+
+.form-panel.active-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    animation: fadeInStep 0.35s ease-in-out forwards;
+}
+
+.step-panel-title {
+    color: var(--brand-blue);
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+    border-bottom: 2px solid var(--brand-light-sky);
+    padding-bottom: 6px;
+}
+
+/* Progress Tracking Steps Layout */
+.form-progress-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.progress-step {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #E2E8F0;
+    color: var(--text-slate);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-step.active-indicator {
+    background: var(--brand-blue);
+    color: var(--text-pure-white);
+    box-shadow: 0 0 0 4px rgba(10, 88, 202, 0.15);
+}
+
+.progress-line {
+    flex: 0 1 50px;
+    height: 3px;
+    background: #E2E8F0;
+    margin: 0 8px;
+}
+
+/* Back/Next Utility Navigation Buttons */
+.form-navigation-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+    justify-content: flex-end;
+}
+
+.btn-step-next {
+    background-color: var(--brand-blue);
+    color: var(--text-pure-white);
+    border: none;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 10px rgba(10, 88, 202, 0.15);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-step-next:hover {
+    background-color: #0849a3;
+    transform: translateY(-1px);
+}
+
+.btn-step-prev {
+    background: #F8FAFC;
+    color: var(--text-slate);
+    border: 1.5px solid #E2E8F0;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-step-prev:hover {
+    background-color: #F1F5F9;
+    color: var(--brand-dark-navy);
+}
+
+/* ==========================================================================
    CONTENT LAYOUT SECTIONS
    ========================================================================== */
 .services-block, .about-block, .geo-seo-content-block {
@@ -557,5 +666,19 @@ input:focus, select:focus {
     .pseo-notice-box {
         flex-direction: column;
         gap: 8px;
+    }
+}
+
+/* ==========================================================================
+   ADDED: KEYFRAME ANIMS ENGINE FOR PROGRESS TRANSITIONS
+   ========================================================================== */
+@keyframes fadeInStep {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
