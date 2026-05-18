@@ -76,8 +76,8 @@
             </div>
             
             <div class="hero-form-card" id="quote-section">
-                <h3>Request a Free Instant Quote</h3>
-                <p>Fill out your details below to secure your price estimate.</p>
+                <h3>Request an Instant Price Quote</h3>
+                <p>Fill out your choices below to see your pricing calculations instantly.</p>
                 
                 <div class="form-progress-indicator">
                     <div class="progress-step active-indicator" id="ind-1">1</div>
@@ -126,13 +126,20 @@
                                 <select id="storeys" name="property_storeys" required>
                                     <option value="1">Bungalow (1 Storey)</option>
                                     <option value="2" selected>Standard House (2 Storeys)</option>
-                                    <option value="3">Townhouse (3 Storeys)</option>
-                                    <option value="4+">4+ Storeys / Commercial</option>
+                                    <option value="3">3 Storeys</option>
+                                    <option value="4+">More than 3 Storeys</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="bedrooms">Number of Bedrooms *</label>
-                                <input type="number" id="bedrooms" name="bedroom_count" min="1" max="10" value="3" required>
+                                <select id="bedrooms" name="bedroom_count" required>
+                                    <option value="1">1 Bedroom</option>
+                                    <option value="2">2 Bedrooms</option>
+                                    <option value="3" selected>3 Bedrooms</option>
+                                    <option value="4">4 Bedrooms</option>
+                                    <option value="5">5 Bedrooms</option>
+                                    <option value="6+">More than 5 Bedrooms</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-navigation-buttons">
@@ -152,31 +159,34 @@
                                     <option value="Gutter Clearance">Gutter Clearance</option>
                                     <option value="Fascia & Soffit Cleaning">Fascia & Soffit Cleaning</option>
                                     <option value="Conservatory Roof Cleaning">Conservatory Roof Cleaning</option>
-                                    <option value="Full Exterior Package">Full Exterior Package</option>
+                                    <option value="Full Exterior Package">Full Exterior Package (Windows, Gutters, Fascias)</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="velux">Velux Windows?</label>
-                                <select id="velux" name="has_velux">
-                                    <option value="No">No</option>
-                                    <option value="Yes">Yes</option>
+                                <label for="velux">Number of Velux Windows?</label>
+                                <select id="velux" name="velux_count">
+                                    <option value="0" selected>None</option>
+                                    <option value="1">1 Velux</option>
+                                    <option value="2">2 Velux</option>
+                                    <option value="3">3 Velux</option>
+                                    <option value="4+">4+ Velux</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-group-full">
-                            <label for="extensions">Conservatory or Extension present?</label>
+                            <label for="extensions">Conservatory or Extension present? (Excludes Roof)</label>
                             <select id="extensions" name="extensions_present">
-                                <option value="None">No conservatory or extension</option>
-                                <option value="Conservatory Only">Yes, Conservatory</option>
-                                <option value="Extension Only">Yes, Extension</option>
-                                <option value="Both">Yes, Both</option>
+                                <option value="None" selected>No conservatory or extension</option>
+                                <option value="Yes">Yes, add Conservatory/Extension (+£5)</option>
                             </select>
                         </div>
 
+                        <div id="instant-price-display"></div>
+
                         <div class="form-navigation-buttons">
                             <button type="button" class="btn-step-prev" onclick="prevStep(3)"><i class="fa-solid fa-arrow-left"></i> Back</button>
-                            <button type="submit" class="btn-submit-quote">Submit Quote Request <i class="fa-solid fa-paper-plane"></i></button>
+                            <button type="submit" class="btn-submit-quote">Book Routine Service <i class="fa-solid fa-paper-plane"></i></button>
                         </div>
                     </div>
                 </form>
@@ -284,13 +294,124 @@
             mainNavMenu.classList.toggle('nav-menu-open');
         });
 
-        // Close menu when a navigation item link is clicked
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', () => {
                 mainNavMenu.classList.remove('nav-menu-open');
             });
         });
 
+        // --- MATH CALCULATOR MATRIX ENGINE ---
+        function calculateInstantPrice() {
+            const storeys = document.getElementById('storeys').value;
+            const bedrooms = document.getElementById('bedrooms').value;
+            const service = document.getElementById('service').value;
+            const veluxCount = document.getElementById('velux').value;
+            const extensions = document.getElementById('extensions').value;
+            const priceDisplayBox = document.getElementById('instant-price-display');
+
+            if (!priceDisplayBox) return;
+
+            // Guard rails: Check if selections require manual quoting upfront
+            if (storeys === "4+" || bedrooms === "6+") {
+                showContactMessage("Property scale exceeds online calculator limits. Please submit details for a quick custom quote!");
+                return;
+            }
+            if (service === "Full Exterior Package" && bedrooms === "1") {
+                showContactMessage("Please contact us directly for our custom 1-bedroom full package rates!");
+                return;
+            }
+
+            let routineCost = 0;
+            let isFirstCleanDouble = false;
+
+            // 1. Calculate price based on service selected
+            if (service === "Window Cleaning") {
+                isFirstCleanDouble = true;
+                const windowRates = { "1": 16, "2": 18, "3": 22, "4": 26, "5": 30 };
+                routineCost = windowRates[bedrooms] || 0;
+
+                // Height modifiers
+                if (storeys === "3") {
+                    routineCost += 3;
+                }
+
+                // Add-on modifiers
+                if (veluxCount !== "0") {
+                    const veluxMultiplier = veluxCount === "4+" ? 4 : parseInt(veluxCount);
+                    routineCost += (veluxMultiplier * 1);
+                }
+                if (extensions === "Yes") {
+                    routineCost += 5;
+                }
+
+            } else if (service === "Gutter Clearance" || service === "Fascia & Soffit Cleaning") {
+                const flatRates = { "1": 70, "2": 70, "3": 90, "4": 105, "5": 120 };
+                routineCost = flatRates[bedrooms] || 0;
+
+            } else if (service === "Conservatory Roof Cleaning") {
+                routineCost = 130; // Fixed price baseline for all conservatory roofs
+
+            } else if (service === "Full Exterior Package") {
+                const packageRates = { "2": 170, "3": 220, "4": 270, "5": 320 };
+                routineCost = packageRates[bedrooms] || 0;
+            }
+
+            if (routineCost === 0) {
+                showContactMessage("Please select a service type to generate your calculation estimate.");
+                return;
+            }
+
+            // 2. Render dynamic output panel HTML
+            let innerHTMLContent = `
+                <div style="background: var(--brand-light-sky); border: 2px dashed var(--brand-blue); padding: 20px; border-radius: 8px; margin-bottom: 20px; font-family: var(--font-stack);">
+            `;
+
+            if (isFirstCleanDouble) {
+                innerHTMLContent += `
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #CBD5E1; padding-bottom: 10px; margin-bottom: 10px;">
+                        <span style="font-size: 0.9rem; font-weight: 700; color: var(--brand-dark-navy);">First Initial Deep Clean:</span>
+                        <strong style="font-size: 1.25rem; color: #DC2626;">£${routineCost * 2}</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; margin-bottom: 8px;">
+                        <span style="font-size: 0.9rem; font-weight: 700; color: var(--brand-dark-navy);">Subsequent Ongoing Cleaning:</span>
+                        <strong style="font-size: 1.25rem; color: var(--brand-blue);">£${routineCost}</strong>
+                    </div>
+                    <p style="font-size: 0.78rem; color: var(--text-slate); line-height: 1.45; background: #FFF; padding: 8px 12px; border-radius: 6px; border: 1px solid #E2E8F0; margin-bottom: 12px;">
+                        <strong>* Why is the first clean double?</strong> Initial cleans take significantly longer to safely strip away months of accumulated baked-on traffic film, window debris, and old organic residue. Once perfectly detailed, we maintain that pristine glass clarity at our lower standard routine ongoing rates.
+                    </p>
+                `;
+            } else {
+                innerHTMLContent += `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; margin-bottom: 8px;">
+                        <span style="font-size: 0.95rem; font-weight: 700; color: var(--brand-dark-navy);">Estimated Service Total:</span>
+                        <strong style="font-size: 1.6rem; color: var(--brand-blue); font-weight: 800;">£${routineCost}</strong>
+                    </div>
+                `;
+            }
+
+            // Global T&C notice notes footer
+            innerHTMLContent += `
+                    <p style="font-size: 0.78rem; color: var(--text-slate); line-height: 1.4; margin-top: 5px;">
+                        <em>Assumes standard property size and that external rear access is unblocked (not going through internal living spaces). Estimate subject to brief onsite visual review upon arrival.</em>
+                    </p>
+                    <input type="hidden" name="calculated_quote_estimate" value="Routine: £${routineCost}${isFirstCleanDouble ? ' / First: £' + (routineCost * 2) : ''}">
+                </div>
+            `;
+
+            priceDisplayBox.innerHTML = innerHTMLContent;
+        }
+
+        function showContactMessage(message) {
+            document.getElementById('instant-price-display').innerHTML = `
+                <div style="background: #FFFBEB; border: 2px solid #F59E0B; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 20px; font-family: var(--font-stack);">
+                    <strong style="color: #B45309; font-size: 0.95rem; display: block; margin-bottom: 4px;"><i class="fa-solid fa-circle-info"></i> Bespoke Quote Required</strong>
+                    <p style="font-size: 0.85rem; color: #78350F; line-height: 1.4;">${message}</p>
+                    <input type="hidden" name="calculated_quote_estimate" value="Manual Quote Required Needed">
+                </div>
+            `;
+        }
+
+        // --- STEP PANEL CONTROLS ---
         function nextStep(currentStep) {
             const currentPanel = document.getElementById('panel-' + currentStep);
             const inputs = currentPanel.querySelectorAll('input, select');
@@ -313,6 +434,10 @@
             nextPanel.classList.add('active-panel');
             
             document.getElementById('ind-' + (currentStep + 1)).classList.add('active-indicator');
+
+            if (currentStep === 2) {
+                calculateInstantPrice();
+            }
         }
 
         function prevStep(currentStep) {
@@ -326,6 +451,13 @@
             
             document.getElementById('ind-' + currentStep).classList.remove('active-indicator');
         }
+
+        // Live calculation event listeners
+        document.getElementById('storeys').addEventListener('change', calculateInstantPrice);
+        document.getElementById('bedrooms').addEventListener('change', calculateInstantPrice);
+        document.getElementById('service').addEventListener('change', calculateInstantPrice);
+        document.getElementById('velux').addEventListener('change', calculateInstantPrice);
+        document.getElementById('extensions').addEventListener('change', calculateInstantPrice);
     </script>
 </body>
 </html>
