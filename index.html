@@ -107,7 +107,7 @@
                         </div>
                     </div>
 
-                    <div class="form-panel" id="panel-2">
+                    <div class="form-panel" id="panel-2" style="display: none;">
                         <h4 class="step-panel-title">Property Details</h4>
                         <div class="form-row">
                             <div class="form-group-threequarters">
@@ -140,7 +140,7 @@
                         </div>
                     </div>
 
-                    <div class="form-panel" id="panel-3">
+                    <div class="form-panel" id="panel-3" style="display: none;">
                         <h4 class="step-panel-title">Service Details</h4>
                         <div class="form-row">
                             <div class="form-group">
@@ -319,15 +319,24 @@
             
             if(!isValid) return; 
             
-            document.getElementById('panel-' + currentStep).classList.remove('active-panel');
-            document.getElementById('panel-' + (currentStep + 1)).classList.add('active-panel');
+            currentPanel.style.display = 'none';
+            currentPanel.classList.remove('active-panel');
+            
+            const nextPanel = document.getElementById('panel-' + (currentStep + 1));
+            nextPanel.style.display = 'flex';
+            nextPanel.classList.add('active-panel');
             
             document.getElementById('ind-' + (currentStep + 1)).classList.add('active-indicator');
         }
 
         function prevStep(currentStep) {
-            document.getElementById('panel-' + currentStep).classList.remove('active-panel');
-            document.getElementById('panel-' + (currentStep - 1)).classList.add('active-panel');
+            const currentPanel = document.getElementById('panel-' + currentStep);
+            currentPanel.style.display = 'none';
+            currentPanel.classList.remove('active-panel');
+            
+            const prevPanel = document.getElementById('panel-' + (currentStep - 1));
+            prevPanel.style.display = 'flex';
+            prevPanel.classList.add('active-panel');
             
             document.getElementById('ind-' + currentStep).classList.remove('active-indicator');
         }
