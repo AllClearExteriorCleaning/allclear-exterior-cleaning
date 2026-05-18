@@ -16,10 +16,16 @@
                 <span class="brand-main">ALL CLEAR</span>
                 <span class="brand-sub">EXTERIOR CLEANING</span>
             </a>
-            <nav class="nav-menu">
-                <a href="index.html">Home</a>
-                <a href="#services">Our Services</a>
-                <a href="#locations">Areas We Cover</a>
+            
+            <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle Navigation Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <nav class="nav-menu" id="mainNavMenu">
+                <a href="index.html" class="nav-item">Home</a>
+                <a href="#services" class="nav-item">Our Services</a>
+                <a href="#about" class="nav-item">Why Choose Us</a>
+                <a href="#contact-footer" class="nav-item">Contact</a>
                 <a href="#quote-section" class="btn-quote-header">Get a Free Quote Now <i class="fa-solid fa-chevron-right"></i></a>
             </nav>
         </div>
@@ -145,16 +151,28 @@
         </div>
     </section>
 
-    <section id="locations" class="seo-footprint-block">
+    <section id="about" class="about-block">
         <div class="container-center">
-            <h2 class="block-title">Local Service Hubs</h2>
-            <p class="block-subtitle">Select your nearest regional coverage area for specialized local pricing configurations.</p>
-            <div id="seo-links-container" class="seo-links-grid">
+            <h2 class="block-title">Why Property Owners Choose All Clear</h2>
+            <p class="block-subtitle">Setting higher standards in professional, stress-free external property management.</p>
+            <div class="about-grid">
+                <div class="about-item">
+                    <h4><i class="fa-solid fa-comment-sms"></i> Reliable Communication</h4>
+                    <p>No unexpected visits. We send automated text notifications the evening before arrival so you know exactly when to leave gates unlocked.</p>
                 </div>
+                <div class="about-item">
+                    <h4><i class="fa-solid fa-shield-halved"></i> Full Liability Cover</h4>
+                    <p>Rest easy with our extensive company insurance policies covering standard residential properties and large multi-storey corporate buildings.</p>
+                </div>
+                <div class="about-item">
+                    <h4><i class="fa-solid fa-wand-magic-sparkles"></i> Pure Water Finish</h4>
+                    <p>Our truck-mounted filtration tanks clear mineral components down to 0 parts-per-million, eliminating structural spotting marks as windows air-dry.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer class="site-footer">
+    <footer id="contact-footer" class="site-footer">
         <div class="footer-wrap">
             <div class="footer-brand-side">
                 <h3>ALL CLEAR EXTERIOR CLEANING</h3>
@@ -174,22 +192,32 @@
     </footer>
 
     <script>
-        const towns = ["Winchester", "Andover", "Amesbury", "Basingstoke", "Eastleigh"];
-        const services = ["Window Cleaning", "Gutter Cleaning", "Gutter Fascia Washing", "Conservatory Cleaning", "Solar Panel Cleaning"];
-        const container = document.getElementById('seo-links-container');
+        const mobileNavToggle = document.getElementById('mobileNavToggle');
+        const mainNavMenu = document.getElementById('mainNavMenu');
+        const navItems = document.querySelectorAll('.nav-item, .btn-quote-header');
 
-        if(container) {
-            towns.forEach(town => {
-                services.forEach(service => {
-                    const slug = `${service.toLowerCase().replace(/ /g, "-")}-${town.toLowerCase()}`;
-                    const a = document.createElement('a');
-                    a.href = `pages/${slug}.html`;
-                    a.className = "seo-pill-link";
-                    a.innerHTML = `<i class="fa-solid fa-location-crosshairs"></i> ${service} in <strong>${town}</strong>`;
-                    container.appendChild(a);
-                });
+        // Toggle visibility when clicking mobile hamburger button
+        mobileNavToggle.addEventListener('click', () => {
+            mainNavMenu.classList.toggle('nav-menu-open');
+            // Animate toggle icon change
+            const icon = mobileNavToggle.querySelector('i');
+            if (mainNavMenu.classList.contains('nav-menu-open')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close dropdown options smoothly after choosing an anchor link selection on mobile viewports
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                mainNavMenu.classList.remove('nav-menu-open');
+                mobileNavToggle.querySelector('i').classList.remove('fa-xmark');
+                mobileNavToggle.querySelector('i').classList.add('fa-bars');
             });
-        }
+        });
     </script>
 </body>
 </html>
