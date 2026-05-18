@@ -23,20 +23,20 @@
         "addressLocality": "Andover",
         "addressRegion": "Hampshire",
         "addressCountry": "GB"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 51.208,
-    "longitude": -1.482
-  },
-  "areaServed": [
-    {"@type": "AdministrativeArea", "name": "Andover"},
-    {"@type": "AdministrativeArea", "name": "Basingstoke"},
-    {"@type": "AdministrativeArea", "name": "Winchester"},
-    {"@type": "AdministrativeArea", "name": "Eastleigh"}
-  ]
-}
-</script>
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 51.208,
+        "longitude": -1.482
+      },
+      "areaServed": [
+        {"@type": "AdministrativeArea", "name": "Andover"},
+        {"@type": "AdministrativeArea", "name": "Basingstoke"},
+        {"@type": "AdministrativeArea", "name": "Winchester"},
+        {"@type": "AdministrativeArea", "name": "Eastleigh"}
+      ]
+    }
+    </script>
 </head>
 <body>
 
@@ -78,80 +78,106 @@
                 <h3>Request a Free Instant Quote</h3>
                 <p>Fill out your details below to secure your competitive price estimate.</p>
                 
-                <form action="https://api.web3forms.com/submit" method="POST" class="quote-form-engine">
+                <div class="form-progress-indicator">
+                    <div class="progress-step active-indicator" id="ind-1">1</div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" id="ind-2">2</div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" id="ind-3">3</div>
+                </div>
+                
+                <form action="https://api.web3forms.com/submit" method="POST" class="quote-form-engine" id="multiStepForm">
                     <input type="hidden" name="access_key" value="cfa0dbd3-f3c3-4d3d-a5ad-da28be2951d9">
                     <input type="checkbox" name="botcheck" class="hidden-honeypot" style="display: none;">
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="name">Full Name *</label>
-                            <input type="text" id="name" name="name" placeholder="John Smith" required>
+                    <div class="form-panel active-panel" id="panel-1">
+                        <h4 class="step-panel-title">Contact Information</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input type="text" id="name" name="name" placeholder="John Smith" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" placeholder="07123 456789" required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number *</label>
-                            <input type="tel" id="phone" name="phone" placeholder="07123 456789" required>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group-threequarters">
-                            <label for="address">Property Address *</label>
-                            <input type="text" id="address" name="address" placeholder="123 High Street, Town" required>
-                        </div>
-                        <div class="form-group-quarter">
-                            <label for="postcode">Postcode *</label>
-                            <input type="text" id="postcode" name="postcode" placeholder="SP10 1AA" required>
+                        <div class="form-navigation-buttons">
+                            <button type="button" class="btn-step-next" onclick="nextStep(1)">Next Step <i class="fa-solid fa-arrow-right"></i></button>
                         </div>
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="service">Service Required *</label>
-                            <select id="service" name="service_type" required>
-                                <option value="" disabled selected>Select Service...</option>
-                                <option value="Window Cleaning">Window Cleaning</option>
-                                <option value="Gutter Clearance">Gutter Clearance</option>
-                                <option value="Fascia & Soffit Cleaning">Fascia & Soffit Cleaning</option>
-                                <option value="Conservatory Roof Cleaning">Conservatory Roof Cleaning</option>
-                                <option value="Full Exterior Package">Full Exterior Package</option>
+                    <div class="form-panel" id="panel-2">
+                        <h4 class="step-panel-title">Property Details</h4>
+                        <div class="form-row">
+                            <div class="form-group-threequarters">
+                                <label for="address">Property Address *</label>
+                                <input type="text" id="address" name="address" placeholder="123 High Street, Town" required>
+                            </div>
+                            <div class="form-group-quarter">
+                                <label for="postcode">Postcode *</label>
+                                <input type="text" id="postcode" name="postcode" placeholder="SP10 1AA" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="storeys">Number of Storeys *</label>
+                                <select id="storeys" name="property_storeys" required>
+                                    <option value="1">Bungalow (1 Storey)</option>
+                                    <option value="2" selected>Standard House (2 Storeys)</option>
+                                    <option value="3">Townhouse (3 Storeys)</option>
+                                    <option value="4+">4+ Storeys / Commercial</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="bedrooms">Number of Bedrooms *</label>
+                                <input type="number" id="bedrooms" name="bedroom_count" min="1" max="10" value="3" required>
+                            </div>
+                        </div>
+                        <div class="form-navigation-buttons">
+                            <button type="button" class="btn-step-prev" onclick="prevStep(2)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                            <button type="button" class="btn-step-next" onclick="nextStep(2)">Next Step <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="form-panel" id="panel-3">
+                        <h4 class="step-panel-title">Service Details</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="service">Service Required *</label>
+                                <select id="service" name="service_type" required>
+                                    <option value="" disabled selected>Select Service...</option>
+                                    <option value="Window Cleaning">Window Cleaning</option>
+                                    <option value="Gutter Clearance">Gutter Clearance</option>
+                                    <option value="Fascia & Soffit Cleaning">Fascia & Soffit Cleaning</option>
+                                    <option value="Conservatory Roof Cleaning">Conservatory Roof Cleaning</option>
+                                    <option value="Full Exterior Package">Full Exterior Package</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="velux">Velux Windows?</label>
+                                <select id="velux" name="has_velux">
+                                    <option value="No">No</option>
+                                    <option value="Yes">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group-full">
+                            <label for="extensions">Conservatory or Extension present?</label>
+                            <select id="extensions" name="extensions_present">
+                                <option value="None">No conservatory or extension</option>
+                                <option value="Conservatory Only">Yes, Conservatory</option>
+                                <option value="Extension Only">Yes, Extension</option>
+                                <option value="Both">Yes, Both</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="storeys">Number of Storeys *</label>
-                            <select id="storeys" name="property_storeys" required>
-                                <option value="1">Bungalow (1 Storey)</option>
-                                <option value="2" selected>Standard House (2 Storeys)</option>
-                                <option value="3">Townhouse (3 Storeys)</option>
-                                <option value="4+">4+ Storeys / Commercial</option>
-                            </select>
+
+                        <div class="form-navigation-buttons">
+                            <button type="button" class="btn-step-prev" onclick="prevStep(3)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                            <button type="submit" class="btn-submit-quote">Submit Quote Request <i class="fa-solid fa-paper-plane"></i></button>
                         </div>
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="bedrooms">Number of Bedrooms *</label>
-                            <input type="number" id="bedrooms" name="bedroom_count" min="1" max="10" value="3" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="velux">Velux Windows?</label>
-                            <select id="velux" name="has_velux">
-                                <option value="No">No</option>
-                                <option value="Yes">Yes</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group-full">
-                        <label for="extensions">Conservatory or Extension present?</label>
-                        <select id="extensions" name="extensions_present">
-                            <option value="None">No conservatory or extension</option>
-                            <option value="Conservatory Only">Yes, Conservatory</option>
-                            <option value="Extension Only">Yes, Extension</option>
-                            <option value="Both">Yes, Both</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="btn-submit-quote">Submit Quote Request <i class="fa-solid fa-paper-plane"></i></button>
                 </form>
             </div>
         </div>
@@ -253,6 +279,7 @@
     </footer>
 
     <script>
+        // MOBILE HEADER NAVIGATION TOGGLE
         const mobileNavToggle = document.getElementById('mobileNavToggle');
         const mainNavMenu = document.getElementById('mainNavMenu');
         const navItems = document.querySelectorAll('.nav-item, .btn-quote-header');
@@ -276,6 +303,34 @@
                 mobileNavToggle.querySelector('i').classList.add('fa-bars');
             });
         });
+
+        // MULTI-STEP FORM ENGINE SCRIPT
+        function nextStep(currentStep) {
+            const currentPanel = document.getElementById('panel-' + currentStep);
+            const inputs = currentPanel.querySelectorAll('input, select');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if(!input.checkValidity()) {
+                    input.reportValidity();
+                    isValid = false;
+                }
+            });
+            
+            if(!isValid) return; 
+            
+            document.getElementById('panel-' + currentStep).classList.remove('active-panel');
+            document.getElementById('panel-' + (currentStep + 1)).classList.add('active-panel');
+            
+            document.getElementById('ind-' + (currentStep + 1)).classList.add('active-indicator');
+        }
+
+        function prevStep(currentStep) {
+            document.getElementById('panel-' + currentStep).classList.remove('active-panel');
+            document.getElementById('panel-' + (currentStep - 1)).classList.add('active-panel');
+            
+            document.getElementById('ind-' + currentStep).classList.remove('active-indicator');
+        }
     </script>
 </body>
 </html>
