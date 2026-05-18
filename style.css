@@ -315,6 +315,7 @@ input:focus, select:focus {
     gap: 10px;
     box-shadow: 0 4px 12px rgba(10, 88, 202, 0.2);
     transition: background-color 0.2s ease;
+    width: 100%;
 }
 
 .btn-submit-quote:hover {
@@ -322,14 +323,14 @@ input:focus, select:focus {
 }
 
 /* ==========================================================================
-   ADDED: MULTI-STEP ENGINE STRUCTURAL CONTROLS
+   ADDED: MULTI-STEP INTERFACE ENGINE FIXED CONTROLS
    ========================================================================== */
 .form-panel {
     display: none;
 }
 
 .form-panel.active-panel {
-    display: flex;
+    display: flex !important;
     flex-direction: column;
     gap: 15px;
     animation: fadeInStep 0.35s ease-in-out forwards;
@@ -346,12 +347,14 @@ input:focus, select:focus {
     padding-bottom: 6px;
 }
 
-/* Progress Tracking Steps Layout */
+/* Progress Tracking Steps Layout Horizontal Fixes */
 .form-progress-indicator {
-    display: flex;
+    display: flex !important;
+    flex-direction: row !important;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    width: 100%;
 }
 
 .progress-step {
@@ -360,12 +363,13 @@ input:focus, select:focus {
     border-radius: 50%;
     background: #E2E8F0;
     color: var(--text-slate);
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
     font-weight: 700;
     font-size: 0.9rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
 }
 
 .progress-step.active-indicator {
@@ -379,9 +383,10 @@ input:focus, select:focus {
     height: 3px;
     background: #E2E8F0;
     margin: 0 8px;
+    display: block;
 }
 
-/* Back/Next Utility Navigation Buttons */
+/* Back/Next Utility Navigation Buttons Layout */
 .form-navigation-buttons {
     display: flex;
     gap: 12px;
