@@ -27,7 +27,7 @@ html {
 }
 
 /* ==========================================================================
-   HEADER UTILITY COMPONENT
+   HEADER COMPONENT & RESPONSIVE NAV MENU
    ========================================================================== */
 .site-header {
     background: var(--text-pure-white);
@@ -45,6 +45,7 @@ html {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 
 .logo-brand {
@@ -67,6 +68,18 @@ html {
     color: var(--brand-accent-orange);
     letter-spacing: 1.5px;
     margin-top: 2px;
+}
+
+/* Mobile Hamburger Menu Button */
+.mobile-nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--brand-dark-navy);
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1001;
 }
 
 .nav-menu {
@@ -94,6 +107,9 @@ html {
     border-radius: 30px;
     font-weight: 700;
     box-shadow: 0 4px 10px rgba(255, 107, 53, 0.25);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -101,6 +117,38 @@ html {
     transform: translateY(-1px);
     box-shadow: 0 6px 15px rgba(255, 107, 53, 0.35);
     color: var(--text-pure-white);
+}
+
+/* Tablet & Mobile Breakpoint Menu Rules */
+@media (max-width: 991px) {
+    .mobile-nav-toggle {
+        display: block;
+    }
+
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: calc(100% + 15px);
+        left: -5%;
+        width: 110%;
+        background-color: var(--text-pure-white);
+        padding: 24px 20px;
+        box-shadow: 0 15px 20px rgba(0,0,0,0.08);
+        border-top: 1px solid #E2E8F0;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .nav-menu.nav-menu-open {
+        display: flex;
+    }
+
+    .nav-menu .btn-quote-header {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 20px;
+    }
 }
 
 /* ==========================================================================
@@ -272,8 +320,12 @@ input:focus, select:focus {
 /* ==========================================================================
    SERVICES & TEXT PRESENTATION BLOCKS
    ========================================================================== */
-.services-block, .seo-footprint-block {
+.services-block, .about-block {
     padding: 80px 0;
+}
+
+.about-block {
+    background-color: var(--brand-light-sky);
 }
 
 .container-center {
@@ -329,43 +381,30 @@ input:focus, select:focus {
     line-height: 1.5;
 }
 
-/* ==========================================================================
-   SEO AUTOMATION GRID LINK PILLS
-   ========================================================================== */
-.seo-footprint-block {
-    background-color: var(--brand-light-sky);
-}
-
-.seo-links-grid {
+/* Why Choose Us Structural Adjustments */
+.about-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
 }
 
-.seo-pill-link {
-    background: var(--text-pure-white);
-    padding: 14px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    color: var(--brand-dark-navy);
-    font-size: 0.9rem;
+.about-item h4 {
+    font-size: 1.2rem;
+    color: var(--brand-blue);
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-    border: 1px solid #E2E8F0;
-    transition: all 0.2s ease;
+    gap: 8px;
 }
 
-.seo-pill-link i {
-    color: var(--brand-blue);
-    font-size: 0.8rem;
+.about-item i {
+    color: var(--brand-accent-orange);
 }
 
-.seo-pill-link hover {
-    border-color: var(--brand-blue);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+.about-item p {
+    color: var(--text-slate);
+    font-size: 0.95rem;
+    line-height: 1.6;
 }
 
 /* ==========================================================================
@@ -443,9 +482,6 @@ input:focus, select:focus {
 
 /* MOBILE RESPONSIVE FIXES */
 @media (max-width: 768px) {
-    .nav-menu a:not(.btn-quote-header) {
-        display: none;
-    }
     .hero-text-block h1 {
         font-size: 2.2rem;
     }
