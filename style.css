@@ -5,7 +5,7 @@
     --brand-blue: #0A58CA;
     --brand-light-sky: #F0F6FF;
     --brand-dark-navy: #0F172A;
-    --brand-accent-sky: #00A8E8; /* Swapped from orange to crisp pure-water sky blue */
+    --brand-accent-sky: #00A8E8; /* Pure water sky blue */
     --text-slate: #475569;
     --text-pure-white: #FFFFFF;
     --card-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
@@ -64,10 +64,11 @@ html {
 
 .brand-sub {
     font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--brand-accent-sky);
+    font-weight: 800;
+    color: var(--brand-dark-navy); /* Changed to Dark Navy for crystal clear readability under the logo */
     letter-spacing: 1.5px;
-    margin-top: 2px;
+    margin-top: 3px;
+    text-transform: uppercase;
 }
 
 .mobile-nav-toggle {
@@ -101,7 +102,7 @@ html {
 
 .nav-menu .btn-quote-header {
     background-color: var(--brand-accent-sky);
-    color: var(--brand-dark-navy); /* Dark text on bright sky blue for elite contrast */
+    color: var(--brand-dark-navy) !important; /* HIGH CONTRAST: Dark text on bright sky blue */
     padding: 10px 20px;
     border-radius: 30px;
     font-weight: 700;
@@ -115,7 +116,6 @@ html {
 .nav-menu .btn-quote-header:hover {
     transform: translateY(-1px);
     box-shadow: 0 6px 15px rgba(0, 168, 232, 0.3);
-    color: var(--brand-dark-navy);
 }
 
 @media (max-width: 991px) {
@@ -167,7 +167,7 @@ html {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(10, 88, 202, 0.92) 0%, rgba(15, 23, 42, 0.85) 100%);
+    background: linear-gradient(135deg, rgba(10, 88, 202, 0.95) 0%, rgba(15, 23, 42, 0.9) 100%);
     z-index: 1;
 }
 
@@ -203,7 +203,7 @@ html {
 
 .hero-text-block p {
     font-size: 1.2rem;
-    opacity: 0.9;
+    opacity: 0.95;
     margin-bottom: 30px;
     line-height: 1.6;
 }
@@ -223,7 +223,7 @@ html {
 }
 
 .hero-badges i {
-    color: var(--brand-accent-sky);
+    color: var(--brand-accent-sky); /* Icons remain bright sky blue against the dark background overlay */
 }
 
 /* ==========================================================================
@@ -323,7 +323,7 @@ input:focus, select:focus {
 }
 
 /* ==========================================================================
-   ADDED: MULTI-STEP ENGINE STRUCTURAL CONTROLS
+   MULTI-STEP ENGINE STRUCTURAL CONTROLS
    ========================================================================== */
 .form-panel {
     display: none;
@@ -524,7 +524,7 @@ input:focus, select:focus {
 }
 
 .about-item i {
-    color: var(--brand-accent-sky);
+    color: var(--brand-blue); /* High-contrast blue for section checks */
 }
 
 .about-item p {
@@ -643,7 +643,7 @@ input:focus, select:focus {
 }
 
 /* ==========================================================================
-   PROGRAMMATIC SEO UTILITY CLASSES (CLOUDFLARE ENGINE COMPLEMENTS)
+   PROGRAMMATIC SEO UTILITY CLASSES
    ========================================================================== */
 .pseo-notice-box {
     margin-top: 20px; 
@@ -676,7 +676,7 @@ input:focus, select:focus {
 }
 
 /* ==========================================================================
-   ADDED: KEYFRAME ANIMS ENGINE FOR PROGRESS TRANSITIONS
+   KEYFRAME ANIMS ENGINE FOR PROGRESS TRANSITIONS
    ========================================================================== */
 @keyframes fadeInStep {
     from {
