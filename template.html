@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ PAGE_TITLE }}</title>
+    <meta name="description" content="{{ META_DESCRIPTION }}">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="header-container">
+            <a href="/" class="logo-brand">
+                <span class="brand-main">ALL CLEAR</span>
+                <span class="brand-sub">EXTERIOR CLEANING</span>
+            </a>
+            <button class="mobile-nav-toggle" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-menu">
+                <a href="#services">Our Services</a>
+                <a href="#about">Why Choose Us</a>
+                <a href="#local-coverage">Coverage Map</a>
+                <a href="#quote" class="btn-quote-header"><i class="fas fa-calculator"></i> Get Free Quote</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-viewport">
+        <div class="hero-overlay"></div>
+        <div class="hero-wrapper">
+            <div class="hero-text-block">
+                <h1>{{ HERO_HEADING }}</h1>
+                <p>{{ HERO_SUBTITLE }}</p>
+                <div class="hero-badges">
+                    <span><i class="fas fa-check-circle"></i> Pure Water Fed Pole Systems</span>
+                    <span><i class="fas fa-check-circle"></i> £5M Public Liability Insurance Cover</span>
+                    <span><i class="fas fa-check-circle"></i> 100% Satisfaction Guarantee Checked</span>
+                </div>
+            </div>
+
+            <div class="hero-form-card" id="quote">
+                <h3>Instantly Request Your Quote</h3>
+                <p>Serving {{ LOCATION_NAME }} ({{ POSTCODE }}) and surrounding zones.</p>
+                
+                <!-- Web3Forms Configured Form Interface -->
+                <form action="https://api.web3forms.com/submit" method="POST" class="quote-form-engine">
+                    <!-- Replace value with your exact Web3Forms Access Key -->
+                    <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE">
+                    <input type="hidden" name="subject" value="{{ FORM_SUBJECT }}">
+                    <input type="hidden" name="Target Location" value="{{ LOCATION_NAME }}">
+                    <input type="hidden" name="Requested Service" value="{{ SERVICE_NAME }}">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Your Name</label>
+                            <input type="text" name="name" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label>Contact Phone</label>
+                            <input type="tel" name="phone" required placeholder="07123 456789">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group-threequarters">
+                            <label>First Line of Address</label>
+                            <input type="text" name="address" required placeholder="e.g. 12 High Street">
+                        </div>
+                        <div class="form-group-quarter">
+                            <label>Postcode</label>
+                            <input type="text" name="postcode" value="{{ POSTCODE }}" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group-full">
+                        <label>Select Work Type</label>
+                        <select name="service_required">
+                            <option value="{{ SERVICE_NAME }}" selected>{{ SERVICE_NAME }}</option>
+                            <option value="Window Cleaning">Standard Window Cleaning</option>
+                            <option value="Gutter Clearance">Gutter Clearance</option>
+                            <option value="Fascia & Soffit Cleaning">Fascia & Soffit Deep Wash</option>
+                            <option value="Conservatory Roof Cleaning">Conservatory Roof Restoration</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-submit-quote">
+                        Send Booking Request <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <section class="services-block" id="services">
+            <div class="container-center">
+                <h2 class="block-title">Expert Care For Your Property</h2>
+                <p class="block-subtitle">High quality exterior clearing treatments across the {{ LOCATION_NAME }} neighborhood landscape.</p>
+                
+                <div class="services-card-grid">
+                    <div class="service-card pseo-full-width-card">
+                        <div class="card-icon"><i class="fas fa-stars"></i></div>
+                        <h3>Deep-Dive Service Spotlight: {{ SERVICE_NAME }}</h3>
+                        <p>{{ SERVICE_INTRO }}</p>
+                        
+                        <!-- Programmatic SEO Local Context Container Callout -->
+                        <div class="pseo-notice-box">
+                            <i class="fas fa-house-chimney-crack"></i>
+                            <div>
+                                <strong>Important Note for Property Owners near {{ LANDMARK }}:</strong> 
+                                {{ SERVICE_NOTE }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-block" id="about">
+            <div class="container-center">
+                <h2 class="block-title">Why Property Owners Choose Us</h2>
+                <p class="block-subtitle">We are premium local specialists dedicated to consistent schedules and pristine structural presentation.</p>
+                <div class="about-grid">
+                    <div class="about-item">
+                        <h4><i class="fas fa-shield-halved"></i> Completely Insured</h4>
+                        <p>Total public liability protection cover shielding your property surfaces completely against accidental operational anomalies.</p>
+                    </div>
+                    <div class="about-item">
+                        <h4><i class="fas fa-clock"></i> Dependable Schedules</h4>
+                        <p>Choose reliable recurring 4 or 8-weekly tracking notifications. We text your phone the evening before every planned arrival window.</p>
+                    </div>
+                    <div class="about-item">
+                        <h4><i class="fas fa-droplet"></i> Eco Pure Water</h4>
+                        <p>Advanced multi-stage carbon filter processing eliminates calcified water spots for a beautiful, streak-free surface shine.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-wrap">
+            <div class="footer-brand-side">
+                <h3>ALL CLEAR EXTERIOR CLEANING</h3>
+                <p>Your local choice for clean glass, clear gutters, and beautiful property exteriors across Hampshire.</p>
+                <p class="working-hours"><i class="far fa-clock"></i> Mon - Sat: 08:00 - 18:00</p>
+            </div>
+            <div class="footer-contact-side">
+                <h4>Start Your Estimate</h4>
+                <a href="tel:07000000000" class="contact-link"><i class="fas fa-phone"></i> 07000 000000</a>
+                <p class="geo-tagline"><i class="fas fa-location-dot"></i> Expertly serving homeowners across the {{ LOCATION_NAME }} ({{ POSTCODE }}) region landscape.</p>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>&copy; 2026 All Clear Exterior Cleaning. All Rights Reserved. Fully Certified & Regulated.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.mobile-nav-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('nav-menu-open');
+        });
+    </script>
+</body>
+</html>
