@@ -70,7 +70,6 @@ html {
     margin-top: 2px;
 }
 
-/* Mobile Hamburger Menu Button */
 .mobile-nav-toggle {
     display: none;
     background: none;
@@ -119,7 +118,6 @@ html {
     color: var(--text-pure-white);
 }
 
-/* Tablet & Mobile Breakpoint Menu Rules */
 @media (max-width: 991px) {
     .mobile-nav-toggle {
         display: block;
@@ -229,7 +227,7 @@ html {
 }
 
 /* ==========================================================================
-   THE 8-FIELD CONVERSION PRICING FORM CARD
+   FORM COMPONENT WITH POSTCODE GRID SYSTEM RULES
    ========================================================================== */
 .hero-form-card {
     background: var(--text-pure-white);
@@ -263,7 +261,13 @@ html {
     gap: 15px;
 }
 
-.form-group, .form-group-full {
+@media (min-width: 480px) {
+    .form-row:has(.form-group-threequarters) {
+        grid-template-columns: 3fr 1fr;
+    }
+}
+
+.form-group, .form-group-full, .form-group-threequarters, .form-group-quarter {
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -318,9 +322,9 @@ input:focus, select:focus {
 }
 
 /* ==========================================================================
-   SERVICES & TEXT PRESENTATION BLOCKS
+   CONTENT LAYOUT SECTIONS
    ========================================================================== */
-.services-block, .about-block {
+.services-block, .about-block, .geo-seo-content-block {
     padding: 80px 0;
 }
 
@@ -350,15 +354,22 @@ input:focus, select:focus {
     margin: 0 auto 50px auto;
 }
 
+/* Updated 2x2 grid presentation for 4 items */
 .services-card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 30px;
+}
+
+@media(min-width: 992px) {
+    .services-card-grid {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 .service-card {
     background: var(--text-pure-white);
-    padding: 30px;
+    padding: 35px 30px;
     border-radius: var(--border-radius-smooth);
     box-shadow: var(--card-shadow);
     border-top: 4px solid var(--brand-blue);
@@ -371,14 +382,14 @@ input:focus, select:focus {
 }
 
 .service-card h3 {
-    font-size: 1.25rem;
-    margin-bottom: 10px;
+    font-size: 1.35rem;
+    margin-bottom: 12px;
 }
 
 .service-card p {
     color: var(--text-slate);
     font-size: 0.95rem;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 /* Why Choose Us Structural Adjustments */
@@ -405,6 +416,32 @@ input:focus, select:focus {
     color: var(--text-slate);
     font-size: 0.95rem;
     line-height: 1.6;
+}
+
+/* Local SEO Geographics Content Grid Matrix */
+.geo-text-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+.geo-zone-card {
+    background: var(--text-pure-white);
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #E2E8F0;
+}
+
+.geo-zone-card h4 {
+    font-size: 1.1rem;
+    color: var(--brand-blue);
+    margin-bottom: 10px;
+}
+
+.geo-zone-card p {
+    font-size: 0.9rem;
+    color: var(--text-slate);
+    line-height: 1.5;
 }
 
 /* ==========================================================================
@@ -484,5 +521,8 @@ input:focus, select:focus {
 @media (max-width: 768px) {
     .hero-text-block h1 {
         font-size: 2.2rem;
+    }
+    .form-row {
+        grid-template-columns: 1fr !important;
     }
 }
