@@ -5,7 +5,7 @@
     --brand-blue: #0A58CA;
     --brand-light-sky: #F0F6FF;
     --brand-dark-navy: #0F172A;
-    --brand-accent-orange: #FF6B35;
+    --brand-accent-sky: #00A8E8; /* Swapped from orange to crisp pure-water sky blue */
     --text-slate: #475569;
     --text-pure-white: #FFFFFF;
     --card-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
@@ -65,7 +65,7 @@ html {
 .brand-sub {
     font-size: 0.75rem;
     font-weight: 700;
-    color: var(--brand-accent-orange);
+    color: var(--brand-accent-sky);
     letter-spacing: 1.5px;
     margin-top: 2px;
 }
@@ -100,12 +100,12 @@ html {
 }
 
 .nav-menu .btn-quote-header {
-    background-color: var(--brand-accent-orange);
-    color: var(--text-pure-white);
+    background-color: var(--brand-accent-sky);
+    color: var(--brand-dark-navy); /* Dark text on bright sky blue for elite contrast */
     padding: 10px 20px;
     border-radius: 30px;
     font-weight: 700;
-    box-shadow: 0 4px 10px rgba(255, 107, 53, 0.25);
+    box-shadow: 0 4px 10px rgba(0, 168, 232, 0.2);
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -114,8 +114,8 @@ html {
 
 .nav-menu .btn-quote-header:hover {
     transform: translateY(-1px);
-    box-shadow: 0 6px 15px rgba(255, 107, 53, 0.35);
-    color: var(--text-pure-white);
+    box-shadow: 0 6px 15px rgba(0, 168, 232, 0.3);
+    color: var(--brand-dark-navy);
 }
 
 @media (max-width: 991px) {
@@ -223,7 +223,7 @@ html {
 }
 
 .hero-badges i {
-    color: var(--brand-accent-orange);
+    color: var(--brand-accent-sky);
 }
 
 /* ==========================================================================
@@ -524,7 +524,7 @@ input:focus, select:focus {
 }
 
 .about-item i {
-    color: var(--brand-accent-orange);
+    color: var(--brand-accent-sky);
 }
 
 .about-item p {
@@ -600,7 +600,7 @@ input:focus, select:focus {
 
 .working-hours {
     font-weight: 600;
-    color: var(--brand-accent-orange) !important;
+    color: var(--brand-accent-sky) !important;
 }
 
 .footer-contact-side h4 {
