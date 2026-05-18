@@ -55,6 +55,7 @@
                 <a href="index.html" class="nav-item">Home</a>
                 <a href="#services" class="nav-item">Our Services</a>
                 <a href="#about" class="nav-item">Why Choose Us</a>
+                <a href="#locations" class="nav-item">Areas Covered</a>
                 <a href="#contact-footer" class="nav-item">Contact</a>
                 <a href="#quote-section" class="btn-quote-header">Get a Free Quote <i class="fa-solid fa-chevron-right"></i></a>
             </nav>
@@ -183,6 +184,39 @@
         </div>
     </section>
 
+    <section id="services" class="services-block">
+        <div class="container-center">
+            <h2 class="block-title">Our Professional Exterior Cleaning Services</h2>
+            <p class="block-subtitle">Premium equipment and pure water systems to keep your home immaculate and protected year-round.</p>
+            
+            <div class="services-card-grid">
+                <div class="service-card">
+                    <div class="card-icon"><i class="fa-solid fa-window-maximize"></i></div>
+                    <h3>Pure Water Window Cleaning</h3>
+                    <p>Using reach-and-wash carbon poles with clean, purified water. We wash frames, sills, and glass to a completely streak-free finish without any soapy residues remaining to attract new dirt.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="card-icon"><i class="fa-solid fa-bore-hole"></i></div>
+                    <h3>skyVac Gutter Clearance</h3>
+                    <p>Safe, powerful ground-level clearance of heavy sludge, leaves, and blockages using industrial suction setups. Keeps drainage working perfectly to prevent expensive internal property damp issues.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="card-icon"><i class="fa-solid fa-house"></i></div>
+                    <h3>Fascia & Soffit Washing</h3>
+                    <p>Deep-clean treatment that strips away stubborn green algae, heavy weather grime, and grey pollution stains from rooflines to fully restore your property's primary street-side curb appeal.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="card-icon"><i class="fa-solid fa-sun"></i></div>
+                    <h3>Conservatory Roof Cleaning</h3>
+                    <p>Specialist safe treatment for delicate glass or polycarbonate roof panels. Removes green organic film and debris build-up to allow maximum bright natural sunlight back into your living spaces.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="about" class="about-block">
         <div class="container-center">
             <div class="about-profile-wrapper">
@@ -193,6 +227,32 @@
                     <h2 class="section-heading-left">Meet Your Local Cleaning Specialist</h2>
                     <p>Hi, I'm Jack, owner and operator of <strong>All Clear Exterior Cleaning</strong>. We take absolute pride in maintaining homes across Hampshire with high-reach pure water fed systems, professional skyVac gutter systems, and meticulous conservatory roof restoration solutions.</p>
                     <p>When you request a service, you are dealing with a fully insured, dedicated local professional who guarantees a streak-free, flawless finish every single visit. No shortcuts, no hidden surprises—just an immaculate home frame-to-glass.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="locations" class="geo-seo-content-block">
+        <div class="container-center">
+            <h2 class="block-title">Local Exterior Cleaning Service Areas</h2>
+            <p class="block-subtitle">We proudly operate a structured routine route schedule across the following regional service zones:</p>
+            
+            <div class="geo-text-grid">
+                <div class="geo-zone-card">
+                    <h4>Andover Cleaning</h4>
+                    <p>Our foundational regular maintenance hub route covering comprehensive domestic window and safe gutter clearing services throughout the entire Andover area.</p>
+                </div>
+                <div class="geo-zone-card">
+                    <h4>Basingstoke Cleaning</h4>
+                    <p>Scheduled monthly exterior care routines for home and business clients located across Basingstoke, Oakley, and surround areas.</p>
+                </div>
+                <div class="geo-zone-card">
+                    <h4>Winchester Cleaning</h4>
+                    <p>Meticulous restoration packages specialized for premium historical properties and modern homes situated within Winchester.</p>
+                </div>
+                <div class="geo-zone-card">
+                    <h4>Eastleigh Cleaning</h4>
+                    <p>Comprehensive residential glass cleaning, UPVC fascia detailing, and full extension gutter clearing services across Eastleigh.</p>
                 </div>
             </div>
         </div>
@@ -219,10 +279,16 @@
     <script>
         const mobileNavToggle = document.getElementById('mobileNavToggle');
         const mainNavMenu = document.getElementById('mainNavMenu');
-        const navItems = document.querySelectorAll('.nav-item, .btn-quote-header');
 
         mobileNavToggle.addEventListener('click', () => {
             mainNavMenu.classList.toggle('nav-menu-open');
+        });
+
+        // Close menu when a navigation item link is clicked
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                mainNavMenu.classList.remove('nav-menu-open');
+            });
         });
 
         function nextStep(currentStep) {
