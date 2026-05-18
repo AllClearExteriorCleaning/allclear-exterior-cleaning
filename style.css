@@ -6,6 +6,7 @@
     --brand-light-sky: #F0F6FF;
     --brand-dark-navy: #0F172A;
     --brand-accent-sky: #00A8E8; /* Pure water sky blue */
+    --brand-electric-pop: #00E5FF; /* Ultra-bright contrast blue for dark overlays */
     --text-slate: #475569;
     --text-pure-white: #FFFFFF;
     --card-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
@@ -65,7 +66,7 @@ html {
 .brand-sub {
     font-size: 0.75rem;
     font-weight: 800;
-    color: var(--brand-dark-navy); /* Changed to Dark Navy for crystal clear readability under the logo */
+    color: var(--brand-dark-navy); /* Dark Navy for crystal clear readability */
     letter-spacing: 1.5px;
     margin-top: 3px;
     text-transform: uppercase;
@@ -102,7 +103,7 @@ html {
 
 .nav-menu .btn-quote-header {
     background-color: var(--brand-accent-sky);
-    color: var(--brand-dark-navy) !important; /* HIGH CONTRAST: Dark text on bright sky blue */
+    color: var(--brand-dark-navy) !important; /* High contrast dark text on bright blue */
     padding: 10px 20px;
     border-radius: 30px;
     font-weight: 700;
@@ -217,13 +218,14 @@ html {
 .hero-badges span {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     font-weight: 600;
     font-size: 1.05rem;
 }
 
 .hero-badges i {
-    color: var(--brand-accent-sky); /* Icons remain bright sky blue against the dark background overlay */
+    color: var(--brand-electric-pop); /* Ultra-bright contrast blue to make the ticks jump out */
+    font-size: 1.15rem;
 }
 
 /* ==========================================================================
