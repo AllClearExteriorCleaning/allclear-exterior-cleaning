@@ -110,12 +110,16 @@
 
                     <div class="form-panel" id="panel-2" style="display: none;">
                         <h4 class="step-panel-title">Property Details</h4>
-                        <div class="form-row">
-                            <div class="form-group-threequarters">
-                                <label for="address">Property Address *</label>
-                                <input type="text" id="address" name="address" placeholder="123 High Street" required>
+                        <div class="form-row-triple">
+                            <div class="form-group">
+                                <label for="house_number">House No. / Name *</label>
+                                <input type="text" id="house_number" name="house_number" placeholder="e.g. 12 or Woodside" required>
                             </div>
-                            <div class="form-group-quarter">
+                            <div class="form-group">
+                                <label for="address">Street Address *</label>
+                                <input type="text" id="address" name="address" placeholder="High Street" required>
+                            </div>
+                            <div class="form-group">
                                 <label for="postcode">Postcode *</label>
                                 <input type="text" id="postcode" name="postcode" placeholder="SP10 1AA" required>
                             </div>
@@ -313,7 +317,6 @@
 
             if (!priceDisplayBox) return "";
 
-            // Guard rails limits
             if (storeys === "4+" || bedrooms === "6+") {
                 return "Custom Quote Required (Scale Limit)";
             }
@@ -458,7 +461,6 @@
                 `;
             }
 
-            // Corrected Dynamic Route Cards with inner content wrappers to stop mobile blowout
             innerHTMLContent += `
                     <div style="margin-top: 15px; text-align: left;">
                         <label style="display: block; font-size: 0.88rem; font-weight: 700; color: var(--brand-dark-navy); margin-bottom: 10px;">How would you like to schedule this?</label>
