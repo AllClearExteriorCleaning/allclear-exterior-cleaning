@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Clear Exterior Cleaning | Window, Gutter & Conservatory Cleaning Hampshire</title>
-    <meta name="description" content="Trusted residential and commercial exterior cleaning across Andover, Winchester, Basingstoke, and Eastleigh. Expert window cleaning, gutter clearance, fascia & soffit washing, and conservatory roof cleaning.">
+    
+    <title id="dynamic-site-title">All Clear Exterior Cleaning | Window, Gutter &amp; Conservatory Cleaning Hampshire</title>
+    
+    <meta name="description" content="Trusted residential and commercial exterior cleaning across Andover, Winchester, Basingstoke, and Eastleigh. Expert window cleaning, gutter clearance, fascia &amp; soffit washing, and conservatory roof cleaning.">
     <link rel="stylesheet" href="style.css?v=2026.05.19">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -66,10 +68,10 @@
         <div class="hero-overlay"></div>
         <div class="hero-wrapper">
             <div class="hero-text-block">
-                <h1>Sparkling Clean Windows, Conservatories & Clear Gutters Across Hampshire</h1>
+                <h1 id="dynamic-main-heading">Sparkling Clean Windows, Conservatories &amp; Clear Gutters Across Hampshire</h1>
                 <p>Reliable, fully insured exterior cleaning specialists serving homeowners and commercial properties with pristine results every single time.</p>
                 <div class="hero-badges">
-                    <span><i class="fa-solid fa-circle-check"></i> Fully Insured & Highly Recommended</span>
+                    <span><i class="fa-solid fa-circle-check"></i> Fully Insured &amp; Highly Recommended</span>
                     <span><i class="fa-solid fa-circle-check"></i> Text Reminders Sent the Night Before</span>
                     <span><i class="fa-solid fa-circle-check"></i> Eco-Friendly Pure Water Solutions</span>
                 </div>
@@ -159,11 +161,11 @@
                                 <label for="service">Service Required *</label>
                                 <select id="service" name="service_type" required>
                                     <option value="" disabled selected>Select Service...</option>
-                                    <option value="Window Cleaning">Window Cleaning (Includes Frames, Sills & Doors)</option>
+                                    <option value="Window Cleaning">Window Cleaning (Includes Frames, Sills &amp; Doors)</option>
                                     <option value="Gutter Clearance">Gutter Clearance</option>
-                                    <option value="Fascia & Soffit Cleaning">Fascia & Soffit Cleaning</option>
+                                    <option value="Fascia &amp; Soffit Cleaning">Fascia &amp; Soffit Cleaning</option>
                                     <option value="Conservatory Roof Cleaning">Conservatory Roof Cleaning Only</option>
-                                    <option value="Full Exterior Package">Full Exterior Package (Windows, Gutters & Fascias)</option>
+                                    <option value="Full Exterior Package">Full Exterior Package (Windows, Gutters &amp; Fascias)</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -220,7 +222,7 @@
                 
                 <div class="service-card">
                     <div class="card-icon"><i class="fa-solid fa-house"></i></div>
-                    <h3>Fascia & Soffit Washing</h3>
+                    <h3>Fascia &amp; Soffit Washing</h3>
                     <p>Deep-clean treatment that strips away stubborn green algae, heavy weather grime, and grey pollution stains from rooflines to fully restore your property's primary street-side curb appeal.</p>
                 </div>
                 
@@ -278,7 +280,7 @@
         <div class="footer-wrap">
             <div class="footer-brand-side">
                 <h3>ALL CLEAR EXTERIOR CLEANING</h3>
-                <p>Delivering premier window cleaning, gutter clearance, conservatory care, and fascia & soffit restoration solutions across Hampshire.</p>
+                <p>Delivering premier window cleaning, gutter clearance, conservatory care, and fascia &amp; soffit restoration solutions across Hampshire.</p>
                 <p class="working-hours"><i class="fa-solid fa-clock"></i> Mon - Fri: 8:00 AM - 5:00 PM</p>
             </div>
             <div class="footer-contact-side">
@@ -293,6 +295,7 @@
     </footer>
 
     <script>
+        // --- MASTER SYSTEM CORE CODE NAVIGATION & ANIMATION ---
         const mobileNavToggle = document.getElementById('mobileNavToggle');
         const mainNavMenu = document.getElementById('mainNavMenu');
 
@@ -304,6 +307,27 @@
             item.addEventListener('click', () => {
                 mainNavMenu.classList.remove('nav-menu-open');
             });
+        });
+
+        // --- AUTOMATED REGIONAL SEO PATTERN ENGINE ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let areaName = urlParams.get('area');
+
+            if (areaName) {
+                // Formatting optimization logic (Ensures clean string capitalization)
+                areaName = areaName.trim();
+                areaName = areaName.charAt(0).toUpperCase() + areaName.slice(1).toLowerCase();
+
+                // 1. Dynamic Meta Title Tag Modification
+                document.title = `Window Cleaning in ${areaName} | All Clear Exterior Cleaning`;
+
+                // 2. Dynamic DOM Content Structural Manipulation (H1 Component)
+                const mainHeadline = document.getElementById('dynamic-main-heading');
+                if (mainHeadline) {
+                    mainHeadline.innerHTML = `Professional Window, Gutter &amp; Exterior Cleaning in ${areaName}`;
+                }
+            }
         });
 
         // --- CALCULATION GENERATION LOGIC ---
