@@ -340,7 +340,6 @@
                 const flatRates = { "1": 70, "2": 70, "3": 90, "4": 105, "5": 120 };
                 routineCost = flatRates[bedrooms] || 0;
                 
-                // If they have an extension/conservatory on gutter/fascia jobs, add 20
                 if (extensions === "Yes") routineCost += 20;
 
             } else if (service === "Conservatory Roof Cleaning") {
@@ -350,7 +349,6 @@
                 const packageRates = { "2": 170, "3": 220, "4": 270, "5": 320 };
                 routineCost = packageRates[bedrooms] || 0;
                 
-                // If they have an extension/conservatory on a full package layout, add 60
                 if (extensions === "Yes") routineCost += 60;
             }
 
@@ -363,14 +361,12 @@
             const priceDisplayBox = document.getElementById('instant-price-display');
             const navBlock = document.getElementById('form-action-nav-block');
 
-            // Quick final step validation check before posting
             const serviceSelect = document.getElementById('service');
             if (!serviceSelect.checkValidity()) {
                 serviceSelect.reportValidity();
                 return;
             }
 
-            // Show a clean loading state to the customer
             priceDisplayBox.innerHTML = `
                 <div style="text-align: center; padding: 15px; font-family: var(--font-stack); color: var(--brand-blue);">
                     <i class="fa-solid fa-spinner fa-spin" style="font-size: 1.5rem; margin-bottom: 8px;"></i>
@@ -378,7 +374,6 @@
                 </div>
             `;
 
-            // Run math calculation engine metrics
             const calcResult = runPricingCalculation();
             let hiddenDataString = "";
 
@@ -388,7 +383,6 @@
                 hiddenDataString = `Routine Base: £${calcResult.routineCost}${calcResult.isFirstCleanDouble ? ' / First Clean Double: £' + (calcResult.routineCost * 2) : ''}`;
             }
 
-            // Create a dynamic payload string to insert into the Web3Forms submit block
             let hiddenInput = form.querySelector('input[name="calculated_quote_estimate"]');
             if (!hiddenInput) {
                 hiddenInput = document.createElement('input');
@@ -398,12 +392,10 @@
             }
             hiddenInput.value = hiddenDataString;
 
-            // Gather full form object metrics to submit via background AJAX fetch
             const formData = new FormData(form);
             const formObject = Object.fromEntries(formData);
             const jsonPayload = JSON.stringify(formObject);
 
-            // POST the data immediately to your inbox background stream
             fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 headers: {
@@ -466,28 +458,34 @@
                 `;
             }
 
-            // Route Booking Options Block
+            // Corrected Dynamic Route Cards with inner content wrappers to stop mobile blowout
             innerHTMLContent += `
                     <div style="margin-top: 15px; text-align: left;">
                         <label style="display: block; font-size: 0.88rem; font-weight: 700; color: var(--brand-dark-navy); margin-bottom: 10px;">How would you like to schedule this?</label>
                         
-                        <div id="card-opt-fastest" onclick="selectUrgencyOption('Book when next in my area', 'card-opt-fastest', 'card-opt-flexible')" style="border: 2px solid #E2E8F0; background: #FFF; padding: 12px; border-radius: 6px; cursor: pointer; margin-bottom: 8px; display: flex; align-items: center; transition: all 0.2s ease;">
-                            <input type="radio" id="radio-fastest" name="urgency_radio" style="margin-right: 12px; pointer-events: none;">
-                            <div>
-                                <strong style="font-size: 0.85rem; color: var(--brand-dark-navy); display: block;">Book me in when you're next in my area</strong>
-                                <span style="font-size: 0.75rem; color: var(--text-slate);">Saves travel time and secures your slot on our next local route routine.</span>
+                        <div class="booking-cards-wrapper">
+                            <div id="card-opt-fastest" class="booking-route-card" onclick="selectUrgencyOption('Book when next in my area', 'card-opt-fastest', 'card-opt-flexible')">
+                                <div class="booking-card-radio">
+                                    <input type="radio" id="radio-fastest" name="urgency_radio" style="display: none;">
+                                </div>
+                                <div class="booking-card-details">
+                                    <h5>Book me in when you're next in my area</h5>
+                                    <p>Saves travel time and secures your slot on our next local route routine.</p>
+                                </div>
+                            </div>
+
+                            <div id="card-opt-flexible" class="booking-route-card" onclick="selectUrgencyOption('Flexible booking window', 'card-opt-flexible', 'card-opt-fastest')">
+                                <div class="booking-card-radio">
+                                    <input type="radio" id="radio-flexible" name="urgency_radio" style="display: none;">
+                                </div>
+                                <div class="booking-card-details">
+                                    <h5>I am flexible (Contact me to arrange a day)</h5>
+                                    <p>No urgent rush. Ideal for general maintenance or planning ahead.</p>
+                                </div>
                             </div>
                         </div>
 
-                        <div id="card-opt-flexible" onclick="selectUrgencyOption('Flexible booking window', 'card-opt-flexible', 'card-opt-fastest')" style="border: 2px solid #E2E8F0; background: #FFF; padding: 12px; border-radius: 6px; cursor: pointer; margin-bottom: 15px; display: flex; align-items: center; transition: all 0.2s ease;">
-                            <input type="radio" id="radio-flexible" name="urgency_radio" style="margin-right: 12px; pointer-events: none;">
-                            <div>
-                                <strong style="font-size: 0.85rem; color: var(--brand-dark-navy); display: block;">I am flexible (Contact me to arrange a day)</strong>
-                                <span style="font-size: 0.75rem; color: var(--text-slate);">No urgent rush. Ideal for general maintenance or planning ahead.</span>
-                            </div>
-                        </div>
-
-                        <button type="button" id="final-booking-btn" onclick="sendFinalBookingDetails()" style="width: 100%; background: #22C55E; color: white; border: none; padding: 14px; border-radius: 6px; font-weight: 700; font-size: 1rem; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; box-shadow: 0 4px 6px -1px rgba(34, 197, 94, 0.2);">
+                        <button type="button" id="final-booking-btn" class="btn-confirm-booking" onclick="sendFinalBookingDetails()">
                             Confirm Booking Request <i class="fa-solid fa-calendar-check"></i>
                         </button>
                     </div>
@@ -500,14 +498,13 @@
         function selectUrgencyOption(value, selectId, deselectId) {
             document.getElementById('booking-urgency-choice').value = value;
             
-            document.getElementById(deselectId).style.borderColor = '#E2E8F0';
-            document.getElementById(deselectId).style.background = '#FFF';
-            document.getElementById(deselectId).querySelector('input').checked = false;
+            const deselectCard = document.getElementById(deselectId);
+            deselectCard.classList.remove('selected-card');
+            deselectCard.querySelector('input').checked = false;
 
-            const selectedSubCard = document.getElementById(selectId);
-            selectedSubCard.style.borderColor = 'var(--brand-blue)';
-            selectedSubCard.style.background = '#F0F7FF';
-            selectedSubCard.querySelector('input').checked = true;
+            const selectCard = document.getElementById(selectId);
+            selectCard.classList.add('selected-card');
+            selectCard.querySelector('input').checked = true;
         }
 
         function sendFinalBookingDetails() {
