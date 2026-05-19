@@ -182,6 +182,8 @@
                             </select>
                         </div>
 
+                        <input type="hidden" id="booking-urgency-choice" name="customer_booking_preference" value="Not Selected">
+
                         <div id="instant-price-display"></div>
 
                         <div class="form-navigation-buttons" id="form-action-nav-block">
@@ -440,7 +442,7 @@
             let innerHTMLContent = `
                 <div style="background: var(--brand-light-sky); border: 2px dashed var(--brand-blue); padding: 20px; border-radius: 8px; margin-bottom: 15px; font-family: var(--font-stack);">
                     <div style="background: #DEF7EC; color: #03543F; font-size: 0.8rem; font-weight: 700; text-align: center; padding: 6px; border-radius: 4px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px;">
-                        <i class="fa-solid fa-circle-check"></i> Pricing Locked & Details Captured Successfully
+                        <i class="fa-solid fa-circle-check"></i> Pricing Calculated &amp; Locked Successfully
                     </div>
             `;
 
@@ -454,34 +456,97 @@
                         <span style="font-size: 0.9rem; font-weight: 700; color: var(--brand-dark-navy);">Subsequent Ongoing Routine Cleaning:</span>
                         <strong style="font-size: 1.35rem; color: var(--brand-blue);">£${calcResult.routineCost}</strong>
                     </div>
-                    <p style="font-size: 0.76rem; color: var(--text-slate); line-height: 1.45; background: #FFF; padding: 10px; border-radius: 6px; border: 1px solid #E2E8F0; margin-bottom: 12px;">
-                        <strong>* Note on our First Cleans:</strong> Initial visits require double time to deeply break down months of accumulated traffic film, debris, and atmospheric pollutants. <strong>Every window cleaning layout includes frames, sills, and external doors detailed as standard on every visit</strong>. Subsequent cleans drop permanently to the lower ongoing baseline schedule rate.
-                    </p>
                 `;
             } else {
                 innerHTMLContent += `
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; margin-bottom: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #CBD5E1; padding-bottom: 10px; margin-bottom: 15px;">
                         <span style="font-size: 0.95rem; font-weight: 700; color: var(--brand-dark-navy);">Estimated Service Total:</span>
                         <strong style="font-size: 1.6rem; color: var(--brand-blue); font-weight: 800;">£${calcResult.routineCost}</strong>
                     </div>
                 `;
-                if (service === "Full Exterior Package") {
-                    innerHTMLContent += `
-                        <p style="font-size: 0.76rem; color: var(--text-slate); line-height: 1.45; background: #FFF; padding: 10px; border-radius: 6px; border: 1px solid #E2E8F0; margin-bottom: 12px;">
-                            <strong>* Full Package Scope:</strong> Your combined estimate bundles complete <strong>Pure Water Window Cleaning (including glass, frames, sills, and doors)</strong>, full high-suction <strong>skyVac Gutter Clearance</strong>, and complete <strong>Fascia & Soffit uPVC deep washing restoration</strong>.
-                        </p>
-                    `;
-                }
             }
 
+            // Route Booking Options Block
             innerHTMLContent += `
-                    <p style="font-size: 0.78rem; color: var(--text-slate); line-height: 1.4; margin-top: 5px; text-align: center; font-weight: 500;">
-                        We will review your property details and text/call you shortly to confirm scheduling slots!
-                    </p>
+                    <div style="margin-top: 15px; text-align: left;">
+                        <label style="display: block; font-size: 0.88rem; font-weight: 700; color: var(--brand-dark-navy); margin-bottom: 10px;">How would you like to schedule this?</label>
+                        
+                        <div id="card-opt-fastest" onclick="selectUrgencyOption('Book when next in my area', 'card-opt-fastest', 'card-opt-flexible')" style="border: 2px solid #E2E8F0; background: #FFF; padding: 12px; border-radius: 6px; cursor: pointer; margin-bottom: 8px; display: flex; align-items: center; transition: all 0.2s ease;">
+                            <input type="radio" id="radio-fastest" name="urgency_radio" style="margin-right: 12px; pointer-events: none;">
+                            <div>
+                                <strong style="font-size: 0.85rem; color: var(--brand-dark-navy); display: block;">Book me in when you're next in my area</strong>
+                                <span style="font-size: 0.75rem; color: var(--text-slate);">Saves travel time and secures your slot on our next local route routine.</span>
+                            </div>
+                        </div>
+
+                        <div id="card-opt-flexible" onclick="selectUrgencyOption('Flexible booking window', 'card-opt-flexible', 'card-opt-fastest')" style="border: 2px solid #E2E8F0; background: #FFF; padding: 12px; border-radius: 6px; cursor: pointer; margin-bottom: 15px; display: flex; align-items: center; transition: all 0.2s ease;">
+                            <input type="radio" id="radio-flexible" name="urgency_radio" style="margin-right: 12px; pointer-events: none;">
+                            <div>
+                                <strong style="font-size: 0.85rem; color: var(--brand-dark-navy); display: block;">I am flexible (Contact me to arrange a day)</strong>
+                                <span style="font-size: 0.75rem; color: var(--text-slate);">No urgent rush. Ideal for general maintenance or planning ahead.</span>
+                            </div>
+                        </div>
+
+                        <button type="button" id="final-booking-btn" onclick="sendFinalBookingDetails()" style="width: 100%; background: #22C55E; color: white; border: none; padding: 14px; border-radius: 6px; font-weight: 700; font-size: 1rem; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; box-shadow: 0 4px 6px -1px rgba(34, 197, 94, 0.2);">
+                            Confirm Booking Request <i class="fa-solid fa-calendar-check"></i>
+                        </button>
+                    </div>
                 </div>
             `;
 
             priceDisplayBox.innerHTML = innerHTMLContent;
+        }
+
+        function selectUrgencyOption(value, selectId, deselectId) {
+            document.getElementById('booking-urgency-choice').value = value;
+            
+            document.getElementById(deselectId).style.borderColor = '#E2E8F0';
+            document.getElementById(deselectId).style.background = '#FFF';
+            document.getElementById(deselectId).querySelector('input').checked = false;
+
+            const selectedSubCard = document.getElementById(selectId);
+            selectedSubCard.style.borderColor = 'var(--brand-blue)';
+            selectedSubCard.style.background = '#F0F7FF';
+            selectedSubCard.querySelector('input').checked = true;
+        }
+
+        function sendFinalBookingDetails() {
+            const urgency = document.getElementById('booking-urgency-choice').value;
+            const btn = document.getElementById('final-booking-btn');
+
+            if (urgency === "Not Selected") {
+                alert("Please select one of the scheduling choices above before confirming your booking request!");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Securing Your Slot...`;
+
+            const form = document.getElementById('multiStepForm');
+            const formData = new FormData(form);
+            const formObject = Object.fromEntries(formData);
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(formObject)
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    document.getElementById('instant-price-display').innerHTML = `
+                        <div style="background: #DEF7EC; border: 2px solid #03543F; padding: 25px; border-radius: 8px; text-align: center; font-family: var(--font-stack);">
+                            <i class="fa-solid fa-circle-check" style="font-size: 2.5rem; color: #0E9F6E; margin-bottom: 12px;"></i>
+                            <strong style="color: #03543F; font-size: 1.15rem; display: block; margin-bottom: 6px;">Booking Request Confirmed!</strong>
+                            <p style="font-size: 0.88rem; color: #046C4E; line-height: 1.4; margin-bottom: 0;">Awesome! We've pinned your price and route preference to our schedule queue. Jack will text or call you shortly to confirm your exact operational day slot!</p>
+                        </div>
+                    `;
+                } else {
+                    alert("Something went wrong saving your preference. Don't worry, we already have your details and will call you!");
+                }
+            })
+            .catch(() => {
+                alert("Something went wrong saving your preference. Don't worry, we already have your details and will call you!");
+            });
         }
 
         function showErrorMessage() {
@@ -493,7 +558,6 @@
             `;
         }
 
-        // --- NAVIGATION ARCHITECTURE ---
         function nextStep(currentStep) {
             const currentPanel = document.getElementById('panel-' + currentStep);
             const inputs = currentPanel.querySelectorAll('input, select');
