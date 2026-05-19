@@ -191,8 +191,20 @@ html {
 
 .progress-line { flex: 0 1 50px; height: 3px; background: #E2E8F0; margin: 0 10px; }
 
+/* Form Row Grid Variations */
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-@media (max-width: 580px) { .form-row { grid-template-columns: 1fr !important; } }
+
+.form-row-triple { 
+    display: grid; 
+    grid-template-columns: 1.2fr 2fr 1.2fr; 
+    gap: 15px; 
+}
+
+@media (max-width: 580px) { 
+    .form-row, .form-row-triple { 
+        grid-template-columns: 1fr !important; 
+    } 
+}
 
 label { font-size: 0.8rem; font-weight: 700; color: var(--brand-dark-navy); text-transform: uppercase; }
 input, select { padding: 11px 14px; border: 1.5px solid #E2E8F0; border-radius: 6px; width: 100%; font-family: var(--font-stack); font-size: 0.95rem; }
