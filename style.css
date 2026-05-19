@@ -215,7 +215,7 @@ input, select { padding: 11px 14px; border: 1.5px solid #E2E8F0; border-radius: 
 
 /* ==========================================================================
    CONTENT SERVICES GRID
-   ========================================================================== */
+   ========================================================================= */
 .services-block, .geo-seo-content-block { padding: 80px 0; }
 .container-center { width: 90%; max-width: 1200px; margin: 0 auto; }
 .block-title { font-size: 2.2rem; font-weight: 800; text-align: center; margin-bottom: 10px; }
@@ -454,49 +454,74 @@ input, select { padding: 11px 14px; border: 1.5px solid #E2E8F0; border-radius: 
 .footer-copyright { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #1E293B; color: #64748B; font-size: 0.85rem; }
 
 /* ==========================================================================
-   CLOUDFARE WORKER ROUTING - REGIONAL HUB LINKS
+   136 ALL-AREAS SEO DIRECTORY MASTER HUB LAYOUT
    ========================================================================== */
-.footer-worker-hubs {
-    border-top: 1px solid #1E293B;
-    background-color: #0B1120;
-    padding: 30px 0;
-    margin-top: 30px;
+.seo-directory-section {
+    padding: 60px 0;
+    background-color: var(--text-pure-white);
 }
 
-.worker-hubs-title {
-    color: var(--text-pure-white);
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.worker-hubs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 15px;
+.directory-grid-container {
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
+}
+
+.directory-main-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--brand-dark-navy);
+    margin-bottom: 12px;
     text-align: center;
 }
 
-.worker-hub-link {
-    color: #94A3B8;
+.directory-subtitle {
+    font-size: 1.05rem;
+    color: var(--text-slate);
+    text-align: center;
+    margin-bottom: 40px;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Highly performant multi-column link layout */
+.directory-links-matrix {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+.directory-links-matrix a {
+    color: var(--text-slate);
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 600;
-    padding: 10px;
-    border: 1px solid #1E293B;
+    padding: 10px 14px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
     border-radius: 6px;
-    transition: all 0.2s ease;
-    background: #0F172A;
+    display: block;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.worker-hub-link:hover {
-    color: var(--brand-accent-sky);
+.directory-links-matrix a:hover {
+    color: var(--text-pure-white);
+    background-color: var(--brand-blue);
     border-color: var(--brand-blue);
-    background: rgba(10, 88, 202, 0.1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(10, 88, 202, 0.12);
+}
+
+@media (max-width: 576px) {
+    .directory-links-matrix {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    .directory-main-title {
+        font-size: 1.75rem;
+    }
 }
