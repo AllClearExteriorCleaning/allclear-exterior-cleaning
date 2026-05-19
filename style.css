@@ -373,7 +373,7 @@ input, select { padding: 11px 14px; border: 1.5px solid #E2E8F0; border-radius: 
 }
 
 /* ==========================================================================
-   MEET JACK BIO COMPONENT
+   MEET THE OWNER BIO COMPONENT
    ========================================================================== */
 .about-block { 
     background: var(--brand-light-sky); 
@@ -454,90 +454,49 @@ input, select { padding: 11px 14px; border: 1.5px solid #E2E8F0; border-radius: 
 .footer-copyright { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #1E293B; color: #64748B; font-size: 0.85rem; }
 
 /* ==========================================================================
-   136 SEO HUB DRAWER MECHANICS FOR CLEAN COMPRESSION
+   CLOUDFARE WORKER ROUTING - REGIONAL HUB LINKS
    ========================================================================== */
-.footer-hubs-drawer {
+.footer-worker-hubs {
     border-top: 1px solid #1E293B;
     background-color: #0B1120;
-    padding: 25px 0;
+    padding: 30px 0;
+    margin-top: 30px;
 }
 
-.hubs-toggle-btn {
-    width: 100%;
-    background: none;
-    border: 1px dashed #475569;
+.worker-hubs-title {
+    color: var(--text-pure-white);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.worker-hubs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.worker-hub-link {
     color: #94A3B8;
-    padding: 12px;
+    text-decoration: none;
     font-size: 0.9rem;
     font-weight: 600;
-    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #1E293B;
     border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
     transition: all 0.2s ease;
+    background: #0F172A;
 }
 
-.hubs-toggle-btn:hover, .hubs-toggle-btn.btn-active {
-    color: var(--brand-blue);
+.worker-hub-link:hover {
+    color: var(--brand-accent-sky);
     border-color: var(--brand-blue);
-    background-color: rgba(10, 88, 202, 0.05);
-}
-
-.hubs-toggle-btn i {
-    transition: transform 0.2s ease;
-}
-
-.hubs-toggle-btn.btn-active i {
-    transform: rotate(180deg);
-}
-
-.hubs-grid-wrapper {
-    display: none;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 30px;
-    margin-top: 25px;
-    padding-top: 20px;
-    border-top: 1px solid #1E293B;
-}
-
-.hubs-grid-wrapper.wrapper-active {
-    display: grid;
-}
-
-.hub-region-column h5 {
-    color: #F8FAFC;
-    font-size: 0.95rem;
-    font-weight: 700;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-left: 3px solid var(--brand-blue);
-    padding-left: 8px;
-}
-
-.hub-links {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.hub-links a {
-    color: #64748B;
-    text-decoration: none;
-    font-size: 0.85rem;
-    transition: color 0.15s ease, padding-left 0.15s ease;
-}
-
-.hub-links a:hover {
-    color: var(--text-pure-white);
-    padding-left: 4px;
-}
-
-@media(max-width: 576px) {
-    .hubs-grid-wrapper {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
+    background: rgba(10, 88, 202, 0.1);
 }
