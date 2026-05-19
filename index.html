@@ -77,7 +77,7 @@
             
             <div class="hero-form-card" id="quote-section">
                 <h3>Request an Instant Price Quote</h3>
-                <p>Fill out your choices below to see your pricing calculations instantly.</p>
+                <p>Fill out your details below to instantly calculate your property cleaning costs.</p>
                 
                 <div class="form-progress-indicator">
                     <div class="progress-step active-indicator" id="ind-1">1</div>
@@ -87,7 +87,7 @@
                     <div class="progress-step" id="ind-3">3</div>
                 </div>
                 
-                <form action="https://api.web3forms.com/submit" method="POST" class="quote-form-engine" id="multiStepForm">
+                <form id="multiStepForm" class="quote-form-engine">
                     <input type="hidden" name="access_key" value="cfa0dbd3-f3c3-4d3d-a5ad-da28be2951d9">
                     <input type="checkbox" name="botcheck" class="hidden-honeypot" style="display: none;">
 
@@ -155,11 +155,11 @@
                                 <label for="service">Service Required *</label>
                                 <select id="service" name="service_type" required>
                                     <option value="" disabled selected>Select Service...</option>
-                                    <option value="Window Cleaning">Window Cleaning</option>
+                                    <option value="Window Cleaning">Window Cleaning (Includes Frames, Sills & Doors)</option>
                                     <option value="Gutter Clearance">Gutter Clearance</option>
                                     <option value="Fascia & Soffit Cleaning">Fascia & Soffit Cleaning</option>
-                                    <option value="Conservatory Roof Cleaning">Conservatory Roof Cleaning</option>
-                                    <option value="Full Exterior Package">Full Exterior Package (Windows, Gutters, Fascias)</option>
+                                    <option value="Conservatory Roof Cleaning">Conservatory Roof Cleaning Only</option>
+                                    <option value="Full Exterior Package">Full Exterior Package (Windows, Gutters & Fascias)</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -178,15 +178,15 @@
                             <label for="extensions">Conservatory or Extension present? (Excludes Roof)</label>
                             <select id="extensions" name="extensions_present">
                                 <option value="None" selected>No conservatory or extension</option>
-                                <option value="Yes">Yes, add Conservatory/Extension (+£5)</option>
+                                <option value="Yes">Yes, Conservatory / Extension present</option>
                             </select>
                         </div>
 
                         <div id="instant-price-display"></div>
 
-                        <div class="form-navigation-buttons">
+                        <div class="form-navigation-buttons" id="form-action-nav-block">
                             <button type="button" class="btn-step-prev" onclick="prevStep(3)"><i class="fa-solid fa-arrow-left"></i> Back</button>
-                            <button type="submit" class="btn-submit-quote">Book Routine Service <i class="fa-solid fa-paper-plane"></i></button>
+                            <button type="button" class="btn-submit-quote" id="calc-trigger-btn" onclick="submitLeadAndShowPrice()">Calculate My Price <i class="fa-solid fa-calculator"></i></button>
                         </div>
                     </div>
                 </form>
@@ -203,7 +203,7 @@
                 <div class="service-card">
                     <div class="card-icon"><i class="fa-solid fa-window-maximize"></i></div>
                     <h3>Pure Water Window Cleaning</h3>
-                    <p>Using reach-and-wash carbon poles with clean, purified water. We wash frames, sills, and glass to a completely streak-free finish without any soapy residues remaining to attract new dirt.</p>
+                    <p>Using reach-and-wash carbon poles with clean, purified water. <strong>We wash all glass, frames, sills, and external doors as standard on every single visit</strong> to ensure a flawless finish without any sticky soap film left behind.</p>
                 </div>
                 
                 <div class="service-card">
@@ -300,8 +300,8 @@
             });
         });
 
-        // --- MATH CALCULATOR MATRIX ENGINE ---
-        function calculateInstantPrice() {
+        // --- CALCULATION GENERATION LOGIC ---
+        function runPricingCalculation() {
             const storeys = document.getElementById('storeys').value;
             const bedrooms = document.getElementById('bedrooms').value;
             const service = document.getElementById('service').value;
@@ -309,109 +309,192 @@
             const extensions = document.getElementById('extensions').value;
             const priceDisplayBox = document.getElementById('instant-price-display');
 
-            if (!priceDisplayBox) return;
+            if (!priceDisplayBox) return "";
 
-            // Guard rails: Check if selections require manual quoting upfront
+            // Guard rails limits
             if (storeys === "4+" || bedrooms === "6+") {
-                showContactMessage("Property scale exceeds online calculator limits. Please submit details for a quick custom quote!");
-                return;
+                return "Custom Quote Required (Scale Limit)";
             }
             if (service === "Full Exterior Package" && bedrooms === "1") {
-                showContactMessage("Please contact us directly for our custom 1-bedroom full package rates!");
-                return;
+                return "Custom Quote Required (1 Bed Package Limit)";
             }
 
             let routineCost = 0;
             let isFirstCleanDouble = false;
 
-            // 1. Calculate price based on service selected
             if (service === "Window Cleaning") {
                 isFirstCleanDouble = true;
                 const windowRates = { "1": 16, "2": 18, "3": 22, "4": 26, "5": 30 };
                 routineCost = windowRates[bedrooms] || 0;
 
-                // Height modifiers
-                if (storeys === "3") {
-                    routineCost += 3;
-                }
-
-                // Add-on modifiers
+                if (storeys === "3") routineCost += 3;
                 if (veluxCount !== "0") {
                     const veluxMultiplier = veluxCount === "4+" ? 4 : parseInt(veluxCount);
                     routineCost += (veluxMultiplier * 1);
                 }
-                if (extensions === "Yes") {
-                    routineCost += 5;
-                }
+                if (extensions === "Yes") routineCost += 5;
 
             } else if (service === "Gutter Clearance" || service === "Fascia & Soffit Cleaning") {
                 const flatRates = { "1": 70, "2": 70, "3": 90, "4": 105, "5": 120 };
                 routineCost = flatRates[bedrooms] || 0;
+                
+                // If they have an extension/conservatory on gutter/fascia jobs, add 20
+                if (extensions === "Yes") routineCost += 20;
 
             } else if (service === "Conservatory Roof Cleaning") {
-                routineCost = 130; // Fixed price baseline for all conservatory roofs
+                routineCost = 130;
 
             } else if (service === "Full Exterior Package") {
                 const packageRates = { "2": 170, "3": 220, "4": 270, "5": 320 };
                 routineCost = packageRates[bedrooms] || 0;
+                
+                // Explicitly check for extension modifier on packages as well if applicable
+                if (extensions === "Yes") routineCost += 20;
             }
 
-            if (routineCost === 0) {
-                showContactMessage("Please select a service type to generate your calculation estimate.");
+            return { routineCost, isFirstCleanDouble };
+        }
+
+        // --- SUBMIT INFO FIRST, THEN SHOW PRICE ENGINE ---
+        function submitLeadAndShowPrice() {
+            const form = document.getElementById('multiStepForm');
+            const priceDisplayBox = document.getElementById('instant-price-display');
+            const navBlock = document.getElementById('form-action-nav-block');
+
+            // Quick final step validation check before posting
+            const serviceSelect = document.getElementById('service');
+            if (!serviceSelect.checkValidity()) {
+                serviceSelect.reportValidity();
                 return;
             }
 
-            // 2. Render dynamic output panel HTML
-            let innerHTMLContent = `
-                <div style="background: var(--brand-light-sky); border: 2px dashed var(--brand-blue); padding: 20px; border-radius: 8px; margin-bottom: 20px; font-family: var(--font-stack);">
+            // Show a clean loading state to the customer
+            priceDisplayBox.innerHTML = `
+                <div style="text-align: center; padding: 15px; font-family: var(--font-stack); color: var(--brand-blue);">
+                    <i class="fa-solid fa-spinner fa-spin" style="font-size: 1.5rem; margin-bottom: 8px;"></i>
+                    <p style="font-size: 0.9rem; font-weight: 600;">Securing your details and calculating rates...</p>
+                </div>
             `;
 
-            if (isFirstCleanDouble) {
+            // Run math calculation engine metrics
+            const calcResult = runPricingCalculation();
+            let hiddenDataString = "";
+
+            if (typeof calcResult === "string" || calcResult.routineCost === 0) {
+                hiddenDataString = "Custom Quote Sheet Review Needed";
+            } else {
+                hiddenDataString = `Routine Base: £${calcResult.routineCost}${calcResult.isFirstCleanDouble ? ' / First Clean Double: £' + (calcResult.routineCost * 2) : ''}`;
+            }
+
+            // Create a dynamic payload string to insert into the Web3Forms submit block
+            let hiddenInput = form.querySelector('input[name="calculated_quote_estimate"]');
+            if (!hiddenInput) {
+                hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'calculated_quote_estimate';
+                form.appendChild(hiddenInput);
+            }
+            hiddenInput.value = hiddenDataString;
+
+            // Gather full form object metrics to submit via background AJAX fetch
+            const formData = new FormData(form);
+            const formObject = Object.fromEntries(formData);
+            const jsonPayload = JSON.stringify(formObject);
+
+            // POST the data immediately to your inbox background stream
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: jsonPayload
+            })
+            .then(async (response) => {
+                if (response.status === 200) {
+                    // Success! Details captured. Now roll out the pricing cards safely
+                    renderPriceOutputHTML(calcResult);
+                    if (navBlock) navBlock.style.display = 'none'; // Lock navigation to keep them looking at the quote
+                } else {
+                    showErrorMessage();
+                }
+            })
+            .catch(error => {
+                showErrorMessage();
+            });
+        }
+
+        function renderPriceOutputHTML(calcResult) {
+            const priceDisplayBox = document.getElementById('instant-price-display');
+            const service = document.getElementById('service').value;
+
+            if (typeof calcResult === "string" || calcResult.routineCost === 0) {
+                priceDisplayBox.innerHTML = `
+                    <div style="background: #FFFBEB; border: 2px solid #F59E0B; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 10px; font-family: var(--font-stack);">
+                        <strong style="color: #B45309; font-size: 1rem; display: block; margin-bottom: 6px;"><i class="fa-solid fa-envelope-open-text"></i> Bespoke Quote Request Received</strong>
+                        <p style="font-size: 0.88rem; color: #78350F; line-height: 1.4;">Your configuration details have been logged on our system schedule. We will review your property dimensions and text/call you directly with a highly competitive custom estimate package shortly!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let innerHTMLContent = `
+                <div style="background: var(--brand-light-sky); border: 2px dashed var(--brand-blue); padding: 20px; border-radius: 8px; margin-bottom: 15px; font-family: var(--font-stack);">
+                    <div style="background: #DEF7EC; color: #03543F; font-size: 0.8rem; font-weight: 700; text-align: center; padding: 6px; border-radius: 4px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px;">
+                        <i class="fa-solid fa-circle-check"></i> Pricing Locked & Details Captured Successfully
+                    </div>
+            `;
+
+            if (calcResult.isFirstCleanDouble) {
                 innerHTMLContent += `
                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #CBD5E1; padding-bottom: 10px; margin-bottom: 10px;">
                         <span style="font-size: 0.9rem; font-weight: 700; color: var(--brand-dark-navy);">First Initial Deep Clean:</span>
-                        <strong style="font-size: 1.25rem; color: #DC2626;">£${routineCost * 2}</strong>
+                        <strong style="font-size: 1.35rem; color: #DC2626;">£${calcResult.routineCost * 2}</strong>
                     </div>
                     <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; margin-bottom: 8px;">
-                        <span style="font-size: 0.9rem; font-weight: 700; color: var(--brand-dark-navy);">Subsequent Ongoing Cleaning:</span>
-                        <strong style="font-size: 1.25rem; color: var(--brand-blue);">£${routineCost}</strong>
+                        <span style="font-size: 0.9rem; font-weight: 700; color: var(--brand-dark-navy);">Subsequent Ongoing Routine Cleaning:</span>
+                        <strong style="font-size: 1.35rem; color: var(--brand-blue);">£${calcResult.routineCost}</strong>
                     </div>
-                    <p style="font-size: 0.78rem; color: var(--text-slate); line-height: 1.45; background: #FFF; padding: 8px 12px; border-radius: 6px; border: 1px solid #E2E8F0; margin-bottom: 12px;">
-                        <strong>* Why is the first clean double?</strong> Initial cleans take significantly longer to safely strip away months of accumulated baked-on traffic film, window debris, and old organic residue. Once perfectly detailed, we maintain that pristine glass clarity at our lower standard routine ongoing rates.
+                    <p style="font-size: 0.76rem; color: var(--text-slate); line-height: 1.45; background: #FFF; padding: 10px; border-radius: 6px; border: 1px solid #E2E8F0; margin-bottom: 12px;">
+                        <strong>* Note on our First Cleans:</strong> Initial visits require double time to deeply break down months of accumulated traffic film, debris, and atmospheric pollutants. <strong>Every window cleaning layout includes frames, sills, and external doors detailed as standard on every visit</strong>. Subsequent cleans drop permanently to the lower ongoing baseline schedule rate.
                     </p>
                 `;
             } else {
                 innerHTMLContent += `
                     <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; margin-bottom: 8px;">
                         <span style="font-size: 0.95rem; font-weight: 700; color: var(--brand-dark-navy);">Estimated Service Total:</span>
-                        <strong style="font-size: 1.6rem; color: var(--brand-blue); font-weight: 800;">£${routineCost}</strong>
+                        <strong style="font-size: 1.6rem; color: var(--brand-blue); font-weight: 800;">£${calcResult.routineCost}</strong>
                     </div>
                 `;
+                if (service === "Full Exterior Package") {
+                    innerHTMLContent += `
+                        <p style="font-size: 0.76rem; color: var(--text-slate); line-height: 1.45; background: #FFF; padding: 10px; border-radius: 6px; border: 1px solid #E2E8F0; margin-bottom: 12px;">
+                            <strong>* Full Package Scope:</strong> Your combined estimate bundles complete <strong>Pure Water Window Cleaning (including glass, frames, sills, and doors)</strong>, full high-suction <strong>skyVac Gutter Clearance</strong>, and complete <strong>Fascia & Soffit uPVC deep washing restoration</strong>.
+                        </p>
+                    `;
+                }
             }
 
-            // Global T&C notice notes footer
             innerHTMLContent += `
-                    <p style="font-size: 0.78rem; color: var(--text-slate); line-height: 1.4; margin-top: 5px;">
-                        <em>Assumes standard property size and that external rear access is unblocked (not going through internal living spaces). Estimate subject to brief onsite visual review upon arrival.</em>
+                    <p style="font-size: 0.78rem; color: var(--text-slate); line-height: 1.4; margin-top: 5px; text-align: center; font-weight: 500;">
+                        We will review your property photos and text/call you shortly to confirm scheduling slots!
                     </p>
-                    <input type="hidden" name="calculated_quote_estimate" value="Routine: £${routineCost}${isFirstCleanDouble ? ' / First: £' + (routineCost * 2) : ''}">
                 </div>
             `;
 
             priceDisplayBox.innerHTML = innerHTMLContent;
         }
 
-        function showContactMessage(message) {
+        function showErrorMessage() {
             document.getElementById('instant-price-display').innerHTML = `
-                <div style="background: #FFFBEB; border: 2px solid #F59E0B; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 20px; font-family: var(--font-stack);">
-                    <strong style="color: #B45309; font-size: 0.95rem; display: block; margin-bottom: 4px;"><i class="fa-solid fa-circle-info"></i> Bespoke Quote Required</strong>
-                    <p style="font-size: 0.85rem; color: #78350F; line-height: 1.4;">${message}</p>
-                    <input type="hidden" name="calculated_quote_estimate" value="Manual Quote Required Needed">
+                <div style="background: #FDE8E8; border: 2px solid #E11D48; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 20px; font-family: var(--font-stack);">
+                    <strong style="color: #9B1C1C; font-size: 0.95rem; display: block;"><i class="fa-solid fa-triangle-exclamation"></i> Network Connection Issue</strong>
+                    <p style="font-size: 0.85rem; color: #7F1D1D; margin-top: 4px;">Could not securely process log tracking lines. Please ring us directly at <a href="tel:07305572453" style="font-weight:700; color:#9B1C1C;">07305 572453</a> for your quote quote details!</p>
                 </div>
             `;
         }
 
-        // --- STEP PANEL CONTROLS ---
+        // --- NAVIGATION ARCHITECTURE ---
         function nextStep(currentStep) {
             const currentPanel = document.getElementById('panel-' + currentStep);
             const inputs = currentPanel.querySelectorAll('input, select');
@@ -434,10 +517,6 @@
             nextPanel.classList.add('active-panel');
             
             document.getElementById('ind-' + (currentStep + 1)).classList.add('active-indicator');
-
-            if (currentStep === 2) {
-                calculateInstantPrice();
-            }
         }
 
         function prevStep(currentStep) {
@@ -451,13 +530,6 @@
             
             document.getElementById('ind-' + currentStep).classList.remove('active-indicator');
         }
-
-        // Live calculation event listeners
-        document.getElementById('storeys').addEventListener('change', calculateInstantPrice);
-        document.getElementById('bedrooms').addEventListener('change', calculateInstantPrice);
-        document.getElementById('service').addEventListener('change', calculateInstantPrice);
-        document.getElementById('velux').addEventListener('change', calculateInstantPrice);
-        document.getElementById('extensions').addEventListener('change', calculateInstantPrice);
     </script>
 </body>
 </html>
