@@ -7,7 +7,7 @@
     <title id="dynamic-site-title">All Clear Exterior Cleaning | Window, Gutter &amp; Conservatory Cleaning Hampshire</title>
     
     <meta name="description" content="Trusted residential and commercial exterior cleaning across Andover, Winchester, Basingstoke, and Eastleigh. Expert window cleaning, gutter clearance, fascia &amp; soffit washing, and conservatory roof cleaning.">
-    <link rel="stylesheet" href="/style.css?v=2026.05.19">
+    <link rel="stylesheet" href="style.css?v=2026.05.19">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script type="application/ld+json">
@@ -64,6 +64,218 @@
         </div>
     </header>
 
+    <section class="hero-viewport">
+        <div class="hero-overlay"></div>
+        <div class="hero-wrapper">
+            <div class="hero-text-block">
+                <h1 id="dynamic-main-heading">Sparkling Clean Windows, Conservatories &amp; Clear Gutters Across Hampshire</h1>
+                <p>Reliable, fully insured exterior cleaning specialists serving homeowners and commercial properties with pristine results every single time.</p>
+                <div class="hero-badges">
+                    <span><i class="fa-solid fa-circle-check"></i> Fully Insured &amp; Highly Recommended</span>
+                    <span><i class="fa-solid fa-circle-check"></i> Text Reminders Sent the Night Before</span>
+                    <span><i class="fa-solid fa-circle-check"></i> Eco-Friendly Pure Water Solutions</span>
+                </div>
+            </div>
+            
+            <div class="hero-form-card" id="quote-section">
+                <h3>Request an Instant Price Quote</h3>
+                <p>Fill out your details below to instantly calculate your property cleaning costs.</p>
+                
+                <div class="form-progress-indicator">
+                    <div class="progress-step active-indicator" id="ind-1">1</div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" id="ind-2">2</div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" id="ind-3">3</div>
+                </div>
+                
+                <form id="multiStepForm" class="quote-form-engine">
+                    <input type="hidden" name="access_key" value="cfa0dbd3-f3c3-4d3d-a5ad-da28be2951d9">
+                    <input type="checkbox" name="botcheck" class="hidden-honeypot" style="display: none;">
+
+                    <div class="form-panel active-panel" id="panel-1">
+                        <h4 class="step-panel-title">Contact Information</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input type="text" id="name" name="name" placeholder="John Smith" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" placeholder="07123 456789" required>
+                            </div>
+                        </div>
+                        <div class="form-navigation-buttons">
+                            <button type="button" class="btn-step-next" onclick="nextStep(1)">Next Step <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="form-panel" id="panel-2" style="display: none;">
+                        <h4 class="step-panel-title">Property Details</h4>
+                        <div class="form-row-triple">
+                            <div class="form-group">
+                                <label for="house_number">House No. / Name *</label>
+                                <input type="text" id="house_number" name="house_number" placeholder="e.g. 12 or Woodside" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Street Address *</label>
+                                <input type="text" id="address" name="address" placeholder="High Street" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="postcode">Postcode *</label>
+                                <input type="text" id="postcode" name="postcode" placeholder="SP10 1AA" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="storeys">Number of Storeys *</label>
+                                <select id="storeys" name="property_storeys" required>
+                                    <option value="1">Bungalow (1 Storey)</option>
+                                    <option value="2" selected>Standard House (2 Storeys)</option>
+                                    <option value="3">3 Storeys</option>
+                                    <option value="4+">More than 3 Storeys</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="bedrooms">Number of Bedrooms *</label>
+                                <select id="bedrooms" name="bedroom_count" required>
+                                    <option value="1">1 Bedroom</option>
+                                    <option value="2">2 Bedrooms</option>
+                                    <option value="3" selected>3 Bedrooms</option>
+                                    <option value="4">4 Bedrooms</option>
+                                    <option value="5">5 Bedrooms</option>
+                                    <option value="6+">More than 5 Bedrooms</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-navigation-buttons">
+                            <button type="button" class="btn-step-prev" onclick="prevStep(2)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                            <button type="button" class="btn-step-next" onclick="nextStep(2)">Next Step <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="form-panel" id="panel-3" style="display: none;">
+                        <h4 class="step-panel-title">Service Details</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="service">Service Required *</label>
+                                <select id="service" name="service_type" required>
+                                    <option value="" disabled selected>Select Service...</option>
+                                    <option value="Window Cleaning">Window Cleaning (Includes Frames, Sills &amp; Doors)</option>
+                                    <option value="Gutter Clearance">Gutter Clearance</option>
+                                    <option value="Fascia &amp; Soffit Cleaning">Fascia &amp; Soffit Cleaning</option>
+                                    <option value="Conservatory Roof Cleaning">Conservatory Roof Cleaning Only</option>
+                                    <option value="Full Exterior Package">Full Exterior Package (Windows, Gutters &amp; Fascias)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="velux">Number of Velux Windows?</label>
+                                <select id="velux" name="velux_count">
+                                    <option value="0" selected>None</option>
+                                    <option value="1">1 Velux</option>
+                                    <option value="2">2 Velux</option>
+                                    <option value="3">3 Velux</option>
+                                    <option value="4+">4+ Velux</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group-full">
+                            <label for="extensions">Conservatory or Extension present? (Excludes Roof)</label>
+                            <select id="extensions" name="extensions_present">
+                                <option value="None" selected>No conservatory or extension</option>
+                                <option value="Yes">Yes, Conservatory / Extension present</option>
+                            </select>
+                        </div>
+
+                        <input type="hidden" id="booking-urgency-choice" name="customer_booking_preference" value="Not Selected">
+
+                        <div id="instant-price-display"></div>
+
+                        <div class="form-navigation-buttons" id="form-action-nav-block">
+                            <button type="button" class="btn-step-prev" onclick="prevStep(3)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                            <button type="button" class="btn-submit-quote" id="calc-trigger-btn" onclick="submitLeadAndShowPrice()">Calculate My Price <i class="fa-solid fa-calculator"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services-block">
+        <div class="container-center">
+            <h2 class="block-title">Our Professional Exterior Cleaning Services</h2>
+            <p class="block-subtitle">Premium equipment and pure water systems to keep your home immaculate and protected year-round.</p>
+            
+            <div class="services-card-grid">
+                <div class="service-card">
+                    <div class="card-icon"><i class="fa-solid fa-window-maximize"></i></div>
+                    <h3>Pure Water Window Cleaning</h3>
+                    <p>Using reach-and-wash carbon poles with clean, purified water. <strong>We wash all glass, frames, sills, and external doors as standard on every single visit</strong> to ensure a flawless finish without any sticky soap film left behind.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="card-icon"><i class="fa-solid fa-bore-hole"></i></div>
+                    <h3>skyVac Gutter Clearance</h3>
+                    <p>Safe, powerful ground-level clearance of heavy sludge, leaves, and blockages using industrial suction setups. Keeps drainage working perfectly to prevent expensive internal property damp issues.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="card-icon"><i class="fa-solid fa-house"></i></div>
+                    <h3>Fascia &amp; Soffit Washing</h3>
+                    <p>Deep-clean treatment that strips away stubborn green algae, heavy weather grime, and grey pollution stains from rooflines to fully restore your property's primary street-side curb appeal.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="card-icon"><i class="fa-solid fa-sun"></i></div>
+                    <h3>Conservatory Roof Cleaning</h3>
+                    <p>Specialist safe treatment for delicate glass or polycarbonate roof panels. Removes green organic film and debris build-up to allow maximum bright natural sunlight back into your living spaces.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about-block">
+        <div class="container-center">
+            <div class="about-profile-wrapper">
+                <div class="about-profile-image">
+                    <img src="IMG_9194.jpeg" alt="Jack - All Clear Exterior Cleaning Owner" style="width:100%; max-width:380px; border-radius:12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+                </div>
+                <div class="about-profile-text">
+                    <h2 class="section-heading-left">Meet Your Local Cleaning Specialist</h2>
+                    <p>Hi, I'm Jack, owner and operator of <strong>All Clear Exterior Cleaning</strong>. We take absolute pride in maintaining homes across Hampshire with high-reach pure water fed systems, professional skyVac gutter systems, and meticulous conservatory roof restoration solutions.</p>
+                    <p>When you request a service, you are dealing with a fully insured, dedicated local professional who guarantees a streak-free, flawless finish every single visit. No shortcuts, no hidden surprises—just an immaculate home frame-to-glass.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="locations" class="geo-seo-content-block">
+        <div class="container-center">
+            <h2 class="block-title">Local Exterior Cleaning Service Areas</h2>
+            <p class="block-subtitle">We proudly operate a structured routine route schedule across the following regional service zones:</p>
+            
+            <div class="geo-text-grid">
+                <div class="geo-zone-card">
+                    <h4>Andover Cleaning</h4>
+                    <p>Our foundational regular maintenance hub route covering comprehensive domestic window and safe gutter clearing services throughout the entire Andover area.</p>
+                </div>
+                <div class="geo-zone-card">
+                    <h4>Basingstoke Cleaning</h4>
+                    <p>Scheduled monthly exterior care routines for home and business clients located across Basingstoke, Oakley, and surround areas.</p>
+                </div>
+                <div class="geo-zone-card">
+                    <h4>Winchester Cleaning</h4>
+                    <p>Meticulous restoration packages specialized for premium historical properties and modern homes situated within Winchester.</p>
+                </div>
+                <div class="geo-zone-card">
+                    <h4>Eastleigh Cleaning</h4>
+                    <p>Comprehensive residential glass cleaning, UPVC fascia detailing, and full extension gutter clearing services across Eastleigh.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer id="contact-footer" class="site-footer">
         <div class="footer-wrap">
             <div class="footer-brand-side">
@@ -79,10 +291,117 @@
         </div>
 
         <div class="footer-hubs-drawer">
-            <div class="container-center" style="text-align: center; padding: 20px 0;">
-                <a href="/areas-we-cover.html" style="color: var(--brand-blue, #0A58CA); text-decoration: underline; font-weight: 700; font-size: 1.1rem;">
-                    Browse All Local Areas Covered
-                </a>
+            <div class="container-center">
+                <button class="hubs-toggle-btn" id="hubsToggleBtn" type="button">
+                    Browse All Local Areas Covered (136 Hub Pages) <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                
+                <div class="hubs-grid-wrapper" id="hubsGridWrapper">
+                    <div class="hub-region-column">
+                        <h5>Andover &amp; Environs</h5>
+                        <div class="hub-links">
+                            <a href="pages/window-cleaning-andover.html">Andover Central</a>
+                            <a href="pages/gutter-clearance-andover.html">Andover Gutters</a>
+                            <a href="pages/fascia-cleaning-andover.html">Andover Fascias</a>
+                            <a href="pages/conservatory-cleaning-andover.html">Andover Conservatories</a>
+                            <a href="pages/window-cleaning-charlton.html">Charlton Windows</a>
+                            <a href="pages/gutter-clearance-charlton.html">Charlton Gutters</a>
+                            <a href="pages/window-cleaning-weyhill.html">Weyhill Windows</a>
+                            <a href="pages/gutter-clearance-weyhill.html">Weyhill Gutters</a>
+                            <a href="pages/window-cleaning-abbotts-ann.html">Abbotts Ann Windows</a>
+                            <a href="pages/gutter-clearance-abbotts-ann.html">Abbotts Ann Gutters</a>
+                            <a href="pages/window-cleaning-amport.html">Amport Windows</a>
+                            <a href="pages/window-cleaning-anna-valley.html">Anna Valley</a>
+                            <a href="pages/window-cleaning-appleshaw.html">Appleshaw</a>
+                            <a href="pages/window-cleaning-barton-stacey.html">Barton Stacey</a>
+                            <a href="pages/window-cleaning-chilbolton.html">Chilbolton</a>
+                            <a href="pages/window-cleaning-clatford.html">Goodworth Clatford</a>
+                            <a href="pages/window-cleaning-hatherden.html">Hatherden</a>
+                            <a href="pages/window-cleaning-monxton.html">Monxton</a>
+                            <a href="pages/window-cleaning-shipton-bellinger.html">Shipton Bellinger</a>
+                            <a href="pages/window-cleaning-thruxton.html">Thruxton</a>
+                            <a href="pages/window-cleaning-vernham-dean.html">Vernham Dean</a>
+                        </div>
+                    </div>
+
+                    <div class="hub-region-column">
+                        <h5>Winchester Districts</h5>
+                        <div class="hub-links">
+                            <a href="pages/window-cleaning-winchester.html">Winchester Central</a>
+                            <a href="pages/gutter-clearance-winchester.html">Winchester Gutters</a>
+                            <a href="pages/fascia-cleaning-winchester.html">Winchester Fascias</a>
+                            <a href="pages/conservatory-cleaning-winchester.html">Winchester Conservatories</a>
+                            <a href="pages/window-cleaning-kings-worthy.html">Kings Worthy Windows</a>
+                            <a href="pages/gutter-clearance-kings-worthy.html">Kings Worthy Gutters</a>
+                            <a href="pages/window-cleaning-badger-farm.html">Badger Farm Windows</a>
+                            <a href="pages/window-cleaning-olivers-battery.html">Oliver's Battery</a>
+                            <a href="pages/window-cleaning-alresford.html">Alresford Windows</a>
+                            <a href="pages/gutter-clearance-alresford.html">Alresford Gutters</a>
+                            <a href="pages/window-cleaning-twyford.html">Twyford Windows</a>
+                            <a href="pages/window-cleaning-compton.html">Compton</a>
+                            <a href="pages/window-cleaning-colden-common.html">Colden Common</a>
+                            <a href="pages/window-cleaning-headbourne-worthy.html">Headbourne Worthy</a>
+                            <a href="pages/window-cleaning-littleton.html">Littleton</a>
+                            <a href="pages/window-cleaning-micheldever.html">Micheldever</a>
+                            <a href="pages/window-cleaning-otterbourne.html">Otterbourne</a>
+                            <a href="pages/window-cleaning-south-wonston.html">South Wonston</a>
+                            <a href="pages/window-cleaning-sparaholt.html">Sparsholt</a>
+                            <a href="pages/window-cleaning-hursley.html">Hursley</a>
+                        </div>
+                    </div>
+
+                    <div class="hub-region-column">
+                        <h5>Basingstoke Sectors</h5>
+                        <div class="hub-links">
+                            <a href="pages/window-cleaning-basingstoke.html">Basingstoke Central</a>
+                            <a href="pages/gutter-clearance-basingstoke.html">Basingstoke Gutters</a>
+                            <a href="pages/fascia-cleaning-basingstoke.html">Basingstoke Fascias</a>
+                            <a href="pages/conservatory-cleaning-basingstoke.html">Basingstoke Conservatories</a>
+                            <a href="pages/window-cleaning-chineham.html">Chineham Windows</a>
+                            <a href="pages/gutter-clearance-chineham.html">Chineham Gutters</a>
+                            <a href="pages/window-cleaning-hatch-warren.html">Hatch Warren Windows</a>
+                            <a href="pages/window-cleaning-beggarwood.html">Beggarwood</a>
+                            <a href="pages/window-cleaning-kempshott.html">Kempshott Windows</a>
+                            <a href="pages/window-cleaning-bramley.html">Bramley Windows</a>
+                            <a href="pages/window-cleaning-oakley.html">Oakley Windows</a>
+                            <a href="pages/window-cleaning-old-basing.html">Old Basing</a>
+                            <a href="pages/window-cleaning-lyde-green.html">Lyde Green</a>
+                            <a href="pages/window-cleaning-sherborne-st-john.html">Sherborne St John</a>
+                            <a href="pages/window-cleaning-cliddesden.html">Cliddesden</a>
+                            <a href="pages/window-cleaning-dummer.html">Dummer</a>
+                            <a href="pages/window-cleaning-overton.html">Overton</a>
+                            <a href="pages/window-cleaning-whitchurch.html">Whitchurch</a>
+                            <a href="pages/window-cleaning-tadley.html">Tadley</a>
+                            <a href="pages/window-cleaning-hook.html">Hook</a>
+                        </div>
+                    </div>
+
+                    <div class="hub-region-column">
+                        <h5>Eastleigh Borders</h5>
+                        <div class="hub-links">
+                            <a href="pages/window-cleaning-eastleigh.html">Eastleigh Central</a>
+                            <a href="pages/gutter-clearance-eastleigh.html">Eastleigh Gutters</a>
+                            <a href="pages/fascia-cleaning-eastleigh.html">Eastleigh Fascias</a>
+                            <a href="pages/conservatory-cleaning-eastleigh.html">Eastleigh Conservatories</a>
+                            <a href="pages/window-cleaning-chandlers-ford.html">Chandler's Ford</a>
+                            <a href="pages/gutter-clearance-chandlers-ford.html">Chandler's Ford Gutters</a>
+                            <a href="pages/window-cleaning-bishopstoke.html">Bishopstoke Windows</a>
+                            <a href="pages/window-cleaning-fair-oak.html">Fair Oak Windows</a>
+                            <a href="pages/window-cleaning-boyatt-wood.html">Boyatt Wood</a>
+                            <a href="pages/window-cleaning-allbrook.html">Allbrook Windows</a>
+                            <a href="pages/window-cleaning-horton-heath.html">Horton Heath</a>
+                            <a href="pages/window-cleaning-west-end.html">West End Windows</a>
+                            <a href="pages/window-cleaning-botley.html">Botley Windows</a>
+                            <a href="pages/window-cleaning-hedge-end.html">Hedge End Windows</a>
+                            <a href="pages/window-cleaning-bursledon.html">Bursledon</a>
+                            <a href="pages/window-cleaning-hamble.html">Hamble-le-Rice</a>
+                            <a href="pages/window-cleaning-netley.html">Netley Abbey</a>
+                            <a href="pages/window-cleaning-fairoak-villages.html">Fair Oak Outskirts</a>
+                            <a href="pages/window-cleaning-ampfield.html">Ampfield</a>
+                            <a href="pages/window-cleaning-chilworth.html">Chilworth</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -91,5 +410,336 @@
         </div>
     </footer>
 
-    </body>
+    <script>
+        // --- MASTER SYSTEM CORE CODE NAVIGATION & ANIMATION ---
+        const mobileNavToggle = document.getElementById('mobileNavToggle');
+        const mainNavMenu = document.getElementById('mainNavMenu');
+
+        mobileNavToggle.addEventListener('click', () => {
+            mainNavMenu.classList.toggle('nav-menu-open');
+        });
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                mainNavMenu.classList.remove('nav-menu-open');
+            });
+        });
+
+        // --- SEO DRAWER INTERACTION LOGIC ---
+        const hubsToggleBtn = document.getElementById('hubsToggleBtn');
+        const hubsGridWrapper = document.getElementById('hubsGridWrapper');
+
+        if (hubsToggleBtn && hubsGridWrapper) {
+            hubsToggleBtn.addEventListener('click', () => {
+                hubsGridWrapper.classList.toggle('wrapper-active');
+                hubsToggleBtn.classList.toggle('btn-active');
+            });
+        }
+
+        // --- AUTOMATED REGIONAL SEO PATTERN ENGINE ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let areaName = urlParams.get('area');
+
+            if (areaName) {
+                areaName = areaName.trim();
+                areaName = areaName.charAt(0).toUpperCase() + areaName.slice(1).toLowerCase();
+
+                document.title = `Window Cleaning in ${areaName} | All Clear Exterior Cleaning`;
+
+                const mainHeadline = document.getElementById('dynamic-main-heading');
+                if (mainHeadline) {
+                    mainHeadline.innerHTML = `Professional Window, Gutter &amp; Exterior Cleaning in ${areaName}`;
+                }
+            }
+        });
+
+        // --- CALCULATION GENERATION LOGIC ---
+        function runPricingCalculation() {
+            const storeys = document.getElementById('storeys').value;
+            const bedrooms = document.getElementById('bedrooms').value;
+            const service = document.getElementById('service').value;
+            const veluxCount = document.getElementById('velux').value;
+            const extensions = document.getElementById('extensions').value;
+            const priceDisplayBox = document.getElementById('instant-price-display');
+
+            if (!priceDisplayBox) return "";
+
+            if (storeys === "4+" || bedrooms === "6+") {
+                return "Custom Quote Required (Scale Limit)";
+            }
+            if (service === "Full Exterior Package" && bedrooms === "1") {
+                return "Custom Quote Required (1 Bed Package Limit)";
+            }
+
+            let routineCost = 0;
+            let isFirstCleanDouble = false;
+
+            if (service === "Window Cleaning") {
+                isFirstCleanDouble = true;
+                const windowRates = { "1": 16, "2": 18, "3": 22, "4": 26, "5": 30 };
+                routineCost = windowRates[bedrooms] || 0;
+
+                if (storeys === "3") routineCost += 3;
+                if (veluxCount !== "0") {
+                    const veluxMultiplier = veluxCount === "4+" ? 4 : parseInt(veluxCount);
+                    routineCost += (veluxMultiplier * 1);
+                }
+                if (extensions === "Yes") routineCost += 5;
+
+            } else if (service === "Gutter Clearance" || service === "Fascia & Soffit Cleaning") {
+                const flatRates = { "1": 70, "2": 70, "3": 90, "4": 105, "5": 120 };
+                routineCost = flatRates[bedrooms] || 0;
+                
+                if (extensions === "Yes") routineCost += 20;
+
+            } else if (service === "Conservatory Roof Cleaning") {
+                routineCost = 130;
+
+            } else if (service === "Full Exterior Package") {
+                const packageRates = { "2": 170, "3": 220, "4": 270, "5": 320 };
+                routineCost = packageRates[bedrooms] || 0;
+                
+                if (extensions === "Yes") routineCost += 60;
+            }
+
+            return { routineCost, isFirstCleanDouble };
+        }
+
+        // --- SUBMIT INFO FIRST, THEN SHOW PRICE ENGINE ---
+        function submitLeadAndShowPrice() {
+            const form = document.getElementById('multiStepForm');
+            const priceDisplayBox = document.getElementById('instant-price-display');
+            const navBlock = document.getElementById('form-action-nav-block');
+
+            const serviceSelect = document.getElementById('service');
+            if (!serviceSelect.checkValidity()) {
+                serviceSelect.reportValidity();
+                return;
+            }
+
+            priceDisplayBox.innerHTML = `
+                <div style="text-align: center; padding: 15px; font-family: var(--font-stack); color: var(--brand-blue);">
+                    <i class="fa-solid fa-spinner fa-spin" style="font-size: 1.5rem; margin-bottom: 8px;"></i>
+                    <p style="font-size: 0.9rem; font-weight: 600;">Securing your details and calculating rates...</p>
+                </div>
+            `;
+
+            const calcResult = runPricingCalculation();
+            let hiddenDataString = "";
+
+            if (typeof calcResult === "string" || calcResult.routineCost === 0) {
+                hiddenDataString = "Custom Quote Sheet Review Needed";
+            } else {
+                hiddenDataString = `Routine Base: £${calcResult.routineCost}${calcResult.isFirstCleanDouble ? ' / First Clean Double: £' + (calcResult.routineCost * 2) : ''}`;
+            }
+
+            let hiddenInput = form.querySelector('input[name="calculated_quote_estimate"]');
+            if (!hiddenInput) {
+                hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'calculated_quote_estimate';
+                form.appendChild(hiddenInput);
+            }
+            hiddenInput.value = hiddenDataString;
+
+            const formData = new FormData(form);
+            const formObject = Object.fromEntries(formData);
+            const jsonPayload = JSON.stringify(formObject);
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: jsonPayload
+            })
+            .then(async (response) => {
+                if (response.status === 200) {
+                    renderPriceOutputHTML(calcResult);
+                    if (navBlock) navBlock.style.display = 'none'; 
+                } else {
+                    showErrorMessage();
+                }
+            })
+            .catch(error => {
+                showErrorMessage();
+            });
+        }
+
+        function renderPriceOutputHTML(calcResult) {
+            const priceDisplayBox = document.getElementById('instant-price-display');
+            const service = document.getElementById('service').value;
+
+            if (typeof calcResult === "string" || calcResult.routineCost === 0) {
+                priceDisplayBox.innerHTML = `
+                    <div style="background: #FFFBEB; border: 2px solid #F59E0B; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 10px; font-family: var(--font-stack);">
+                        <strong style="color: #B45309; font-size: 1rem; display: block; margin-bottom: 6px;"><i class="fa-solid fa-envelope-open-text"></i> Bespoke Quote Request Received</strong>
+                        <p style="font-size: 0.88rem; color: #78350F; line-height: 1.4;">Your configuration details have been logged on our system schedule. We will review your property dimensions and text/call you directly with a highly competitive custom estimate package shortly!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let innerHTMLContent = `
+                <div style="background: var(--brand-light-sky); border: 2px dashed var(--brand-blue); padding: 20px; border-radius: 8px; margin-bottom: 15px; font-family: var(--font-stack);">
+                    <div style="background: #DEF7EC; color: #03543F; font-size: 0.8rem; font-weight: 700; text-align: center; padding: 6px; border-radius: 4px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px;">
+                        <i class="fa-solid fa-circle-check"></i> Pricing Calculated &amp; Locked Successfully
+                    </div>
+            `;
+
+            if (calcResult.isFirstCleanDouble) {
+                innerHTMLContent += `
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #CBD5E1; padding-bottom: 10px; margin-bottom: 10px;">
+                        <span style="font-size: 0.9rem; font-weight: 700; color: var(--brand-dark-navy);">First Initial Deep Clean:</span>
+                        <strong style="font-size: 1.35rem; color: #DC2626;">£${calcResult.routineCost * 2}</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; margin-bottom: 8px;">
+                        <span style="font-size: 0.9rem; font-weight: 700; color: var(--brand-dark-navy);">Subsequent Ongoing Routine Cleaning:</span>
+                        <strong style="font-size: 1.35rem; color: var(--brand-blue);">£${calcResult.routineCost}</strong>
+                    </div>
+                `;
+            } else {
+                innerHTMLContent += `
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #CBD5E1; padding-bottom: 10px; margin-bottom: 15px;">
+                        <span style="font-size: 0.95rem; font-weight: 700; color: var(--brand-dark-navy);">Estimated Service Total:</span>
+                        <strong style="font-size: 1.6rem; color: var(--brand-blue); font-weight: 800;">£${calcResult.routineCost}</strong>
+                    </div>
+                `;
+            }
+
+            innerHTMLContent += `
+                    <div style="margin-top: 15px; text-align: left;">
+                        <label style="display: block; font-size: 0.88rem; font-weight: 700; color: var(--brand-dark-navy); margin-bottom: 10px;">How would you like to schedule this?</label>
+                        
+                        <div class="booking-cards-wrapper">
+                            <div id="card-opt-fastest" class="booking-route-card" onclick="selectUrgencyOption('Book when next in my area', 'card-opt-fastest', 'card-opt-flexible')">
+                                <div class="booking-card-radio">
+                                    <input type="radio" id="radio-fastest" name="urgency_radio" style="display: none;">
+                                </div>
+                                <div class="booking-card-details">
+                                    <h5>Book me in when you're next in my area</h5>
+                                    <p>Saves travel time and secures your slot on our next local route routine.</p>
+                                </div>
+                            </div>
+
+                            <div id="card-opt-flexible" class="booking-route-card" onclick="selectUrgencyOption('Flexible booking window', 'card-opt-flexible', 'card-opt-fastest')">
+                                <div class="booking-card-radio">
+                                    <input type="radio" id="radio-flexible" name="urgency_radio" style="display: none;">
+                                </div>
+                                <div class="booking-card-details">
+                                    <h5>I am flexible (Contact me to arrange a day)</h5>
+                                    <p>No urgent rush. Ideal for general maintenance or planning ahead.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" id="final-booking-btn" class="btn-confirm-booking" onclick="sendFinalBookingDetails()">
+                            Confirm Booking Request <i class="fa-solid fa-calendar-check"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            priceDisplayBox.innerHTML = innerHTMLContent;
+        }
+
+        function selectUrgencyOption(value, selectId, deselectId) {
+            document.getElementById('booking-urgency-choice').value = value;
+            
+            const deselectCard = document.getElementById(deselectId);
+            deselectCard.classList.remove('selected-card');
+            deselectCard.querySelector('input').checked = false;
+
+            const selectCard = document.getElementById(selectId);
+            selectCard.classList.add('selected-card');
+            selectCard.querySelector('input').checked = true;
+        }
+
+        function sendFinalBookingDetails() {
+            const urgency = document.getElementById('booking-urgency-choice').value;
+            const btn = document.getElementById('final-booking-btn');
+
+            if (urgency === "Not Selected") {
+                alert("Please select one of the scheduling choices above before confirming your booking request!");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Securing Your Slot...`;
+
+            const form = document.getElementById('multiStepForm');
+            const formData = new FormData(form);
+            const formObject = Object.fromEntries(formData);
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(formObject)
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    document.getElementById('instant-price-display').innerHTML = `
+                        <div style="background: #DEF7EC; border: 2px solid #03543F; padding: 25px; border-radius: 8px; text-align: center; font-family: var(--font-stack);">
+                            <i class="fa-solid fa-circle-check" style="font-size: 2.5rem; color: #0E9F6E; margin-bottom: 12px;"></i>
+                            <strong style="color: #03543F; font-size: 1.15rem; display: block; margin-bottom: 6px;">Booking Request Confirmed!</strong>
+                            <p style="font-size: 0.88rem; color: #046C4E; line-height: 1.4; margin-bottom: 0;">Awesome! We've pinned your price and route preference to our schedule queue. Jack will text or call you shortly to confirm your exact operational day slot!</p>
+                        </div>
+                    `;
+                } else {
+                    alert("Something went wrong saving your preference. Don't worry, we already have your details and will call you!");
+                }
+            })
+            .catch(() => {
+                alert("Something went wrong saving your preference. Don't worry, we already have your details and will call you!");
+            });
+        }
+
+        function showErrorMessage() {
+            document.getElementById('instant-price-display').innerHTML = `
+                <div style="background: #FDE8E8; border: 2px solid #E11D48; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 20px; font-family: var(--font-stack);">
+                    <strong style="color: #9B1C1C; font-size: 0.95rem; display: block;"><i class="fa-solid fa-triangle-exclamation"></i> Network Connection Issue</strong>
+                    <p style="font-size: 0.85rem; color: #7F1D1D; margin-top: 4px;">Could not securely process log tracking lines. Please ring us directly at <a href="tel:07305572453" style="font-weight:700; color:#9B1C1C;">07305 572453</a> for your quote details!</p>
+                </div>
+            `;
+        }
+
+        function nextStep(currentStep) {
+            const currentPanel = document.getElementById('panel-' + currentStep);
+            const inputs = currentPanel.querySelectorAll('input, select');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if(!input.checkValidity()) {
+                    input.reportValidity();
+                    isValid = false;
+                }
+            });
+            
+            if(!isValid) return; 
+            
+            currentPanel.style.display = 'none';
+            currentPanel.classList.remove('active-panel');
+            
+            const nextPanel = document.getElementById('panel-' + (currentStep + 1));
+            nextPanel.style.display = 'flex';
+            nextPanel.classList.add('active-panel');
+            
+            document.getElementById('ind-' + (currentStep + 1)).classList.add('active-indicator');
+        }
+
+        function prevStep(currentStep) {
+            const currentPanel = document.getElementById('panel-' + currentStep);
+            currentPanel.style.display = 'none';
+            currentPanel.classList.remove('active-panel');
+            
+            const prevPanel = document.getElementById('panel-' + (currentStep - 1));
+            prevPanel.style.display = 'flex';
+            prevPanel.classList.add('active-panel');
+            
+            document.getElementById('ind-' + currentStep).classList.remove('active-indicator');
+        }
+    </script>
+</body>
 </html>
