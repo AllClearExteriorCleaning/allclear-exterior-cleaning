@@ -348,7 +348,8 @@
                 const packageRates = { "2": 170, "3": 220, "4": 270, "5": 320 };
                 routineCost = packageRates[bedrooms] || 0;
                 
-                if (extensions === "Yes") routineCost += 20;
+                // If they have an extension/conservatory on a full package layout, add 60
+                if (extensions === "Yes") routineCost += 60;
             }
 
             return { routineCost, isFirstCleanDouble };
