@@ -126,6 +126,7 @@
                                 <input type="text" id="postcode" name="postcode" placeholder="SP10 1AA" required>
                             </div>
                         </div>
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="storeys">Number of Storeys *</label>
@@ -136,6 +137,7 @@
                                     <option value="4+">More than 3 Storeys</option>
                                 </select>
                             </div>
+
                             <div class="form-group">
                                 <label for="bedrooms">Number of Bedrooms *</label>
                                 <select id="bedrooms" name="bedroom_count" required>
@@ -148,14 +150,21 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="form-navigation-buttons">
-                            <button type="button" class="btn-step-prev" onclick="prevStep(2)"><i class="fa-solid fa-arrow-left"></i> Back</button>
-                            <button type="button" class="btn-step-next" onclick="nextStep(2)">Next Step <i class="fa-solid fa-arrow-right"></i></button>
+                            <button type="button" class="btn-step-prev" onclick="prevStep(2)">
+                                <i class="fa-solid fa-arrow-left"></i> Back
+                            </button>
+
+                            <button type="button" class="btn-step-next" onclick="nextStep(2)">
+                                Next Step <i class="fa-solid fa-arrow-right"></i>
+                            </button>
                         </div>
                     </div>
 
                     <div class="form-panel" id="panel-3" style="display: none;">
                         <h4 class="step-panel-title">Service Details</h4>
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="service">Service Required *</label>
@@ -168,6 +177,7 @@
                                     <option value="Full Exterior Package">Full Exterior Package (Windows, Gutters &amp; Fascias)</option>
                                 </select>
                             </div>
+
                             <div class="form-group">
                                 <label for="velux">Number of Velux Windows?</label>
                                 <select id="velux" name="velux_count">
@@ -193,8 +203,13 @@
                         <div id="instant-price-display"></div>
 
                         <div class="form-navigation-buttons" id="form-action-nav-block">
-                            <button type="button" class="btn-step-prev" onclick="prevStep(3)"><i class="fa-solid fa-arrow-left"></i> Back</button>
-                            <button type="button" class="btn-submit-quote" id="calc-trigger-btn" onclick="submitLeadAndShowPrice()">Calculate My Price <i class="fa-solid fa-calculator"></i></button>
+                            <button type="button" class="btn-step-prev" onclick="prevStep(3)">
+                                <i class="fa-solid fa-arrow-left"></i> Back
+                            </button>
+
+                            <button type="button" class="btn-submit-quote" id="calc-trigger-btn" onclick="submitLeadAndShowPrice()">
+                                Calculate My Price <i class="fa-solid fa-calculator"></i>
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -202,136 +217,236 @@
         </div>
     </section>
 
-    <!-- ... [Rest of your services, about, locations, and footer sections remain unchanged] ... -->
+<script>
+const mobileNavToggle = document.getElementById('mobileNavToggle');
+const mainNavMenu = document.getElementById('mainNavMenu');
 
-    <script>
-        const mobileNavToggle = document.getElementById('mobileNavToggle');
-        const mainNavMenu = document.getElementById('mainNavMenu');
+mobileNavToggle.addEventListener('click', () => {
+    mainNavMenu.classList.toggle('nav-menu-open');
+});
 
-        mobileNavToggle.addEventListener('click', () => {
-            mainNavMenu.classList.toggle('nav-menu-open');
-        });
+document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+        mainNavMenu.classList.remove('nav-menu-open');
+    });
+});
 
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', () => {
-                mainNavMenu.classList.remove('nav-menu-open');
-            });
-        });
+document.addEventListener("DOMContentLoaded", function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    let areaName = urlParams.get('area');
 
-        document.addEventListener("DOMContentLoaded", function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            let areaName = urlParams.get('area');
+    if (areaName) {
+        areaName = areaName.trim();
+        areaName = areaName.charAt(0).toUpperCase() + areaName.slice(1).toLowerCase();
 
-            if (areaName) {
-                areaName = areaName.trim();
-                areaName = areaName.charAt(0).toUpperCase() + areaName.slice(1).toLowerCase();
-                document.title = `Window Cleaning in ${areaName} | All Clear Exterior Cleaning`;
-                const mainHeadline = document.getElementById('dynamic-main-heading');
-                if (mainHeadline) {
-                    mainHeadline.innerHTML = `Professional Window, Gutter &amp; Exterior Cleaning in ${areaName}`;
-                }
+        document.title = `Window Cleaning in ${areaName} | All Clear Exterior Cleaning`;
+
+        const mainHeadline = document.getElementById('dynamic-main-heading');
+
+        if (mainHeadline) {
+            mainHeadline.innerHTML = `Professional Window, Gutter &amp; Exterior Cleaning in ${areaName}`;
+        }
+    }
+});
+
+function runPricingCalculation() {
+
+    const storeys = document.getElementById('storeys').value;
+    const bedrooms = document.getElementById('bedrooms').value;
+    const service = document.getElementById('service').value;
+    const veluxCount = document.getElementById('velux').value;
+    const extensions = document.getElementById('extensions').value;
+
+    if (storeys === "4+" || bedrooms === "6+") {
+        return "Custom Quote Required";
+    }
+
+    let routineCost = 0;
+    let isFirstCleanDouble = false;
+
+    if (service === "Window Cleaning") {
+
+        isFirstCleanDouble = true;
+
+        const windowRates = {
+            "1": 16,
+            "2": 18,
+            "3": 22,
+            "4": 26,
+            "5": 30
+        };
+
+        routineCost = windowRates[bedrooms] || 0;
+
+        if (storeys === "3") routineCost += 3;
+
+        if (veluxCount !== "0") {
+            routineCost += (veluxCount === "4+" ? 4 : parseInt(veluxCount));
+        }
+
+        if (extensions === "Yes") {
+            routineCost += 5;
+        }
+
+    } else if (service === "Gutter Clearance" || service === "Fascia & Soffit Cleaning") {
+
+        const flatRates = {
+            "1": 70,
+            "2": 70,
+            "3": 90,
+            "4": 105,
+            "5": 120
+        };
+
+        routineCost = flatRates[bedrooms] || 0;
+
+        if (extensions === "Yes") {
+            routineCost += 20;
+        }
+
+    } else if (service === "Conservatory Roof Cleaning") {
+
+        routineCost = 130;
+
+    } else if (service === "Full Exterior Package") {
+
+        const packageRates = {
+            "2": 170,
+            "3": 220,
+            "4": 270,
+            "5": 320
+        };
+
+        routineCost = packageRates[bedrooms] || 0;
+
+        if (extensions === "Yes") {
+            routineCost += 60;
+        }
+    }
+
+    return { routineCost, isFirstCleanDouble };
+}
+
+function submitLeadAndShowPrice() {
+
+    const form = document.getElementById('multiStepForm');
+    const priceDisplayBox = document.getElementById('instant-price-display');
+    const navBlock = document.getElementById('form-action-nav-block');
+    const serviceSelect = document.getElementById('service');
+
+    if (!serviceSelect.checkValidity()) {
+        serviceSelect.reportValidity();
+        return;
+    }
+
+    priceDisplayBox.innerHTML = `
+        <div style="text-align: center; padding: 15px; color: var(--brand-blue);">
+            <i class="fa-solid fa-spinner fa-spin"></i> Calculating rates...
+        </div>
+    `;
+
+    const calcResult = runPricingCalculation();
+
+    fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(Object.fromEntries(new FormData(form)))
+    })
+
+    .then(response => {
+
+        if (response.status === 200) {
+
+            renderPriceOutputHTML(calcResult);
+
+            if (navBlock) {
+                navBlock.style.display = 'none';
             }
-        });
 
-        function runPricingCalculation() {
-            const storeys = document.getElementById('storeys').value;
-            const bedrooms = document.getElementById('bedrooms').value;
-            const service = document.getElementById('service').value;
-            const veluxCount = document.getElementById('velux').value;
-            const extensions = document.getElementById('extensions').value;
-            const priceDisplayBox = document.getElementById('instant-price-display');
-
-            if (!priceDisplayBox) return "";
-
-            if (storeys === "4+" || bedrooms === "6+") return "Custom Quote Required (Scale Limit)";
-            if (service === "Full Exterior Package" && bedrooms === "1") return "Custom Quote Required (1 Bed Package Limit)";
-
-            let routineCost = 0;
-            let isFirstCleanSurcharge = false;
-
-            if (service === "Window Cleaning") {
-                isFirstCleanSurcharge = true;
-                const windowRates = { "1": 16, "2": 18, "3": 22, "4": 26, "5": 30 };
-                routineCost = windowRates[bedrooms] || 0;
-                if (storeys === "3") routineCost += 3;
-                if (veluxCount !== "0") routineCost += (veluxCount === "4+" ? 4 : parseInt(veluxCount));
-                if (extensions === "Yes") routineCost += 5;
-            } else if (service === "Gutter Clearance" || service === "Fascia & Soffit Cleaning") {
-                const flatRates = { "1": 70, "2": 70, "3": 90, "4": 105, "5": 120 };
-                routineCost = flatRates[bedrooms] || 0;
-                if (extensions === "Yes") routineCost += 20;
-            } else if (service === "Conservatory Roof Cleaning") {
-                routineCost = 130;
-            } else if (service === "Full Exterior Package") {
-                const packageRates = { "2": 170, "3": 220, "4": 270, "5": 320 };
-                routineCost = packageRates[bedrooms] || 0;
-                if (extensions === "Yes") routineCost += 60;
-            }
-            return { routineCost, isFirstCleanSurcharge };
+        } else {
+            showErrorMessage();
         }
+    })
 
-        function submitLeadAndShowPrice() {
-            const form = document.getElementById('multiStepForm');
-            const priceDisplayBox = document.getElementById('instant-price-display');
-            const navBlock = document.getElementById('form-action-nav-block');
-            const serviceSelect = document.getElementById('service');
-            
-            if (!serviceSelect.checkValidity()) { serviceSelect.reportValidity(); return; }
+    .catch(error => showErrorMessage());
+}
 
-            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: var(--brand-blue);"><i class="fa-solid fa-spinner fa-spin"></i> Calculating rates...</div>`;
+function renderPriceOutputHTML(calcResult) {
 
-            const calcResult = runPricingCalculation();
-            let hiddenDataString = (typeof calcResult === "string" || calcResult.routineCost === 0) ? "Custom Quote" : `Routine Base: £${calcResult.routineCost}`;
-            
-            let hiddenInput = form.querySelector('input[name="calculated_quote_estimate"]') || document.createElement('input');
-            hiddenInput.type = 'hidden'; hiddenInput.name = 'calculated_quote_estimate'; hiddenInput.value = hiddenDataString;
-            form.appendChild(hiddenInput);
+    const priceDisplayBox = document.getElementById('instant-price-display');
 
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(Object.fromEntries(new FormData(form)))
-            })
-            .then(response => {
-                if (response.status === 200) {
-                    renderPriceOutputHTML(calcResult);
-                    if (navBlock) navBlock.style.display = 'none';
-                } else { showErrorMessage(); }
-            })
-            .catch(error => showErrorMessage());
-        }
+    if (typeof calcResult === "string" || calcResult.routineCost === 0) {
 
-        function renderPriceOutputHTML(calcResult) {
-            const priceDisplayBox = document.getElementById('instant-price-display');
-            if (typeof calcResult === "string" || calcResult.routineCost === 0) {
-                priceDisplayBox.innerHTML = `<div style="background: #FFFBEB; padding: 20px; border: 2px solid #F59E0B; border-radius: 8px;">Quote request logged. We will contact you shortly!</div>`;
-                return;
-            }
-            let html = `<div style="background: var(--brand-light-sky); padding: 20px; border-radius: 8px;">`;
-            
-            if (calcResult.isFirstCleanSurcharge) {
-                let firstCleanPrice = (calcResult.routineCost * 1.5).toFixed(2);
-                html += `<div>First Clean: <strong>£${firstCleanPrice}</strong></div>
-                         <div>Ongoing Maintenance: <strong>£${calcResult.routineCost}</strong></div>`;
-            } else {
-                html += `<div>Estimated Total: <strong>£${calcResult.routineCost}</strong></div>`;
-            }
-            
-            html += `<button type="button" id="final-booking-btn" class="btn-confirm-booking" onclick="sendFinalBookingDetails()">Confirm Booking</button></div>`;
-            priceDisplayBox.innerHTML = html;
-        }
+        priceDisplayBox.innerHTML = `
+            <div style="background: #FFFBEB; padding: 20px; border: 2px solid #F59E0B; border-radius: 8px;">
+                Quote request logged. We will contact you shortly!
+            </div>
+        `;
 
-        function nextStep(currentStep) {
-            document.getElementById('panel-'+currentStep).style.display = 'none';
-            document.getElementById('panel-'+(currentStep+1)).style.display = 'flex';
-            document.getElementById('ind-'+(currentStep+1)).classList.add('active-indicator');
-        }
+        return;
+    }
 
-        function prevStep(currentStep) {
-            document.getElementById('panel-'+currentStep).style.display = 'none';
-            document.getElementById('panel-'+(currentStep-1)).style.display = 'flex';
-            document.getElementById('ind-'+currentStep).classList.remove('active-indicator');
-        }
-    </script>
+    let html = `
+        <div style="background: var(--brand-light-sky); padding: 20px; border-radius: 8px;">
+    `;
+
+    if (calcResult.isFirstCleanDouble) {
+
+        const firstCleanPrice = Math.round(calcResult.routineCost * 1.5);
+
+        html += `
+            <div>
+                First Clean: <strong>£${firstCleanPrice}</strong>
+            </div>
+
+            <div>
+                Ongoing: <strong>£${calcResult.routineCost}</strong>
+            </div>
+        `;
+
+    } else {
+
+        html += `
+            <div>
+                Estimated Total: <strong>£${calcResult.routineCost}</strong>
+            </div>
+        `;
+    }
+
+    html += `
+        <button 
+            type="button" 
+            id="final-booking-btn" 
+            class="btn-confirm-booking" 
+            onclick="sendFinalBookingDetails()">
+            Confirm Booking
+        </button>
+    </div>`;
+
+    priceDisplayBox.innerHTML = html;
+}
+
+function nextStep(currentStep) {
+
+    document.getElementById('panel-' + currentStep).style.display = 'none';
+
+    document.getElementById('panel-' + (currentStep + 1)).style.display = 'flex';
+
+    document.getElementById('ind-' + (currentStep + 1)).classList.add('active-indicator');
+}
+
+function prevStep(currentStep) {
+
+    document.getElementById('panel-' + currentStep).style.display = 'none';
+
+    document.getElementById('panel-' + (currentStep - 1)).style.display = 'flex';
+
+    document.getElementById('ind-' + currentStep).classList.remove('active-indicator');
+}
+</script>
+
 </body>
 </html>
