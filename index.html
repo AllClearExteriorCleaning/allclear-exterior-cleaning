@@ -494,18 +494,22 @@
                     html += `<div style="font-size: 1.1rem; margin-bottom: 20px;">Estimated Total: <strong>£${calcResult.routineCost}</strong></div>`;
                 }
 
-                // Append Booking Strategy Radios
+                // Append Booking Strategy Radios & Text Reminder Notice
                 html += `
-                    <div style="background: #fff; padding: 15px; border-radius: 6px; border: 1px solid #ccc; margin-bottom: 20px; text-align: left;">
+                    <div style="background: #fff; padding: 15px; border-radius: 6px; border: 1px solid #ccc; margin-bottom: 15px; text-align: left;">
                         <p style="margin-top: 0; font-weight: 600; margin-bottom: 12px; color: #333;">How would you like to proceed?</p>
                         <label style="display: block; margin-bottom: 12px; cursor: pointer; line-height: 1.4;">
                             <input type="radio" name="temp_booking_pref" value="Book onto next available slot" checked> 
-                            Book onto next available slot when in my area (Jack will contact to confirm)
+                            Book onto next available slot when we're in your area (We will contact you to confirm)
                         </label>
                         <label style="display: block; cursor: pointer; line-height: 1.4;">
                             <input type="radio" name="temp_booking_pref" value="Message me to arrange specific date"> 
                             Message me to arrange a specific date alternative
                         </label>
+                    </div>
+                    <div style="font-size: 0.9rem; color: #555; background: #e9ecef; padding: 10px; border-radius: 6px; margin-bottom: 20px; text-align: left;">
+                        <i class="fa-solid fa-circle-info" style="color: var(--brand-blue, #0A58CA); margin-right: 5px;"></i>
+                        <strong>Reminder:</strong> You will always receive a text reminder the evening before every scheduled clean.
                     </div>
                 `;
                 
@@ -530,7 +534,8 @@
                 priceDisplayBox.innerHTML = `
                 <div style="background: #D1E7DD; color: #0F5132; padding: 20px; border: 1px solid #BADBCC; border-radius: 8px; text-align: center; margin-top: 15px;">
                     <h4 style="margin-top:0; font-size: 1.2rem;">Booking Preference Saved! <i class="fa-solid fa-circle-check"></i></h4>
-                    <p style="margin-bottom:0;">Thanks! We have received your schedule choice preference and will be in touch shortly to confirm.</p>
+                    <p style="margin-bottom: 10px; line-height: 1.4;">Thank you! Your details have been finalized. We will contact you to confirm when we're likely to be in your area.</p>
+                    <p style="margin-bottom:0; font-size: 0.9rem; font-weight: bold; opacity: 0.9;">As a reminder, you will receive a text message the evening before every clean.</p>
                 </div>`;
             });
         }
