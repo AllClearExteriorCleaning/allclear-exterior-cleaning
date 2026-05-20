@@ -188,6 +188,15 @@
                             </select>
                         </div>
 
+                        <div class="form-group-full" style="margin-top: 15px;">
+                            <label for="frequency">Cleaning Frequency Required *</label>
+                            <select id="frequency" name="cleaning_frequency" required>
+                                <option value="" disabled selected>Select Schedule...</option>
+                                <option value="4 Weekly">4 Weekly (Window Cleaning)</option>
+                                <option value="8 Weekly">8 Weekly (Window Cleaning)</option>
+                            </select>
+                        </div>
+
                         <input type="hidden" id="booking-urgency-choice" name="customer_booking_preference" value="Not Selected">
 
                         <div id="instant-price-display"></div>
@@ -346,10 +355,10 @@
             if (service === "Full Exterior Package" && bedrooms === "1") return "Custom Quote Required (1 Bed Package Limit)";
 
             let routineCost = 0;
-            let isFirstCleanDouble = false;
+            let isWindowCleaning = false; 
 
             if (service === "Window Cleaning") {
-                isFirstCleanDouble = true;
+                isWindowCleaning = true;
                 const windowRates = { "1": 16, "2": 18, "3": 22, "4": 26, "5": 30 };
                 routineCost = windowRates[bedrooms] || 0;
                 if (storeys === "3") routineCost += 3;
@@ -366,7 +375,7 @@
                 routineCost = packageRates[bedrooms] || 0;
                 if (extensions === "Yes") routineCost += 60;
             }
-            return { routineCost, isFirstCleanDouble };
+            return { routineCost, isWindowCleaning };
         }
 
         function submitLeadAndShowPrice() {
@@ -374,8 +383,10 @@
             const priceDisplayBox = document.getElementById('instant-price-display');
             const navBlock = document.getElementById('form-action-nav-block');
             const serviceSelect = document.getElementById('service');
+            const freqSelect = document.getElementById('frequency');
             
             if (!serviceSelect.checkValidity()) { serviceSelect.reportValidity(); return; }
+            if (!freqSelect.checkValidity()) { freqSelect.reportValidity(); return; }
 
             priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: var(--brand-blue);"><i class="fa-solid fa-spinner fa-spin"></i> Calculating rates...</div>`;
 
@@ -406,12 +417,18 @@
                 priceDisplayBox.innerHTML = `<div style="background: #FFFBEB; padding: 20px; border: 2px solid #F59E0B; border-radius: 8px;">Quote request logged. We will contact you shortly!</div>`;
                 return;
             }
+            
             let html = `<div style="background: var(--brand-light-sky); padding: 20px; border-radius: 8px;">`;
-            if (calcResult.isFirstCleanDouble) {
-                html += `<div>First Clean: <strong>£${calcResult.routineCost * 2}</strong></div><div>Ongoing: <strong>£${calcResult.routineCost}</strong></div>`;
+            
+            if (calcResult.isWindowCleaning) {
+                let firstCleanCost = calcResult.routineCost * 1.5;
+                let formattedFirstClean = Number.isInteger(firstCleanCost) ? firstCleanCost : firstCleanCost.toFixed(2);
+                
+                html += `<div>First Clean: <strong>£${formattedFirstClean}</strong></div><div>Ongoing: <strong>£${calcResult.routineCost}</strong></div>`;
             } else {
                 html += `<div>Estimated Total: <strong>£${calcResult.routineCost}</strong></div>`;
             }
+            
             html += `<button type="button" id="final-booking-btn" class="btn-confirm-booking" onclick="sendFinalBookingDetails()">Confirm Booking</button></div>`;
             priceDisplayBox.innerHTML = html;
         }
