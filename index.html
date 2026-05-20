@@ -126,7 +126,6 @@
                                 <input type="text" id="postcode" name="postcode" placeholder="SP10 1AA" required>
                             </div>
                         </div>
-
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="storeys">Number of Storeys *</label>
@@ -137,7 +136,6 @@
                                     <option value="4+">More than 3 Storeys</option>
                                 </select>
                             </div>
-
                             <div class="form-group">
                                 <label for="bedrooms">Number of Bedrooms *</label>
                                 <select id="bedrooms" name="bedroom_count" required>
@@ -150,21 +148,14 @@
                                 </select>
                             </div>
                         </div>
-
                         <div class="form-navigation-buttons">
-                            <button type="button" class="btn-step-prev" onclick="prevStep(2)">
-                                <i class="fa-solid fa-arrow-left"></i> Back
-                            </button>
-
-                            <button type="button" class="btn-step-next" onclick="nextStep(2)">
-                                Next Step <i class="fa-solid fa-arrow-right"></i>
-                            </button>
+                            <button type="button" class="btn-step-prev" onclick="prevStep(2)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                            <button type="button" class="btn-step-next" onclick="nextStep(2)">Next Step <i class="fa-solid fa-arrow-right"></i></button>
                         </div>
                     </div>
 
                     <div class="form-panel" id="panel-3" style="display: none;">
                         <h4 class="step-panel-title">Service Details</h4>
-
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="service">Service Required *</label>
@@ -177,7 +168,6 @@
                                     <option value="Full Exterior Package">Full Exterior Package (Windows, Gutters &amp; Fascias)</option>
                                 </select>
                             </div>
-
                             <div class="form-group">
                                 <label for="velux">Number of Velux Windows?</label>
                                 <select id="velux" name="velux_count">
@@ -203,13 +193,8 @@
                         <div id="instant-price-display"></div>
 
                         <div class="form-navigation-buttons" id="form-action-nav-block">
-                            <button type="button" class="btn-step-prev" onclick="prevStep(3)">
-                                <i class="fa-solid fa-arrow-left"></i> Back
-                            </button>
-
-                            <button type="button" class="btn-submit-quote" id="calc-trigger-btn" onclick="submitLeadAndShowPrice()">
-                                Calculate My Price <i class="fa-solid fa-calculator"></i>
-                            </button>
+                            <button type="button" class="btn-step-prev" onclick="prevStep(3)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                            <button type="button" class="btn-submit-quote" id="calc-trigger-btn" onclick="submitLeadAndShowPrice()">Calculate My Price <i class="fa-solid fa-calculator"></i></button>
                         </div>
                     </div>
                 </form>
@@ -217,236 +202,231 @@
         </div>
     </section>
 
-<script>
-const mobileNavToggle = document.getElementById('mobileNavToggle');
-const mainNavMenu = document.getElementById('mainNavMenu');
-
-mobileNavToggle.addEventListener('click', () => {
-    mainNavMenu.classList.toggle('nav-menu-open');
-});
-
-document.querySelectorAll('.nav-item').forEach(item => {
-    item.addEventListener('click', () => {
-        mainNavMenu.classList.remove('nav-menu-open');
-    });
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    let areaName = urlParams.get('area');
-
-    if (areaName) {
-        areaName = areaName.trim();
-        areaName = areaName.charAt(0).toUpperCase() + areaName.slice(1).toLowerCase();
-
-        document.title = `Window Cleaning in ${areaName} | All Clear Exterior Cleaning`;
-
-        const mainHeadline = document.getElementById('dynamic-main-heading');
-
-        if (mainHeadline) {
-            mainHeadline.innerHTML = `Professional Window, Gutter &amp; Exterior Cleaning in ${areaName}`;
-        }
-    }
-});
-
-function runPricingCalculation() {
-
-    const storeys = document.getElementById('storeys').value;
-    const bedrooms = document.getElementById('bedrooms').value;
-    const service = document.getElementById('service').value;
-    const veluxCount = document.getElementById('velux').value;
-    const extensions = document.getElementById('extensions').value;
-
-    if (storeys === "4+" || bedrooms === "6+") {
-        return "Custom Quote Required";
-    }
-
-    let routineCost = 0;
-    let isFirstCleanDouble = false;
-
-    if (service === "Window Cleaning") {
-
-        isFirstCleanDouble = true;
-
-        const windowRates = {
-            "1": 16,
-            "2": 18,
-            "3": 22,
-            "4": 26,
-            "5": 30
-        };
-
-        routineCost = windowRates[bedrooms] || 0;
-
-        if (storeys === "3") routineCost += 3;
-
-        if (veluxCount !== "0") {
-            routineCost += (veluxCount === "4+" ? 4 : parseInt(veluxCount));
-        }
-
-        if (extensions === "Yes") {
-            routineCost += 5;
-        }
-
-    } else if (service === "Gutter Clearance" || service === "Fascia & Soffit Cleaning") {
-
-        const flatRates = {
-            "1": 70,
-            "2": 70,
-            "3": 90,
-            "4": 105,
-            "5": 120
-        };
-
-        routineCost = flatRates[bedrooms] || 0;
-
-        if (extensions === "Yes") {
-            routineCost += 20;
-        }
-
-    } else if (service === "Conservatory Roof Cleaning") {
-
-        routineCost = 130;
-
-    } else if (service === "Full Exterior Package") {
-
-        const packageRates = {
-            "2": 170,
-            "3": 220,
-            "4": 270,
-            "5": 320
-        };
-
-        routineCost = packageRates[bedrooms] || 0;
-
-        if (extensions === "Yes") {
-            routineCost += 60;
-        }
-    }
-
-    return { routineCost, isFirstCleanDouble };
-}
-
-function submitLeadAndShowPrice() {
-
-    const form = document.getElementById('multiStepForm');
-    const priceDisplayBox = document.getElementById('instant-price-display');
-    const navBlock = document.getElementById('form-action-nav-block');
-    const serviceSelect = document.getElementById('service');
-
-    if (!serviceSelect.checkValidity()) {
-        serviceSelect.reportValidity();
-        return;
-    }
-
-    priceDisplayBox.innerHTML = `
-        <div style="text-align: center; padding: 15px; color: var(--brand-blue);">
-            <i class="fa-solid fa-spinner fa-spin"></i> Calculating rates...
+    <section id="services" class="services-block">
+        <div class="container-center">
+            <h2 class="block-title">Our Professional Exterior Cleaning Services</h2>
+            <p class="block-subtitle">Premium equipment and pure water systems to keep your home immaculate and protected year-round.</p>
+            
+            <div class="services-card-grid">
+                <div class="service-card">
+                    <div class="card-icon"><i class="fa-solid fa-window-maximize"></i></div>
+                    <h3>Pure Water Window Cleaning</h3>
+                    <p>Using reach-and-wash carbon poles with clean, purified water. <strong>We wash all glass, frames, sills, and external doors as standard on every single visit</strong> to ensure a flawless finish without any sticky soap film left behind.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="card-icon"><i class="fa-solid fa-bore-hole"></i></div>
+                    <h3>skyVac Gutter Clearance</h3>
+                    <p>Safe, powerful ground-level clearance of heavy sludge, leaves, and blockages using industrial suction setups. Keeps drainage working perfectly to prevent expensive internal property damp issues.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="card-icon"><i class="fa-solid fa-house"></i></div>
+                    <h3>Fascia &amp; Soffit Washing</h3>
+                    <p>Deep-clean treatment that strips away stubborn green algae, heavy weather grime, and grey pollution stains from rooflines to fully restore your property's primary street-side curb appeal.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="card-icon"><i class="fa-solid fa-sun"></i></div>
+                    <h3>Conservatory Roof Cleaning</h3>
+                    <p>Specialist safe treatment for delicate glass or polycarbonate roof panels. Removes green organic film and debris build-up to allow maximum bright natural sunlight back into your living spaces.</p>
+                </div>
+            </div>
         </div>
-    `;
+    </section>
 
-    const calcResult = runPricingCalculation();
+    <section id="about" class="about-block">
+        <div class="container-center">
+            <div class="about-profile-wrapper">
+                <div class="about-profile-image">
+                    <img src="IMG_9194.jpeg" alt="Jack - All Clear Exterior Cleaning Owner" style="width:100%; max-width:380px; border-radius:12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+                </div>
+                <div class="about-profile-text">
+                    <h2 class="section-heading-left">Meet Your Local Cleaning Specialist</h2>
+                    <p>Hi, I'm Jack, owner and operator of <strong>All Clear Exterior Cleaning</strong>. We take absolute pride in maintaining homes across Hampshire with high-reach pure water fed systems, professional skyVac gutter systems, and meticulous conservatory roof restoration solutions.</p>
+                    <p>When you request a service, you are dealing with a fully insured, dedicated local professional who guarantees a streak-free, flawless finish every single visit. No shortcuts, no hidden surprises—just an immaculate home frame-to-glass.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify(Object.fromEntries(new FormData(form)))
-    })
+    <section id="locations" class="geo-seo-content-block">
+        <div class="container-center">
+            <h2 class="block-title">Local Exterior Cleaning Service Areas</h2>
+            <p class="block-subtitle">We proudly operate a structured routine route schedule across the following regional service zones:</p>
+            
+            <div class="geo-text-grid">
+                <div class="geo-zone-card">
+                    <h4>Andover Cleaning</h4>
+                    <p>Our foundational regular maintenance hub route covering comprehensive domestic window and safe gutter clearing services throughout the entire Andover area.</p>
+                </div>
+                <div class="geo-zone-card">
+                    <h4>Basingstoke Cleaning</h4>
+                    <p>Scheduled monthly exterior care routines for home and business clients located across Basingstoke, Oakley, and surround areas.</p>
+                </div>
+                <div class="geo-zone-card">
+                    <h4>Winchester Cleaning</h4>
+                    <p>Meticulous restoration packages specialized for premium historical properties and modern homes situated within Winchester.</p>
+                </div>
+                <div class="geo-zone-card">
+                    <h4>Eastleigh Cleaning</h4>
+                    <p>Comprehensive residential glass cleaning, UPVC fascia detailing, and full extension gutter clearing services across Eastleigh.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    .then(response => {
+    <footer id="contact-footer" class="site-footer">
+        <div class="footer-wrap">
+            <div class="footer-brand-side">
+                <h3>ALL CLEAR EXTERIOR CLEANING</h3>
+                <p>Delivering premier window cleaning, gutter clearance, conservatory care, and fascia &amp; soffit restoration solutions across Hampshire.</p>
+                <p class="working-hours"><i class="fa-solid fa-clock"></i> Mon - Fri: 8:00 AM - 5:00 PM</p>
+            </div>
+            <div class="footer-contact-side">
+                <h4>Connect Direct</h4>
+                <a href="tel:07305572453" class="contact-link"><i class="fa-solid fa-phone"></i> 07305 572453</a>
+                <a href="mailto:info@allclearexteriorcleaning.co.uk" class="contact-link"><i class="fa-solid fa-envelope"></i> info@allclearexteriorcleaning.co.uk</a>
+            </div>
+        </div>
 
-        if (response.status === 200) {
+        <div class="footer-hubs-drawer">
+            <div class="container-center" style="text-align: center; padding: 20px 0;">
+                <a href="/areas-we-cover.html" style="color: var(--brand-blue, #0A58CA); text-decoration: underline; font-weight: 700; font-size: 1.1rem;">
+                    Browse All Local Areas Covered
+                </a>
+            </div>
+        </div>
 
-            renderPriceOutputHTML(calcResult);
+        <div class="footer-copyright">
+            &copy; 2026 All Clear Exterior Cleaning. All Rights Reserved.
+        </div>
+    </footer>
 
-            if (navBlock) {
-                navBlock.style.display = 'none';
+    <script>
+        const mobileNavToggle = document.getElementById('mobileNavToggle');
+        const mainNavMenu = document.getElementById('mainNavMenu');
+
+        mobileNavToggle.addEventListener('click', () => {
+            mainNavMenu.classList.toggle('nav-menu-open');
+        });
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                mainNavMenu.classList.remove('nav-menu-open');
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let areaName = urlParams.get('area');
+
+            if (areaName) {
+                areaName = areaName.trim();
+                areaName = areaName.charAt(0).toUpperCase() + areaName.slice(1).toLowerCase();
+                document.title = `Window Cleaning in ${areaName} | All Clear Exterior Cleaning`;
+                const mainHeadline = document.getElementById('dynamic-main-heading');
+                if (mainHeadline) {
+                    mainHeadline.innerHTML = `Professional Window, Gutter &amp; Exterior Cleaning in ${areaName}`;
+                }
             }
+        });
 
-        } else {
-            showErrorMessage();
+        function runPricingCalculation() {
+            const storeys = document.getElementById('storeys').value;
+            const bedrooms = document.getElementById('bedrooms').value;
+            const service = document.getElementById('service').value;
+            const veluxCount = document.getElementById('velux').value;
+            const extensions = document.getElementById('extensions').value;
+            const priceDisplayBox = document.getElementById('instant-price-display');
+
+            if (!priceDisplayBox) return "";
+
+            if (storeys === "4+" || bedrooms === "6+") return "Custom Quote Required (Scale Limit)";
+            if (service === "Full Exterior Package" && bedrooms === "1") return "Custom Quote Required (1 Bed Package Limit)";
+
+            let routineCost = 0;
+            let isFirstCleanDouble = false;
+
+            if (service === "Window Cleaning") {
+                isFirstCleanDouble = true;
+                const windowRates = { "1": 16, "2": 18, "3": 22, "4": 26, "5": 30 };
+                routineCost = windowRates[bedrooms] || 0;
+                if (storeys === "3") routineCost += 3;
+                if (veluxCount !== "0") routineCost += (veluxCount === "4+" ? 4 : parseInt(veluxCount));
+                if (extensions === "Yes") routineCost += 5;
+            } else if (service === "Gutter Clearance" || service === "Fascia & Soffit Cleaning") {
+                const flatRates = { "1": 70, "2": 70, "3": 90, "4": 105, "5": 120 };
+                routineCost = flatRates[bedrooms] || 0;
+                if (extensions === "Yes") routineCost += 20;
+            } else if (service === "Conservatory Roof Cleaning") {
+                routineCost = 130;
+            } else if (service === "Full Exterior Package") {
+                const packageRates = { "2": 170, "3": 220, "4": 270, "5": 320 };
+                routineCost = packageRates[bedrooms] || 0;
+                if (extensions === "Yes") routineCost += 60;
+            }
+            return { routineCost, isFirstCleanDouble };
         }
-    })
 
-    .catch(error => showErrorMessage());
-}
+        function submitLeadAndShowPrice() {
+            const form = document.getElementById('multiStepForm');
+            const priceDisplayBox = document.getElementById('instant-price-display');
+            const navBlock = document.getElementById('form-action-nav-block');
+            const serviceSelect = document.getElementById('service');
+            
+            if (!serviceSelect.checkValidity()) { serviceSelect.reportValidity(); return; }
 
-function renderPriceOutputHTML(calcResult) {
+            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: var(--brand-blue);"><i class="fa-solid fa-spinner fa-spin"></i> Calculating rates...</div>`;
 
-    const priceDisplayBox = document.getElementById('instant-price-display');
+            const calcResult = runPricingCalculation();
+            let hiddenDataString = (typeof calcResult === "string" || calcResult.routineCost === 0) ? "Custom Quote" : `Routine Base: £${calcResult.routineCost}`;
+            
+            let hiddenInput = form.querySelector('input[name="calculated_quote_estimate"]') || document.createElement('input');
+            hiddenInput.type = 'hidden'; hiddenInput.name = 'calculated_quote_estimate'; hiddenInput.value = hiddenDataString;
+            form.appendChild(hiddenInput);
 
-    if (typeof calcResult === "string" || calcResult.routineCost === 0) {
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(Object.fromEntries(new FormData(form)))
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    renderPriceOutputHTML(calcResult);
+                    if (navBlock) navBlock.style.display = 'none';
+                } else { showErrorMessage(); }
+            })
+            .catch(error => showErrorMessage());
+        }
 
-        priceDisplayBox.innerHTML = `
-            <div style="background: #FFFBEB; padding: 20px; border: 2px solid #F59E0B; border-radius: 8px;">
-                Quote request logged. We will contact you shortly!
-            </div>
-        `;
+        function renderPriceOutputHTML(calcResult) {
+            const priceDisplayBox = document.getElementById('instant-price-display');
+            if (typeof calcResult === "string" || calcResult.routineCost === 0) {
+                priceDisplayBox.innerHTML = `<div style="background: #FFFBEB; padding: 20px; border: 2px solid #F59E0B; border-radius: 8px;">Quote request logged. We will contact you shortly!</div>`;
+                return;
+            }
+            let html = `<div style="background: var(--brand-light-sky); padding: 20px; border-radius: 8px;">`;
+            if (calcResult.isFirstCleanDouble) {
+                html += `<div>First Clean: <strong>£${calcResult.routineCost * 2}</strong></div><div>Ongoing: <strong>£${calcResult.routineCost}</strong></div>`;
+            } else {
+                html += `<div>Estimated Total: <strong>£${calcResult.routineCost}</strong></div>`;
+            }
+            html += `<button type="button" id="final-booking-btn" class="btn-confirm-booking" onclick="sendFinalBookingDetails()">Confirm Booking</button></div>`;
+            priceDisplayBox.innerHTML = html;
+        }
 
-        return;
-    }
+        function nextStep(currentStep) {
+            document.getElementById('panel-'+currentStep).style.display = 'none';
+            document.getElementById('panel-'+(currentStep+1)).style.display = 'flex';
+            document.getElementById('ind-'+(currentStep+1)).classList.add('active-indicator');
+        }
 
-    let html = `
-        <div style="background: var(--brand-light-sky); padding: 20px; border-radius: 8px;">
-    `;
-
-    if (calcResult.isFirstCleanDouble) {
-
-        const firstCleanPrice = Math.round(calcResult.routineCost * 1.5);
-
-        html += `
-            <div>
-                First Clean: <strong>£${firstCleanPrice}</strong>
-            </div>
-
-            <div>
-                Ongoing: <strong>£${calcResult.routineCost}</strong>
-            </div>
-        `;
-
-    } else {
-
-        html += `
-            <div>
-                Estimated Total: <strong>£${calcResult.routineCost}</strong>
-            </div>
-        `;
-    }
-
-    html += `
-        <button 
-            type="button" 
-            id="final-booking-btn" 
-            class="btn-confirm-booking" 
-            onclick="sendFinalBookingDetails()">
-            Confirm Booking
-        </button>
-    </div>`;
-
-    priceDisplayBox.innerHTML = html;
-}
-
-function nextStep(currentStep) {
-
-    document.getElementById('panel-' + currentStep).style.display = 'none';
-
-    document.getElementById('panel-' + (currentStep + 1)).style.display = 'flex';
-
-    document.getElementById('ind-' + (currentStep + 1)).classList.add('active-indicator');
-}
-
-function prevStep(currentStep) {
-
-    document.getElementById('panel-' + currentStep).style.display = 'none';
-
-    document.getElementById('panel-' + (currentStep - 1)).style.display = 'flex';
-
-    document.getElementById('ind-' + currentStep).classList.remove('active-indicator');
-}
-</script>
-
+        function prevStep(currentStep) {
+            document.getElementById('panel-'+currentStep).style.display = 'none';
+            document.getElementById('panel-'+(currentStep-1)).style.display = 'flex';
+            document.getElementById('ind-'+currentStep).classList.remove('active-indicator');
+        }
+    </script>
 </body>
 </html>
