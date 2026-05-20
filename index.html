@@ -17,6 +17,10 @@
         .form-panel.active-panel {
             display: flex !important;
         }
+        /* Smooth transition for conditional elements */
+        .conditional-field {
+            transition: all 0.3s ease;
+        }
     </style>
 
     <script type="application/ld+json">
@@ -168,7 +172,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="service">Service Required *</label>
-                                <select id="service" name="service_type" required>
+                                <select id="service" name="service_type" required onchange="toggleFrequencyField()">
                                     <option value="" disabled selected>Select Service...</option>
                                     <option value="Window Cleaning">Window Cleaning (Includes Frames, Sills &amp; Doors)</option>
                                     <option value="Gutter Clearance">Gutter Clearance</option>
@@ -197,7 +201,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group-full" style="margin-top: 15px;">
+                        <div class="form-group-full conditional-field" id="frequency-container" style="margin-top: 15px;">
                             <label for="frequency">Cleaning Frequency Required *</label>
                             <select id="frequency" name="cleaning_frequency" required>
                                 <option value="" disabled selected>Select Schedule...</option>
@@ -348,7 +352,25 @@
                     mainHeadline.innerHTML = `Professional Window, Gutter &amp; Exterior Cleaning in ${areaName}`;
                 }
             }
+            // Run on initial load to ensure form elements match selection state
+            toggleFrequencyField();
         });
+
+        // TOGGLE FREQUENCY DROP-DOWN BASED ON SELECTED SERVICE
+        function toggleFrequencyField() {
+            const service = document.getElementById('service').value;
+            const freqContainer = document.getElementById('frequency-container');
+            const freqSelect = document.getElementById('frequency');
+
+            if (service === "Window Cleaning" || service === "Full Exterior Package") {
+                freqContainer.style.display = 'block';
+                freqSelect.required = true;
+            } else {
+                freqContainer.style.display = 'none';
+                freqSelect.required = false;
+                freqSelect.value = ""; // Resets the value if hidden
+            }
+        }
 
         function runPricingCalculation() {
             const storeys = document.getElementById('storeys').value;
@@ -442,7 +464,6 @@
             priceDisplayBox.innerHTML = html;
         }
 
-        // CONTROL VISIBILITY VIA CLASS TOGGLE INSTEAD OF DIRECT STYLE PROPERTY
         function nextStep(currentStep) {
             document.getElementById('panel-'+currentStep).classList.remove('active-panel');
             document.getElementById('panel-'+(currentStep+1)).classList.add('active-panel');
