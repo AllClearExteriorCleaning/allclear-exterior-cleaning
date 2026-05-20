@@ -16,8 +16,36 @@
         }
         .form-panel.active-panel {
             display: flex !important;
+            flex-direction: column !important; /* Prevents fields from smashing horizontally on mobile */
         }
-        /* Smooth transition for conditional elements */
+        
+        /* Mobile-first Responsive Layout Rows */
+        .form-row, .form-row-triple {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        .form-group, .form-group-full {
+            width: 100%;
+        }
+        .form-group input, .form-group select, .form-group-full select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        /* Desktop Grid Upgrades */
+        @media(min-width: 768px) {
+            .form-row, .form-row-triple {
+                flex-direction: row;
+            }
+            .form-group {
+                flex: 1;
+            }
+        }
+
         .conditional-field {
             transition: all 0.3s ease;
         }
@@ -210,13 +238,11 @@
                             </select>
                         </div>
 
-                        <input type="hidden" id="booking-urgency-choice" name="customer_booking_preference" value="Not Selected">
-
                         <div id="instant-price-display"></div>
 
                         <div class="form-navigation-buttons" id="form-action-nav-block">
                             <button type="button" class="btn-step-prev" onclick="prevStep(3)"><i class="fa-solid fa-arrow-left"></i> Back</button>
-                            <button type="button" class="btn-submit-quote" id="calc-trigger-btn" onclick="submitLeadAndShowPrice()">Calculate My Price <i class="fa-solid fa-calculator"></i></button>
+                            <button type="button" class="btn-submit-quote" id="calc-trigger-btn" onclick="submitInitialLeadAndShowPrice()">Calculate My Price <i class="fa-solid fa-calculator"></i></button>
                         </div>
                     </div>
                 </form>
@@ -352,11 +378,9 @@
                     mainHeadline.innerHTML = `Professional Window, Gutter &amp; Exterior Cleaning in ${areaName}`;
                 }
             }
-            // Run on initial load to ensure form elements match selection state
             toggleFrequencyField();
         });
 
-        // TOGGLE FREQUENCY DROP-DOWN BASED ON SELECTED SERVICE
         function toggleFrequencyField() {
             const service = document.getElementById('service').value;
             const freqContainer = document.getElementById('frequency-container');
@@ -368,7 +392,7 @@
             } else {
                 freqContainer.style.display = 'none';
                 freqSelect.required = false;
-                freqSelect.value = ""; // Resets the value if hidden
+                freqSelect.value = ""; 
             }
         }
 
@@ -409,25 +433,111 @@
             return { routineCost, isWindowCleaning };
         }
 
-        function submitLeadAndShowPrice() {
+        // Helper function to insert clean dynamic tracking inputs into Web3Forms
+        function updateHiddenFormInput(name, value) {
             const form = document.getElementById('multiStepForm');
-            const priceDisplayBox = document.getElementById('instant-price-display');
-            const navBlock = document.getElementById('form-action-nav-block');
+            let input = form.querySelector(`input[name="${name}"]`);
+            if (!input) {
+                input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = name;
+                form.appendChild(input);
+            }
+            input.value = value;
+        }
+
+        // STAGE 1: Fires lead parameters instantly to your inbox on price generation click
+        function submitInitialLeadAndShowPrice() {
             const serviceSelect = document.getElementById('service');
             const freqSelect = document.getElementById('frequency');
+            const priceDisplayBox = document.getElementById('instant-price-display');
+            const navBlock = document.getElementById('form-action-nav-block');
             
             if (!serviceSelect.checkValidity()) { serviceSelect.reportValidity(); return; }
-            if (!freqSelect.checkValidity()) { freqSelect.reportValidity(); return; }
-
-            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: var(--brand-blue);"><i class="fa-solid fa-spinner fa-spin"></i> Calculating rates...</div>`;
+            if (freqSelect.required && !freqSelect.checkValidity()) { freqSelect.reportValidity(); return; }
 
             const calcResult = runPricingCalculation();
-            let hiddenDataString = (typeof calcResult === "string" || calcResult.routineCost === 0) ? "Custom Quote" : `Routine Base: £${calcResult.routineCost}`;
-            
-            let hiddenInput = form.querySelector('input[name="calculated_quote_estimate"]') || document.createElement('input');
-            hiddenInput.type = 'hidden'; hiddenInput.name = 'calculated_quote_estimate'; hiddenInput.value = hiddenDataString;
-            form.appendChild(hiddenInput);
 
+            // Intercept standard logic if property matches profile constraints
+            if (typeof calcResult === "string" || calcResult.routineCost === 0) {
+                priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: var(--brand-blue);"><i class="fa-solid fa-spinner fa-spin"></i> Submitting custom quote profile...</div>`;
+                updateHiddenFormInput('calculated_quote_estimate', "Custom Quote Needed");
+                updateHiddenFormInput('submission_stage', "Initial Lead (Out of Regular Calculation bounds)");
+                
+                firePayloadToWeb3Forms(() => {
+                    priceDisplayBox.innerHTML = `<div style="background: #FFFBEB; padding: 20px; border: 2px solid #F59E0B; border-radius: 8px;">Quote parameters logged. We will review your specs and contact you directly!</div>`;
+                    if (navBlock) navBlock.style.display = 'none';
+                });
+                return;
+            }
+
+            // Display loading indicator for quick lead sync
+            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: var(--brand-blue);"><i class="fa-solid fa-spinner fa-spin"></i> Syncing your quote...</div>`;
+
+            // Pack form parameters for Stage 1 Email Generation
+            updateHiddenFormInput('calculated_quote_estimate', `Routine Base Rate Calculated: £${calcResult.routineCost}`);
+            updateHiddenFormInput('submission_stage', 'Stage 1: Price Calculated & Viewed (Follow-up Hot Lead)');
+            updateHiddenFormInput('customer_booking_preference', 'Abandoned at step 3 / No choice picked yet');
+
+            // Fire Stage 1 API Call to Web3Forms
+            firePayloadToWeb3Forms(() => {
+                if (navBlock) navBlock.style.display = 'none';
+
+                let html = `<div style="background: var(--brand-light-sky, #F0F4F8); padding: 20px; border-radius: 8px; margin-top: 15px;">`;
+                
+                if (calcResult.isWindowCleaning) {
+                    let firstCleanCost = calcResult.routineCost * 1.5;
+                    let formattedFirstClean = Number.isInteger(firstCleanCost) ? firstCleanCost : firstCleanCost.toFixed(2);
+                    html += `<div style="font-size: 1.1rem; margin-bottom: 5px;">First Clean: <strong>£${formattedFirstClean}</strong></div>
+                             <div style="font-size: 1.1rem; margin-bottom: 20px;">Ongoing Routine Clean: <strong>£${calcResult.routineCost}</strong></div>`;
+                } else {
+                    html += `<div style="font-size: 1.1rem; margin-bottom: 20px;">Estimated Total: <strong>£${calcResult.routineCost}</strong></div>`;
+                }
+
+                // Append Booking Strategy Radios
+                html += `
+                    <div style="background: #fff; padding: 15px; border-radius: 6px; border: 1px solid #ccc; margin-bottom: 20px; text-align: left;">
+                        <p style="margin-top: 0; font-weight: 600; margin-bottom: 12px; color: #333;">How would you like to proceed?</p>
+                        <label style="display: block; margin-bottom: 12px; cursor: pointer; line-height: 1.4;">
+                            <input type="radio" name="temp_booking_pref" value="Book onto next available slot" checked> 
+                            Book onto next available slot when in my area (Jack will contact to confirm)
+                        </label>
+                        <label style="display: block; cursor: pointer; line-height: 1.4;">
+                            <input type="radio" name="temp_booking_pref" value="Message me to arrange specific date"> 
+                            Message me to arrange a specific date alternative
+                        </label>
+                    </div>
+                `;
+                
+                html += `<button type="button" id="final-booking-btn" style="width: 100%; padding: 14px; font-size: 1.1rem; font-weight: bold; background: var(--brand-green, #198754); color: white; border: none; border-radius: 6px; cursor: pointer;" onclick="confirmAndSubmitStageTwoBooking()">Confirm Booking Selection</button></div>`;
+                
+                priceDisplayBox.innerHTML = html;
+            });
+        }
+
+        // STAGE 2: If customer selects radio preference & clicks submit, fire update to inbox
+        function confirmAndSubmitStageTwoBooking() {
+            const priceDisplayBox = document.getElementById('instant-price-display');
+            const selectedPreference = document.querySelector('input[name="temp_booking_pref"]:checked').value;
+            
+            // Adjust tracking keys for Stage 2
+            updateHiddenFormInput('customer_booking_preference', selectedPreference);
+            updateHiddenFormInput('submission_stage', 'Stage 2: Booking Option Confirmed By Customer!');
+            
+            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--brand-blue, #0A58CA);"><i class="fa-solid fa-spinner fa-spin" style="font-size: 1.5rem; margin-bottom: 10px;"></i><br>Saving your booking preference...</div>`;
+            
+            firePayloadToWeb3Forms(() => {
+                priceDisplayBox.innerHTML = `
+                <div style="background: #D1E7DD; color: #0F5132; padding: 20px; border: 1px solid #BADBCC; border-radius: 8px; text-align: center; margin-top: 15px;">
+                    <h4 style="margin-top:0; font-size: 1.2rem;">Booking Preference Saved! <i class="fa-solid fa-circle-check"></i></h4>
+                    <p style="margin-bottom:0;">Thanks! We have received your schedule choice preference and will be in touch shortly to confirm.</p>
+                </div>`;
+            });
+        }
+
+        // Unified network payload execution block
+        function firePayloadToWeb3Forms(successCallback) {
+            const form = document.getElementById('multiStepForm');
             fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -435,33 +545,16 @@
             })
             .then(response => {
                 if (response.status === 200) {
-                    renderPriceOutputHTML(calcResult);
-                    if (navBlock) navBlock.style.display = 'none';
-                } else { showErrorMessage(); }
+                    successCallback();
+                } else {
+                    const priceDisplayBox = document.getElementById('instant-price-display');
+                    priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px; margin-top: 15px;">Submission error. Please check form settings or reload page.</div>`;
+                }
             })
-            .catch(error => showErrorMessage());
-        }
-
-        function renderPriceOutputHTML(calcResult) {
-            const priceDisplayBox = document.getElementById('instant-price-display');
-            if (typeof calcResult === "string" || calcResult.routineCost === 0) {
-                priceDisplayBox.innerHTML = `<div style="background: #FFFBEB; padding: 20px; border: 2px solid #F59E0B; border-radius: 8px;">Quote request logged. We will contact you shortly!</div>`;
-                return;
-            }
-            
-            let html = `<div style="background: var(--brand-light-sky); padding: 20px; border-radius: 8px;">`;
-            
-            if (calcResult.isWindowCleaning) {
-                let firstCleanCost = calcResult.routineCost * 1.5;
-                let formattedFirstClean = Number.isInteger(firstCleanCost) ? firstCleanCost : firstCleanCost.toFixed(2);
-                
-                html += `<div>First Clean: <strong>£${formattedFirstClean}</strong></div><div>Ongoing: <strong>£${calcResult.routineCost}</strong></div>`;
-            } else {
-                html += `<div>Estimated Total: <strong>£${calcResult.routineCost}</strong></div>`;
-            }
-            
-            html += `<button type="button" id="final-booking-btn" class="btn-confirm-booking" onclick="sendFinalBookingDetails()">Confirm Booking</button></div>`;
-            priceDisplayBox.innerHTML = html;
+            .catch(error => {
+                const priceDisplayBox = document.getElementById('instant-price-display');
+                priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px; margin-top: 15px;">Network error. Please confirm your web connect options.</div>`;
+            });
         }
 
         function nextStep(currentStep) {
