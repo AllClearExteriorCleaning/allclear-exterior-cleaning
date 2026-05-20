@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="/style.css?v=2026.05.19">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <style>
+        .form-panel {
+            display: none !important;
+        }
+        .form-panel.active-panel {
+            display: flex !important;
+        }
+    </style>
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -110,7 +119,7 @@
                         </div>
                     </div>
 
-                    <div class="form-panel" id="panel-2" style="display: none;">
+                    <div class="form-panel" id="panel-2">
                         <h4 class="step-panel-title">Property Details</h4>
                         <div class="form-row-triple">
                             <div class="form-group">
@@ -154,7 +163,7 @@
                         </div>
                     </div>
 
-                    <div class="form-panel" id="panel-3" style="display: none;">
+                    <div class="form-panel" id="panel-3">
                         <h4 class="step-panel-title">Service Details</h4>
                         <div class="form-row">
                             <div class="form-group">
@@ -433,15 +442,16 @@
             priceDisplayBox.innerHTML = html;
         }
 
+        // CONTROL VISIBILITY VIA CLASS TOGGLE INSTEAD OF DIRECT STYLE PROPERTY
         function nextStep(currentStep) {
-            document.getElementById('panel-'+currentStep).style.display = 'none';
-            document.getElementById('panel-'+(currentStep+1)).style.display = 'flex';
+            document.getElementById('panel-'+currentStep).classList.remove('active-panel');
+            document.getElementById('panel-'+(currentStep+1)).classList.add('active-panel');
             document.getElementById('ind-'+(currentStep+1)).classList.add('active-indicator');
         }
 
         function prevStep(currentStep) {
-            document.getElementById('panel-'+currentStep).style.display = 'none';
-            document.getElementById('panel-'+(currentStep-1)).style.display = 'flex';
+            document.getElementById('panel-'+currentStep).classList.remove('active-panel');
+            document.getElementById('panel-'+(currentStep-1)).classList.add('active-panel');
             document.getElementById('ind-'+currentStep).classList.remove('active-indicator');
         }
     </script>
