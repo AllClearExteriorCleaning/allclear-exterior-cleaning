@@ -49,6 +49,27 @@
         .conditional-field {
             transition: all 0.3s ease;
         }
+
+        /* Verification input box styling */
+        .verification-box {
+            background: #f8f9fa;
+            border: 2px dashed #0A58CA;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: center;
+        }
+        .verification-box input {
+            width: 140px !important;
+            text-align: center;
+            font-size: 1.5rem;
+            letter-spacing: 5px;
+            font-weight: bold;
+            padding: 10px;
+            margin: 15px 0;
+            border: 2px solid #ccc;
+            border-radius: 6px;
+        }
     </style>
 
     <script type="application/ld+json">
@@ -141,6 +162,12 @@
                                 <label for="name">Full Name *</label>
                                 <input type="text" id="name" name="name" placeholder="John Smith" required>
                             </div>
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
                             <div class="form-group">
                                 <label for="phone">Phone Number *</label>
                                 <input type="tel" id="phone" name="phone" placeholder="07123 456789" required>
@@ -242,7 +269,7 @@
 
                         <div class="form-navigation-buttons" id="form-action-nav-block">
                             <button type="button" class="btn-step-prev" onclick="prevStep(3)"><i class="fa-solid fa-arrow-left"></i> Back</button>
-                            <button type="button" class="btn-submit-quote" id="calc-trigger-btn" onclick="submitInitialLeadAndShowPrice()">Calculate My Price <i class="fa-solid fa-calculator"></i></button>
+                            <button type="button" class="btn-submit-quote" id="calc-trigger-btn" onclick="sendVerificationEmailCode()">Calculate My Price <i class="fa-solid fa-calculator"></i></button>
                         </div>
                     </div>
                 </form>
@@ -352,6 +379,8 @@
     </footer>
 
     <script>
+        let generatedVerificationCode = null;
+
         const mobileNavToggle = document.getElementById('mobileNavToggle');
         const mainNavMenu = document.getElementById('mainNavMenu');
 
@@ -433,7 +462,6 @@
             return { routineCost, isWindowCleaning };
         }
 
-        // Helper function to insert clean dynamic tracking inputs into Web3Forms
         function updateHiddenFormInput(name, value) {
             const form = document.getElementById('multiStepForm');
             let input = form.querySelector(`input[name="${name}"]`);
@@ -446,8 +474,8 @@
             input.value = value;
         }
 
-        // STAGE 1: Fires lead parameters instantly to your inbox on price generation click
-        function submitInitialLeadAndShowPrice() {
+        // STEP A: Generate Code, Package Lead, and Fire Email
+        function sendVerificationEmailCode() {
             const serviceSelect = document.getElementById('service');
             const freqSelect = document.getElementById('frequency');
             const priceDisplayBox = document.getElementById('instant-price-display');
@@ -456,79 +484,95 @@
             if (!serviceSelect.checkValidity()) { serviceSelect.reportValidity(); return; }
             if (freqSelect.required && !freqSelect.checkValidity()) { freqSelect.reportValidity(); return; }
 
+            // Generate 4 digit code
+            generatedVerificationCode = Math.floor(1000 + Math.random() * 9000).toString();
+
+            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: var(--brand-blue, #0A58CA);"><i class="fa-solid fa-spinner fa-spin"></i> Generating your instant secure code...</div>`;
+            if (navBlock) navBlock.style.display = 'none';
+
             const calcResult = runPricingCalculation();
+            const rawQuoteString = (typeof calcResult === "string") ? "Custom Quote Profile Context Required" : `Routine Rate Calculated: £${calcResult.routineCost}`;
+            
+            // Pack variables for Web3Forms to capture in your inbox and echo back to user
+            updateHiddenFormInput('calculated_quote_estimate', rawQuoteString);
+            updateHiddenFormInput('submission_stage', 'Stage 1: Code Dispatched (Verifying Real Email)');
+            updateHiddenFormInput('YOUR_SECURITY_VERIFICATION_CODE', generatedVerificationCode);
+            
+            // Optional routing instructions for autoresponder if turned on in Web3Forms dashboard
+            updateHiddenFormInput('subject', 'Your Exterior Cleaning Verification Code');
 
-            // Intercept standard logic if property matches profile constraints
-            if (typeof calcResult === "string" || calcResult.routineCost === 0) {
-                priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: var(--brand-blue);"><i class="fa-solid fa-spinner fa-spin"></i> Submitting custom quote profile...</div>`;
-                updateHiddenFormInput('calculated_quote_estimate', "Custom Quote Needed");
-                updateHiddenFormInput('submission_stage', "Initial Lead (Out of Regular Calculation bounds)");
-                
-                firePayloadToWeb3Forms(() => {
-                    priceDisplayBox.innerHTML = `<div style="background: #FFFBEB; padding: 20px; border: 2px solid #F59E0B; border-radius: 8px;">Quote parameters logged. We will review your specs and contact you directly!</div>`;
-                    if (navBlock) navBlock.style.display = 'none';
-                });
-                return;
-            }
-
-            // Display loading indicator for quick lead sync
-            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: var(--brand-blue);"><i class="fa-solid fa-spinner fa-spin"></i> Syncing your quote...</div>`;
-
-            // Pack form parameters for Stage 1 Email Generation
-            updateHiddenFormInput('calculated_quote_estimate', `Routine Base Rate Calculated: £${calcResult.routineCost}`);
-            updateHiddenFormInput('submission_stage', 'Stage 1: Price Calculated & Viewed (Follow-up Hot Lead)');
-            updateHiddenFormInput('customer_booking_preference', 'Abandoned at step 3 / No choice picked yet');
-
-            // Fire Stage 1 API Call to Web3Forms
             firePayloadToWeb3Forms(() => {
-                if (navBlock) navBlock.style.display = 'none';
-
-                let html = `<div style="background: var(--brand-light-sky, #F0F4F8); padding: 20px; border-radius: 8px; margin-top: 15px;">`;
-                
-                if (calcResult.isWindowCleaning) {
-                    let firstCleanCost = calcResult.routineCost * 1.5;
-                    let formattedFirstClean = Number.isInteger(firstCleanCost) ? firstCleanCost : firstCleanCost.toFixed(2);
-                    html += `<div style="font-size: 1.1rem; margin-bottom: 5px;">First Clean: <strong>£${formattedFirstClean}</strong></div>
-                             <div style="font-size: 1.1rem; margin-bottom: 20px;">Ongoing Routine Clean: <strong>£${calcResult.routineCost}</strong></div>`;
-                } else {
-                    html += `<div style="font-size: 1.1rem; margin-bottom: 20px;">Estimated Total: <strong>£${calcResult.routineCost}</strong></div>`;
-                }
-
-                // Append Booking Strategy Radios & Text Reminder Notice
-                html += `
-                    <div style="background: #fff; padding: 15px; border-radius: 6px; border: 1px solid #ccc; margin-bottom: 15px; text-align: left;">
-                        <p style="margin-top: 0; font-weight: 600; margin-bottom: 12px; color: #333;">How would you like to proceed?</p>
-                        <label style="display: block; margin-bottom: 12px; cursor: pointer; line-height: 1.4;">
-                            <input type="radio" name="temp_booking_pref" value="Book onto next available slot" checked> 
-                            Book onto next available slot when we're in your area (We will contact you to confirm)
-                        </label>
-                        <label style="display: block; cursor: pointer; line-height: 1.4;">
-                            <input type="radio" name="temp_booking_pref" value="Message me to arrange specific date"> 
-                            Message me to arrange a specific date alternative
-                        </label>
-                    </div>
-                    <div style="font-size: 0.9rem; color: #555; background: #e9ecef; padding: 10px; border-radius: 6px; margin-bottom: 20px; text-align: left;">
-                        <i class="fa-solid fa-circle-info" style="color: var(--brand-blue, #0A58CA); margin-right: 5px;"></i>
-                        <strong>Reminder:</strong> You will always receive a text reminder the evening before every scheduled clean.
+                priceDisplayBox.innerHTML = `
+                    <div class="verification-box">
+                        <p style="margin-top:0; font-weight:600; color:#333;">We've sent a 4-digit verification code to your email address to unlock your price.</p>
+                        <p style="font-size:0.85rem; color:#666; margin-bottom:10px;">(Please check your junk/spam folder if it doesn't arrive within 10 seconds)</p>
+                        <input type="text" id="user_entered_code" maxlength="4" placeholder="0000">
+                        <button type="button" style="width:100%; padding:14px; background: #198754; color:white; border:none; border-radius:6px; font-weight:bold; font-size: 1.1rem; cursor:pointer;" onclick="verifyUserCodeAndUnlockPrice()">Unlock Price Quote <i class="fa-solid fa-lock-open"></i></button>
                     </div>
                 `;
-                
-                html += `<button type="button" id="final-booking-btn" style="width: 100%; padding: 14px; font-size: 1.1rem; font-weight: bold; background: var(--brand-green, #198754); color: white; border: none; border-radius: 6px; cursor: pointer;" onclick="confirmAndSubmitStageTwoBooking()">Confirm Booking Selection</button></div>`;
-                
-                priceDisplayBox.innerHTML = html;
             });
         }
 
-        // STAGE 2: If customer selects radio preference & clicks submit, fire update to inbox
+        // STEP B: Verify Code and Unlock UI
+        function verifyUserCodeAndUnlockPrice() {
+            const entered = document.getElementById('user_entered_code').value.trim();
+            const priceDisplayBox = document.getElementById('instant-price-display');
+
+            if(entered !== generatedVerificationCode) {
+                alert("Incorrect code. Please check your email inbox again or re-enter.");
+                return;
+            }
+
+            const calcResult = runPricingCalculation();
+            
+            if (typeof calcResult === "string" || calcResult.routineCost === 0) {
+                priceDisplayBox.innerHTML = `<div style="background: #FFFBEB; padding: 20px; border: 2px solid #F59E0B; border-radius: 8px;">Property specs logged successfully. We will review your custom profile specifications and connect directly to confirm!</div>`;
+                return;
+            }
+
+            let html = `<div style="background: var(--brand-light-sky, #F0F4F8); padding: 20px; border-radius: 8px; margin-top: 15px; text-align:center;">`;
+            
+            if (calcResult.isWindowCleaning) {
+                let firstCleanCost = calcResult.routineCost * 1.5;
+                let formattedFirstClean = Number.isInteger(firstCleanCost) ? firstCleanCost : firstCleanCost.toFixed(2);
+                html += `<div style="font-size: 1.2rem; margin-bottom: 5px;">First Clean: <strong>£${formattedFirstClean}</strong></div>
+                         <div style="font-size: 1.2rem; margin-bottom: 20px;">Ongoing Routine Clean: <strong>£${calcResult.routineCost}</strong></div>`;
+            } else {
+                html += `<div style="font-size: 1.2rem; margin-bottom: 20px;">Estimated Total: <strong>£${calcResult.routineCost}</strong></div>`;
+            }
+
+            html += `
+                <div style="background: #fff; padding: 15px; border-radius: 6px; border: 1px solid #ccc; margin-bottom: 15px; text-align: left;">
+                    <p style="margin-top: 0; font-weight: 600; margin-bottom: 12px; color: #333;">How would you like to proceed?</p>
+                    <label style="display: block; margin-bottom: 12px; cursor: pointer; line-height: 1.4;">
+                        <input type="radio" name="temp_booking_pref" value="Book onto next available slot" checked> 
+                        Book onto next available slot when we're in your area (We will contact you to confirm)
+                    </label>
+                    <label style="display: block; cursor: pointer; line-height: 1.4;">
+                        <input type="radio" name="temp_booking_pref" value="Message me to arrange specific date"> 
+                        Message me to arrange a specific date alternative
+                    </label>
+                </div>
+                <div style="font-size: 0.9rem; color: #555; background: #e9ecef; padding: 10px; border-radius: 6px; margin-bottom: 20px; text-align: left;">
+                    <i class="fa-solid fa-circle-info" style="color: #0A58CA; margin-right: 5px;"></i>
+                    <strong>Reminder:</strong> You will always receive a text reminder the evening before every scheduled clean.
+                </div>
+            `;
+            
+            html += `<button type="button" id="final-booking-btn" style="width: 100%; padding: 14px; font-size: 1.1rem; font-weight: bold; background: #198754; color: white; border: none; border-radius: 6px; cursor: pointer;" onclick="confirmAndSubmitStageTwoBooking()">Confirm Booking Selection</button></div>`;
+            
+            priceDisplayBox.innerHTML = html;
+        }
+
+        // STEP C: Push Confirmed Booking Option
         function confirmAndSubmitStageTwoBooking() {
             const priceDisplayBox = document.getElementById('instant-price-display');
             const selectedPreference = document.querySelector('input[name="temp_booking_pref"]:checked').value;
             
-            // Adjust tracking keys for Stage 2
             updateHiddenFormInput('customer_booking_preference', selectedPreference);
-            updateHiddenFormInput('submission_stage', 'Stage 2: Booking Option Confirmed By Customer!');
+            updateHiddenFormInput('submission_stage', 'Stage 2: Booking Option Confirmed By Verified Customer!');
             
-            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--brand-blue, #0A58CA);"><i class="fa-solid fa-spinner fa-spin" style="font-size: 1.5rem; margin-bottom: 10px;"></i><br>Saving your booking preference...</div>`;
+            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 20px; color: #0A58CA;"><i class="fa-solid fa-spinner fa-spin" style="font-size: 1.5rem; margin-bottom: 10px;"></i><br>Saving your booking preference...</div>`;
             
             firePayloadToWeb3Forms(() => {
                 priceDisplayBox.innerHTML = `
@@ -540,7 +584,7 @@
             });
         }
 
-        // Unified network payload execution block
+        // Network Layer
         function firePayloadToWeb3Forms(successCallback) {
             const form = document.getElementById('multiStepForm');
             fetch('https://api.web3forms.com/submit', {
@@ -563,6 +607,17 @@
         }
 
         function nextStep(currentStep) {
+            if(currentStep === 1) {
+                const nameInput = document.getElementById('name');
+                const emailInput = document.getElementById('email');
+                const phoneInput = document.getElementById('phone');
+                if(!nameInput.checkValidity() || !emailInput.checkValidity() || !phoneInput.checkValidity()) {
+                    if(!nameInput.checkValidity()) nameInput.reportValidity();
+                    else if(!emailInput.checkValidity()) emailInput.reportValidity();
+                    else phoneInput.reportValidity();
+                    return;
+                }
+            }
             document.getElementById('panel-'+currentStep).classList.remove('active-panel');
             document.getElementById('panel-'+(currentStep+1)).classList.add('active-panel');
             document.getElementById('ind-'+(currentStep+1)).classList.add('active-indicator');
