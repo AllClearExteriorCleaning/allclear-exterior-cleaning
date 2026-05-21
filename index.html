@@ -9,6 +9,8 @@
     <meta name="description" content="Trusted residential and commercial exterior cleaning across Andover, Winchester, Basingstoke, and Eastleigh. Expert window cleaning, gutter clearance, fascia &amp; soffit washing, and conservatory roof cleaning.">
     <link rel="stylesheet" href="/style.css?v=2026.05.19">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <style>
         .form-panel {
@@ -16,10 +18,9 @@
         }
         .form-panel.active-panel {
             display: flex !important;
-            flex-direction: column !important; /* Prevents fields from smashing horizontally on mobile */
+            flex-direction: column !important;
         }
         
-        /* Mobile-first Responsive Layout Rows */
         .form-row, .form-row-triple {
             display: flex;
             flex-direction: column;
@@ -36,7 +37,6 @@
             padding: 10px;
         }
 
-        /* Desktop Grid Upgrades */
         @media(min-width: 768px) {
             .form-row, .form-row-triple {
                 flex-direction: row;
@@ -50,7 +50,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Verification input box styling */
         .verification-box {
             background: #f8f9fa;
             border: 2px dashed #0A58CA;
@@ -314,7 +313,7 @@
         <div class="container-center">
             <div class="about-profile-wrapper">
                 <div class="about-profile-image">
-                    <img src="IMG_9194.jpeg" alt="Jack - All Clear Exterior Cleaning Owner" style="width:100%; max-width:380px; border-radius:12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+                    <img src="IMG_9194.jpeg" alt="All Clear Exterior Cleaning Owner" style="width:100%; max-width:380px; border-radius:12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
                 </div>
                 <div class="about-profile-text">
                     <h2 class="section-heading-left">Meet Your Local Cleaning Specialist</h2>
@@ -379,6 +378,11 @@
     </footer>
 
     <script>
+        // Initialize EmailJS with your Public Key
+        (function() {
+            emailjs.init("IYWcve33GZPIAx9lu");
+        })();
+
         let generatedVerificationCode = null;
 
         const mobileNavToggle = document.getElementById('mobileNavToggle');
@@ -474,7 +478,7 @@
             input.value = value;
         }
 
-        // STEP A: Generate Code, Package Lead, and Fire Email
+        // STEP A: Generate Code, Package Lead, Fire Web3Forms & EmailJS
         function sendVerificationEmailCode() {
             const serviceSelect = document.getElementById('service');
             const freqSelect = document.getElementById('frequency');
@@ -493,23 +497,38 @@
             const calcResult = runPricingCalculation();
             const rawQuoteString = (typeof calcResult === "string") ? "Custom Quote Profile Context Required" : `Routine Rate Calculated: £${calcResult.routineCost}`;
             
-            // Pack variables for Web3Forms to capture in your inbox and echo back to user
+            // 1. Pack variables for Web3Forms to capture in your inbox
             updateHiddenFormInput('calculated_quote_estimate', rawQuoteString);
             updateHiddenFormInput('submission_stage', 'Stage 1: Code Dispatched (Verifying Real Email)');
             updateHiddenFormInput('YOUR_SECURITY_VERIFICATION_CODE', generatedVerificationCode);
-            
-            // Optional routing instructions for autoresponder if turned on in Web3Forms dashboard
             updateHiddenFormInput('subject', 'Your Exterior Cleaning Verification Code');
 
+            // 2. Fire Web3Forms to your inbox
             firePayloadToWeb3Forms(() => {
-                priceDisplayBox.innerHTML = `
-                    <div class="verification-box">
-                        <p style="margin-top:0; font-weight:600; color:#333;">We've sent a 4-digit verification code to your email address to unlock your price.</p>
-                        <p style="font-size:0.85rem; color:#666; margin-bottom:10px;">(Please check your junk/spam folder if it doesn't arrive within 10 seconds)</p>
-                        <input type="text" id="user_entered_code" maxlength="4" placeholder="0000">
-                        <button type="button" style="width:100%; padding:14px; background: #198754; color:white; border:none; border-radius:6px; font-weight:bold; font-size: 1.1rem; cursor:pointer;" onclick="verifyUserCodeAndUnlockPrice()">Unlock Price Quote <i class="fa-solid fa-lock-open"></i></button>
-                    </div>
-                `;
+                
+                // 3. Fire EmailJS to the Customer's inbox
+                const customerName = document.getElementById('name').value;
+                const customerEmail = document.getElementById('email').value;
+
+                emailjs.send("service_x5rr4an", "template_nxd2r7q", {
+                    customer_name: customerName,
+                    email_to: customerEmail,
+                    verification_code: generatedVerificationCode
+                })
+                .then(function() {
+                    // 4. Show Unlock UI
+                    priceDisplayBox.innerHTML = `
+                        <div class="verification-box">
+                            <p style="margin-top:0; font-weight:600; color:#333;">We've sent a 4-digit verification code to your email address to unlock your price.</p>
+                            <p style="font-size:0.85rem; color:#666; margin-bottom:10px;">(Please check your junk/spam folder if it doesn't arrive within 10 seconds)</p>
+                            <input type="text" id="user_entered_code" maxlength="4" placeholder="0000">
+                            <button type="button" style="width:100%; padding:14px; background: #198754; color:white; border:none; border-radius:6px; font-weight:bold; font-size: 1.1rem; cursor:pointer;" onclick="verifyUserCodeAndUnlockPrice()">Unlock Price Quote <i class="fa-solid fa-lock-open"></i></button>
+                        </div>
+                    `;
+                }, function(error) {
+                    priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px; margin-top: 15px;">Failed to send verification email. Please check your email address and try again.</div>`;
+                    if (navBlock) navBlock.style.display = 'block';
+                });
             });
         }
 
