@@ -13,36 +13,67 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <style>
-        .form-panel {
+        /* CRITICAL MOBILE RESET - Overrides global theme layout conflicts */
+        #multiStepForm .form-panel {
             display: none !important;
         }
-        .form-panel.active-panel {
+        #multiStepForm .form-panel.active-panel {
             display: flex !important;
             flex-direction: column !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
         }
         
-        .form-row, .form-row-triple {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 15px;
-            width: 100%;
+        #multiStepForm .form-row, 
+        #multiStepForm .form-row-triple {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 15px !important;
+            margin-bottom: 15px !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
         }
-        .form-group, .form-group-full {
-            width: 100%;
+        
+        #multiStepForm .form-group, 
+        #multiStepForm .form-group-full {
+            width: 100% !important;
+            flex: none !important;
+            box-sizing: border-box !important;
         }
-        .form-group input, .form-group select, .form-group-full select {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 10px;
+        
+        #multiStepForm .form-group input, 
+        #multiStepForm .form-group select, 
+        #multiStepForm .form-group-full select {
+            width: 100% !important;
+            box-sizing: border-box !important;
+            padding: 12px !important;
+            display: block !important;
         }
 
+        #multiStepForm .form-navigation-buttons {
+            display: flex !important;
+            flex-direction: row !important;
+            gap: 12px !important;
+            width: 100% !important;
+            margin-top: 15px !important;
+            box-sizing: border-box !important;
+        }
+
+        #multiStepForm .form-navigation-buttons button {
+            flex: 1 !important;
+            width: auto !important;
+            padding: 12px !important;
+            display: inline-block !important;
+        }
+
+        /* Desktop Layout Restoration */
         @media(min-width: 768px) {
-            .form-row, .form-row-triple {
-                flex-direction: row;
+            #multiStepForm .form-row, 
+            #multiStepForm .form-row-triple {
+                flex-direction: row !important;
             }
-            .form-group {
-                flex: 1;
+            #multiStepForm .form-group {
+                flex: 1 !important;
             }
         }
 
@@ -435,9 +466,6 @@
             const service = document.getElementById('service').value;
             const veluxCount = document.getElementById('velux').value;
             const extensions = document.getElementById('extensions').value;
-            const priceDisplayBox = document.getElementById('instant-price-display');
-
-            if (!priceDisplayBox) return "";
 
             if (storeys === "4+" || bedrooms === "6+") return "Custom Quote Required (Scale Limit)";
             if (service === "Full Exterior Package" && bedrooms === "1") return "Custom Quote Required (1 Bed Package Limit)";
@@ -526,7 +554,13 @@
                         </div>
                     `;
                 }, function(error) {
-                    priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px; margin-top: 15px;">Failed to send verification email. Please check your email address and try again.</div>`;
+                    // Outputting the real raw error text here makes debugging a breeze
+                    priceDisplayBox.innerHTML = `
+                        <div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px; margin-top: 15px; text-align: left; font-size: 0.95rem;">
+                            <strong>Failed to send verification email via EmailJS.</strong><br>
+                            <span style="display:block; margin-top:5px; font-family:monospace; background:rgba(0,0,0,0.05); padding:5px;">Error: ${error.text || JSON.stringify(error)}</span>
+                            <p style="margin-top:10px; margin-bottom:0; font-size:0.85rem; color:#555;">💡 Check your EmailJS dashboard history or confirm your Zoho integration is authenticated with an App Password.</p>
+                        </div>`;
                     if (navBlock) navBlock.style.display = 'block';
                 });
             });
