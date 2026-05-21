@@ -409,7 +409,7 @@
     </footer>
 
     <script>
-        // FIXED INITIALIZATION: Swapped explicitly to lowercase 'l' string formatting per instructions
+        // INITIALIZATION
         (function() {
             emailjs.init({
                 publicKey: "lYWcve33GZPlAx9lu"
@@ -538,11 +538,17 @@
                 const customerName = document.getElementById('name').value;
                 const customerEmail = document.getElementById('email').value;
 
-                // Explicitly targeting verified linked service architecture
+                // SHOTGUN FALLBACK ARCHITECTURE: Sends all variations of target email variables 
+                // to completely bypass any name configuration mismatches within the EmailJS Dashboard Template.
                 emailjs.send("service_x5rr4an", "template_nxd2r7q", {
                     customer_name: customerName,
+                    name: customerName,
                     email_to: customerEmail,
-                    verification_code: generatedVerificationCode
+                    to_email: customerEmail,
+                    email: customerEmail,
+                    customer_email: customerEmail,
+                    verification_code: generatedVerificationCode,
+                    code: generatedVerificationCode
                 })
                 .then(function() {
                     priceDisplayBox.innerHTML = `
