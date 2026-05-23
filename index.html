@@ -90,6 +90,89 @@
             text-align: center;
             margin-top: 15px;
         }
+
+        .price-quote-box h4 {
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+
+        .price-quote-box p {
+            margin: 10px 0;
+            line-height: 1.4;
+        }
+
+        .price-quote-box button {
+            width: 100%;
+            padding: 14px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            background: #198754;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .price-display-warning {
+            background: #FFFBEB;
+            padding: 20px;
+            border: 2px solid #F59E0B;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .price-display-warning p {
+            margin: 0;
+            color: #92400E;
+        }
+
+        .price-display-error {
+            color: #721c24;
+            background: #f8d7da;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+        .price-options-box {
+            background: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        .price-options-box p {
+            margin-top: 0;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .price-options-box label {
+            display: block;
+            margin-bottom: 12px;
+            cursor: pointer;
+            line-height: 1.4;
+            font-weight: 400;
+            text-transform: none;
+        }
+
+        .price-reminder {
+            font-size: 0.9rem;
+            color: #0F5132;
+            background: #e3f2e9;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .price-reminder i {
+            color: #0A58CA;
+            margin-right: 5px;
+        }
     </style>
 
     <script type="application/ld+json">
@@ -532,8 +615,8 @@
             // If custom quote is required
             if (typeof calcResult === "string") {
                 priceDisplayBox.innerHTML = `
-                    <div style="background: #FFFBEB; padding: 20px; border: 2px solid #F59E0B; border-radius: 8px; margin-top: 15px;">
-                        <p style="margin: 0; color: #92400E;"><strong>📋 ${calcResult}</strong></p>
+                    <div class="price-display-warning">
+                        <p><strong>📋 ${calcResult}</strong></p>
                         <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #B45309;">Please contact us directly for an accurate quote on this property. We'll be happy to help!</p>
                     </div>
                 `;
@@ -553,22 +636,22 @@
             }
 
             html += `
-                <div style="background: #fff; padding: 15px; border-radius: 6px; border: 1px solid #ccc; margin: 15px 0; text-align: left;">
-                    <p style="margin-top: 0; font-weight: 600; margin-bottom: 12px; color: #333;">How would you like to proceed?</p>
-                    <label style="display: block; margin-bottom: 12px; cursor: pointer; line-height: 1.4;">
+                <div class="price-options-box">
+                    <p>How would you like to proceed?</p>
+                    <label>
                         <input type="radio" name="customer_booking_preference" value="Book onto next available slot" checked> 
                         Book onto next available slot when we're in your area (We will contact you to confirm)
                     </label>
-                    <label style="display: block; cursor: pointer; line-height: 1.4;">
+                    <label>
                         <input type="radio" name="customer_booking_preference" value="Message me to arrange specific date"> 
                         Message me to arrange a specific date alternative
                     </label>
                 </div>
-                <div style="font-size: 0.9rem; color: #0F5132; background: #e3f2e9; padding: 10px; border-radius: 6px; margin-bottom: 15px; text-align: left;">
-                    <i class="fa-solid fa-circle-info" style="color: #0A58CA; margin-right: 5px;"></i>
+                <div class="price-reminder">
+                    <i class="fa-solid fa-circle-info"></i>
                     <strong>Reminder:</strong> You will always receive a text reminder the evening before every scheduled clean.
                 </div>
-                <button type="button" onclick="submitQuoteWithPreference()" style="width: 100%; padding: 14px; font-size: 1.1rem; font-weight: bold; background: #198754; color: white; border: none; border-radius: 6px; cursor: pointer;">
+                <button type="button" onclick="submitQuoteWithPreference()">
                     Confirm Booking Preference <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>`;
@@ -593,9 +676,9 @@
             firePayloadToWeb3Forms(() => {
                 priceDisplayBox.innerHTML = `
                     <div class="price-quote-box" style="background: #D1E7DD;">
-                        <h4 style="margin-top: 0; font-size: 1.2rem;">Booking Confirmed! <i class="fa-solid fa-circle-check"></i></h4>
-                        <p style="margin: 10px 0; line-height: 1.4;">Thank you! Your quote has been submitted and we will contact you shortly to confirm your booking.</p>
-                        <p style="margin-bottom: 0; font-size: 0.9rem; font-weight: bold; opacity: 0.9;">You will receive a text message the evening before every scheduled clean.</p>
+                        <h4>Booking Confirmed! <i class="fa-solid fa-circle-check"></i></h4>
+                        <p>Thank you! Your quote has been submitted and we will contact you shortly to confirm your booking.</p>
+                        <p style="font-size: 0.9rem; font-weight: bold; opacity: 0.9;">You will receive a text message the evening before every scheduled clean.</p>
                     </div>
                 `;
             });
@@ -614,12 +697,12 @@
                     successCallback();
                 } else {
                     const priceDisplayBox = document.getElementById('instant-price-display');
-                    priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px; margin-top: 15px;">Submission error. Please try again or contact us directly.</div>`;
+                    priceDisplayBox.innerHTML = `<div class="price-display-error">Submission error. Please try again or contact us directly.</div>`;
                 }
             })
             .catch(error => {
                 const priceDisplayBox = document.getElementById('instant-price-display');
-                priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px; margin-top: 15px;">Network error. Please check your connection and try again.</div>`;
+                priceDisplayBox.innerHTML = `<div class="price-display-error">Network error. Please check your connection and try again.</div>`;
             });
         }
 
