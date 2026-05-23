@@ -6,172 +6,48 @@
     
     <title id="dynamic-site-title">All Clear Exterior Cleaning | Window, Gutter &amp; Conservatory Cleaning Hampshire</title>
     
-    <meta name="description" content="Trusted residential and commercial exterior cleaning across Andover, Winchester, Basingstoke, and Eastleigh. Expert window cleaning, gutter clearance, fascia &amp[...]
-    <link rel="stylesheet" href="/style.css?v=2026.05.21">
+    <meta name="description" content="Trusted residential and commercial exterior cleaning across Andover, Winchester, Basingstoke, and Eastleigh. Expert window cleaning, gutter clearance, fascia &amp; soffit washing, and conservatory roof cleaning.">
+    <link rel="stylesheet" href="/style.css?v=2026.05.19">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <style>
-        /* CRITICAL MOBILE RESET - Overrides global theme layout conflicts */
-        #multiStepForm .form-panel {
+        .form-panel {
             display: none !important;
         }
-        #multiStepForm .form-panel.active-panel {
+        .form-panel.active-panel {
             display: flex !important;
-            flex-direction: column !important;
-            width: 100% !important;
-            box-sizing: border-box !important;
+            flex-direction: column !important; /* Prevents fields from smashing horizontally on mobile */
         }
         
-        #multiStepForm .form-row, 
-        #multiStepForm .form-row-triple {
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 15px !important;
-            margin-bottom: 15px !important;
-            width: 100% !important;
-            box-sizing: border-box !important;
+        /* Mobile-first Responsive Layout Rows */
+        .form-row, .form-row-triple {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 15px;
+            width: 100%;
         }
-        
-        #multiStepForm .form-group, 
-        #multiStepForm .form-group-full {
-            width: 100% !important;
-            flex: none !important;
-            box-sizing: border-box !important;
+        .form-group, .form-group-full {
+            width: 100%;
         }
-        
-        #multiStepForm .form-group input, 
-        #multiStepForm .form-group select, 
-        #multiStepForm .form-group-full select {
-            width: 100% !important;
-            box-sizing: border-box !important;
-            padding: 12px !important;
-            display: block !important;
+        .form-group input, .form-group select, .form-group-full select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
         }
 
-        #multiStepForm .form-navigation-buttons {
-            display: flex !important;
-            flex-direction: row !important;
-            gap: 12px !important;
-            width: 100% !important;
-            margin-top: 15px !important;
-            box-sizing: border-box !important;
-        }
-
-        #multiStepForm .form-navigation-buttons button {
-            flex: 1 !important;
-            width: auto !important;
-            padding: 12px !important;
-            display: inline-block !important;
-        }
-
-        /* Desktop Layout Restoration */
+        /* Desktop Grid Upgrades */
         @media(min-width: 768px) {
-            #multiStepForm .form-row, 
-            #multiStepForm .form-row-triple {
-                flex-direction: row !important;
+            .form-row, .form-row-triple {
+                flex-direction: row;
             }
-            #multiStepForm .form-group {
-                flex: 1 !important;
+            .form-group {
+                flex: 1;
             }
         }
 
         .conditional-field {
             transition: all 0.3s ease;
-        }
-
-        .price-quote-box {
-            background: #D1E7DD;
-            color: #0F5132;
-            padding: 20px;
-            border: 1px solid #BADBCC;
-            border-radius: 8px;
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        .price-quote-box h4 {
-            margin-top: 0;
-            font-size: 1.2rem;
-        }
-
-        .price-quote-box p {
-            margin: 10px 0;
-            line-height: 1.4;
-        }
-
-        .price-quote-box button {
-            width: 100%;
-            padding: 14px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            background: #198754;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .price-display-warning {
-            background: #FFFBEB;
-            padding: 20px;
-            border: 2px solid #F59E0B;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-
-        .price-display-warning p {
-            margin: 0;
-            color: #92400E;
-        }
-
-        .price-display-error {
-            color: #721c24;
-            background: #f8d7da;
-            padding: 15px;
-            border-radius: 6px;
-            margin-top: 15px;
-        }
-
-        .price-options-box {
-            background: #fff;
-            padding: 15px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            margin: 15px 0;
-            text-align: left;
-        }
-
-        .price-options-box p {
-            margin-top: 0;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: #333;
-        }
-
-        .price-options-box label {
-            display: block;
-            margin-bottom: 12px;
-            cursor: pointer;
-            line-height: 1.4;
-            font-weight: 400;
-            text-transform: none;
-        }
-
-        .price-reminder {
-            font-size: 0.9rem;
-            color: #0F5132;
-            background: #e3f2e9;
-            padding: 10px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-        .price-reminder i {
-            color: #0A58CA;
-            margin-right: 5px;
         }
     </style>
 
@@ -265,12 +141,6 @@
                                 <label for="name">Full Name *</label>
                                 <input type="text" id="name" name="name" placeholder="John Smith" required>
                             </div>
-                            <div class="form-group">
-                                <label for="email">Email Address *</label>
-                                <input type="email" id="email" name="email" placeholder="john@example.com" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group">
                                 <label for="phone">Phone Number *</label>
                                 <input type="tel" id="phone" name="phone" placeholder="07123 456789" required>
@@ -372,7 +242,7 @@
 
                         <div class="form-navigation-buttons" id="form-action-nav-block">
                             <button type="button" class="btn-step-prev" onclick="prevStep(3)"><i class="fa-solid fa-arrow-left"></i> Back</button>
-                            <button type="button" class="btn-submit-quote" id="calc-trigger-btn" onclick="calculateAndDisplayPrice()">Calculate My Price <i class="fa-solid fa-calculator"></i></button>
+                            <button type="button" class="btn-submit-quote" id="calc-trigger-btn" onclick="submitInitialLeadAndShowPrice()">Calculate My Price <i class="fa-solid fa-calculator"></i></button>
                         </div>
                     </div>
                 </form>
@@ -389,25 +259,25 @@
                 <div class="service-card">
                     <div class="card-icon"><i class="fa-solid fa-window-maximize"></i></div>
                     <h3>Pure Water Window Cleaning</h3>
-                    <p>Using reach-and-wash carbon poles with clean, purified water. <strong>We wash all glass, frames, sills, and external doors as standard on every single visit</strong> to ensure a[...]
+                    <p>Using reach-and-wash carbon poles with clean, purified water. <strong>We wash all glass, frames, sills, and external doors as standard on every single visit</strong> to ensure a flawless finish without any sticky soap film left behind.</p>
                 </div>
                 
                 <div class="service-card">
                     <div class="card-icon"><i class="fa-solid fa-bore-hole"></i></div>
                     <h3>skyVac Gutter Clearance</h3>
-                    <p>Safe, powerful ground-level clearance of heavy sludge, leaves, and blockages using industrial suction setups. Keeps drainage working perfectly to prevent expensive internal prop[...]
+                    <p>Safe, powerful ground-level clearance of heavy sludge, leaves, and blockages using industrial suction setups. Keeps drainage working perfectly to prevent expensive internal property damp issues.</p>
                 </div>
                 
                 <div class="service-card">
                     <div class="card-icon"><i class="fa-solid fa-house"></i></div>
                     <h3>Fascia &amp; Soffit Washing</h3>
-                    <p>Deep-clean treatment that strips away stubborn green algae, heavy weather grime, and grey pollution stains from rooflines to fully restore your property's primary street-side cu[...]
+                    <p>Deep-clean treatment that strips away stubborn green algae, heavy weather grime, and grey pollution stains from rooflines to fully restore your property's primary street-side curb appeal.</p>
                 </div>
                 
                 <div class="service-card">
                     <div class="card-icon"><i class="fa-solid fa-sun"></i></div>
                     <h3>Conservatory Roof Cleaning</h3>
-                    <p>Specialist safe treatment for delicate glass or polycarbonate roof panels. Removes green organic film and debris build-up to allow maximum bright natural sunlight back into your[...]
+                    <p>Specialist safe treatment for delicate glass or polycarbonate roof panels. Removes green organic film and debris build-up to allow maximum bright natural sunlight back into your living spaces.</p>
                 </div>
             </div>
         </div>
@@ -417,12 +287,12 @@
         <div class="container-center">
             <div class="about-profile-wrapper">
                 <div class="about-profile-image">
-                    <img src="IMG_9194.jpeg" alt="All Clear Exterior Cleaning Owner" style="width:100%; max-width:380px; border-radius:12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+                    <img src="IMG_9194.jpeg" alt="Jack - All Clear Exterior Cleaning Owner" style="width:100%; max-width:380px; border-radius:12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
                 </div>
                 <div class="about-profile-text">
                     <h2 class="section-heading-left">Meet Your Local Cleaning Specialist</h2>
-                    <p>Hi, I'm Jack, owner and operator of <strong>All Clear Exterior Cleaning</strong>. We take absolute pride in maintaining homes across Hampshire with high-reach pure water fed sys[...]
-                    <p>When you request a service, you are dealing with a fully insured, dedicated local professional who guarantees a streak-free, flawless finish every single visit. No shortcuts, no[...]
+                    <p>Hi, I'm Jack, owner and operator of <strong>All Clear Exterior Cleaning</strong>. We take absolute pride in maintaining homes across Hampshire with high-reach pure water fed systems, professional skyVac gutter systems, and meticulous conservatory roof restoration solutions.</p>
+                    <p>When you request a service, you are dealing with a fully insured, dedicated local professional who guarantees a streak-free, flawless finish every single visit. No shortcuts, no hidden surprises—just an immaculate home frame-to-glass.</p>
                 </div>
             </div>
         </div>
@@ -482,14 +352,6 @@
     </footer>
 
     <script>
-        // INITIALIZATION
-        (function() {
-            emailjs.init({
-                publicKey: "lYWcve33GZPlAx9lu"
-            });
-        })();
-
-        // Mobile Menu Toggler
         const mobileNavToggle = document.getElementById('mobileNavToggle');
         const mainNavMenu = document.getElementById('mainNavMenu');
 
@@ -503,39 +365,19 @@
             });
         });
 
-        // Programmatic SEO Router (Path-Based)
         document.addEventListener("DOMContentLoaded", function() {
-            // Get the URL path (e.g., /andover/fascia-cleaning)
-            const path = window.location.pathname;
-            
-            // Split the path into segments and remove empty spaces
-            const pathSegments = path.split('/').filter(segment => segment.length > 0);
-            
-            // Check if we are on a location page (ignoring standard pages)
-            if (pathSegments.length > 0 && pathSegments[0] !== 'areas-we-cover.html' && pathSegments[0] !== 'index.html') {
-                
-                // 1. Extract and format the Town Name (e.g., "andover" -> "Andover")
-                let rawTown = pathSegments[0];
-                let areaName = rawTown.replace(/-/g, ' '); // Replace dashes with spaces
-                areaName = areaName.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
-                
-                // 2. Extract and format the Service Name (if it exists)
-                let serviceName = "Exterior Cleaning"; // Default fallback
-                if (pathSegments.length > 1) {
-                    let rawService = pathSegments[1];
-                    serviceName = rawService.replace(/-/g, ' ');
-                    serviceName = serviceName.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
-                }
+            const urlParams = new URLSearchParams(window.location.search);
+            let areaName = urlParams.get('area');
 
-                // 3. Inject the dynamic data into the Page Title and H1
-                document.title = `${serviceName} in ${areaName} | All Clear Exterior Cleaning`;
-                
+            if (areaName) {
+                areaName = areaName.trim();
+                areaName = areaName.charAt(0).toUpperCase() + areaName.slice(1).toLowerCase();
+                document.title = `Window Cleaning in ${areaName} | All Clear Exterior Cleaning`;
                 const mainHeadline = document.getElementById('dynamic-main-heading');
                 if (mainHeadline) {
-                    mainHeadline.innerHTML = `Professional ${serviceName} in ${areaName}`;
+                    mainHeadline.innerHTML = `Professional Window, Gutter &amp; Exterior Cleaning in ${areaName}`;
                 }
             }
-            
             toggleFrequencyField();
         });
 
@@ -554,13 +396,15 @@
             }
         }
 
-        // Logic Matrix: Estimates prices instantly
         function runPricingCalculation() {
             const storeys = document.getElementById('storeys').value;
             const bedrooms = document.getElementById('bedrooms').value;
             const service = document.getElementById('service').value;
             const veluxCount = document.getElementById('velux').value;
             const extensions = document.getElementById('extensions').value;
+            const priceDisplayBox = document.getElementById('instant-price-display');
+
+            if (!priceDisplayBox) return "";
 
             if (storeys === "4+" || bedrooms === "6+") return "Custom Quote Required (Scale Limit)";
             if (service === "Full Exterior Package" && bedrooms === "1") return "Custom Quote Required (1 Bed Package Limit)";
@@ -589,6 +433,7 @@
             return { routineCost, isWindowCleaning };
         }
 
+        // Helper function to insert clean dynamic tracking inputs into Web3Forms
         function updateHiddenFormInput(name, value) {
             const form = document.getElementById('multiStepForm');
             let input = form.querySelector(`input[name="${name}"]`);
@@ -601,90 +446,101 @@
             input.value = value;
         }
 
-        // SIMPLIFIED: Calculate and display price directly (no email verification)
-        function calculateAndDisplayPrice() {
+        // STAGE 1: Fires lead parameters instantly to your inbox on price generation click
+        function submitInitialLeadAndShowPrice() {
             const serviceSelect = document.getElementById('service');
             const freqSelect = document.getElementById('frequency');
             const priceDisplayBox = document.getElementById('instant-price-display');
+            const navBlock = document.getElementById('form-action-nav-block');
             
             if (!serviceSelect.checkValidity()) { serviceSelect.reportValidity(); return; }
             if (freqSelect.required && !freqSelect.checkValidity()) { freqSelect.reportValidity(); return; }
 
             const calcResult = runPricingCalculation();
-            
-            // If custom quote is required
-            if (typeof calcResult === "string") {
-                priceDisplayBox.innerHTML = `
-                    <div class="price-display-warning">
-                        <p><strong>📋 ${calcResult}</strong></p>
-                        <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #B45309;">Please contact us directly for an accurate quote on this property. We'll be happy to help!</p>
-                    </div>
-                `;
+
+            // Intercept standard logic if property matches profile constraints
+            if (typeof calcResult === "string" || calcResult.routineCost === 0) {
+                priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: var(--brand-blue);"><i class="fa-solid fa-spinner fa-spin"></i> Submitting custom quote profile...</div>`;
+                updateHiddenFormInput('calculated_quote_estimate', "Custom Quote Needed");
+                updateHiddenFormInput('submission_stage', "Initial Lead (Out of Regular Calculation bounds)");
+                
+                firePayloadToWeb3Forms(() => {
+                    priceDisplayBox.innerHTML = `<div style="background: #FFFBEB; padding: 20px; border: 2px solid #F59E0B; border-radius: 8px;">Quote parameters logged. We will review your specs and contact you directly!</div>`;
+                    if (navBlock) navBlock.style.display = 'none';
+                });
                 return;
             }
 
-            // Display the calculated price
-            let html = `<div class="price-quote-box">`;
-            
-            if (calcResult.isWindowCleaning) {
-                let firstCleanCost = calcResult.routineCost * 1.5;
-                let formattedFirstClean = Number.isInteger(firstCleanCost) ? firstCleanCost : firstCleanCost.toFixed(2);
-                html += `<div style="font-size: 1.2rem; margin-bottom: 5px;">First Clean: <strong>£${formattedFirstClean}</strong></div>
-                         <div style="font-size: 1.2rem; margin-bottom: 20px;">Ongoing Routine Clean: <strong>£${calcResult.routineCost}</strong></div>`;
-            } else {
-                html += `<div style="font-size: 1.2rem; margin-bottom: 20px;">Estimated Total: <strong>£${calcResult.routineCost}</strong></div>`;
-            }
+            // Display loading indicator for quick lead sync
+            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: var(--brand-blue);"><i class="fa-solid fa-spinner fa-spin"></i> Syncing your quote...</div>`;
 
-            html += `
-                <div class="price-options-box">
-                    <p>How would you like to proceed?</p>
-                    <label>
-                        <input type="radio" name="customer_booking_preference" value="Book onto next available slot" checked> 
-                        Book onto next available slot when we're in your area (We will contact you to confirm)
-                    </label>
-                    <label>
-                        <input type="radio" name="customer_booking_preference" value="Message me to arrange specific date"> 
-                        Message me to arrange a specific date alternative
-                    </label>
-                </div>
-                <div class="price-reminder">
-                    <i class="fa-solid fa-circle-info"></i>
-                    <strong>Reminder:</strong> You will always receive a text reminder the evening before every scheduled clean.
-                </div>
-                <button type="button" onclick="submitQuoteWithPreference()">
-                    Confirm Booking Preference <i class="fa-solid fa-arrow-right"></i>
-                </button>
-            </div>`;
-            
-            priceDisplayBox.innerHTML = html;
-        }
+            // Pack form parameters for Stage 1 Email Generation
+            updateHiddenFormInput('calculated_quote_estimate', `Routine Base Rate Calculated: £${calcResult.routineCost}`);
+            updateHiddenFormInput('submission_stage', 'Stage 1: Price Calculated & Viewed (Follow-up Hot Lead)');
+            updateHiddenFormInput('customer_booking_preference', 'Abandoned at step 3 / No choice picked yet');
 
-        // Submit the booking preference and form data
-        function submitQuoteWithPreference() {
-            const priceDisplayBox = document.getElementById('instant-price-display');
-            const selectedPreference = document.querySelector('input[name="customer_booking_preference"]:checked').value;
-            
-            const calcResult = runPricingCalculation();
-            const quoteEstimate = (typeof calcResult === "string") ? calcResult : `£${calcResult.routineCost}`;
-            
-            updateHiddenFormInput('calculated_quote_estimate', quoteEstimate);
-            updateHiddenFormInput('submission_stage', 'Quote Submitted: Customer Verified');
-            updateHiddenFormInput('customer_booking_preference', selectedPreference);
-            
-            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 20px; color: #0A58CA;"><i class="fa-solid fa-spinner fa-spin" style="font-size: 1.5rem; margin-bottom: 10px;"></i><br>Submitting your details...</div>`;
-            
+            // Fire Stage 1 API Call to Web3Forms
             firePayloadToWeb3Forms(() => {
-                priceDisplayBox.innerHTML = `
-                    <div class="price-quote-box" style="background: #D1E7DD;">
-                        <h4>Booking Confirmed! <i class="fa-solid fa-circle-check"></i></h4>
-                        <p>Thank you! Your quote has been submitted and we will contact you shortly to confirm your booking.</p>
-                        <p style="font-size: 0.9rem; font-weight: bold; opacity: 0.9;">You will receive a text message the evening before every scheduled clean.</p>
+                if (navBlock) navBlock.style.display = 'none';
+
+                let html = `<div style="background: var(--brand-light-sky, #F0F4F8); padding: 20px; border-radius: 8px; margin-top: 15px;">`;
+                
+                if (calcResult.isWindowCleaning) {
+                    let firstCleanCost = calcResult.routineCost * 1.5;
+                    let formattedFirstClean = Number.isInteger(firstCleanCost) ? firstCleanCost : firstCleanCost.toFixed(2);
+                    html += `<div style="font-size: 1.1rem; margin-bottom: 5px;">First Clean: <strong>£${formattedFirstClean}</strong></div>
+                             <div style="font-size: 1.1rem; margin-bottom: 20px;">Ongoing Routine Clean: <strong>£${calcResult.routineCost}</strong></div>`;
+                } else {
+                    html += `<div style="font-size: 1.1rem; margin-bottom: 20px;">Estimated Total: <strong>£${calcResult.routineCost}</strong></div>`;
+                }
+
+                // Append Booking Strategy Radios & Text Reminder Notice
+                html += `
+                    <div style="background: #fff; padding: 15px; border-radius: 6px; border: 1px solid #ccc; margin-bottom: 15px; text-align: left;">
+                        <p style="margin-top: 0; font-weight: 600; margin-bottom: 12px; color: #333;">How would you like to proceed?</p>
+                        <label style="display: block; margin-bottom: 12px; cursor: pointer; line-height: 1.4;">
+                            <input type="radio" name="temp_booking_pref" value="Book onto next available slot" checked> 
+                            Book onto next available slot when we're in your area (We will contact you to confirm)
+                        </label>
+                        <label style="display: block; cursor: pointer; line-height: 1.4;">
+                            <input type="radio" name="temp_booking_pref" value="Message me to arrange specific date"> 
+                            Message me to arrange a specific date alternative
+                        </label>
+                    </div>
+                    <div style="font-size: 0.9rem; color: #555; background: #e9ecef; padding: 10px; border-radius: 6px; margin-bottom: 20px; text-align: left;">
+                        <i class="fa-solid fa-circle-info" style="color: var(--brand-blue, #0A58CA); margin-right: 5px;"></i>
+                        <strong>Reminder:</strong> You will always receive a text reminder the evening before every scheduled clean.
                     </div>
                 `;
+                
+                html += `<button type="button" id="final-booking-btn" style="width: 100%; padding: 14px; font-size: 1.1rem; font-weight: bold; background: var(--brand-green, #198754); color: white; border: none; border-radius: 6px; cursor: pointer;" onclick="confirmAndSubmitStageTwoBooking()">Confirm Booking Selection</button></div>`;
+                
+                priceDisplayBox.innerHTML = html;
             });
         }
 
-        // Data Capture Infrastructure
+        // STAGE 2: If customer selects radio preference & clicks submit, fire update to inbox
+        function confirmAndSubmitStageTwoBooking() {
+            const priceDisplayBox = document.getElementById('instant-price-display');
+            const selectedPreference = document.querySelector('input[name="temp_booking_pref"]:checked').value;
+            
+            // Adjust tracking keys for Stage 2
+            updateHiddenFormInput('customer_booking_preference', selectedPreference);
+            updateHiddenFormInput('submission_stage', 'Stage 2: Booking Option Confirmed By Customer!');
+            
+            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--brand-blue, #0A58CA);"><i class="fa-solid fa-spinner fa-spin" style="font-size: 1.5rem; margin-bottom: 10px;"></i><br>Saving your booking preference...</div>`;
+            
+            firePayloadToWeb3Forms(() => {
+                priceDisplayBox.innerHTML = `
+                <div style="background: #D1E7DD; color: #0F5132; padding: 20px; border: 1px solid #BADBCC; border-radius: 8px; text-align: center; margin-top: 15px;">
+                    <h4 style="margin-top:0; font-size: 1.2rem;">Booking Preference Saved! <i class="fa-solid fa-circle-check"></i></h4>
+                    <p style="margin-bottom: 10px; line-height: 1.4;">Thank you! Your details have been finalized. We will contact you to confirm when we're likely to be in your area.</p>
+                    <p style="margin-bottom:0; font-size: 0.9rem; font-weight: bold; opacity: 0.9;">As a reminder, you will receive a text message the evening before every clean.</p>
+                </div>`;
+            });
+        }
+
+        // Unified network payload execution block
         function firePayloadToWeb3Forms(successCallback) {
             const form = document.getElementById('multiStepForm');
             fetch('https://api.web3forms.com/submit', {
@@ -697,28 +553,16 @@
                     successCallback();
                 } else {
                     const priceDisplayBox = document.getElementById('instant-price-display');
-                    priceDisplayBox.innerHTML = `<div class="price-display-error">Submission error. Please try again or contact us directly.</div>`;
+                    priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px; margin-top: 15px;">Submission error. Please check form settings or reload page.</div>`;
                 }
             })
             .catch(error => {
                 const priceDisplayBox = document.getElementById('instant-price-display');
-                priceDisplayBox.innerHTML = `<div class="price-display-error">Network error. Please check your connection and try again.</div>`;
+                priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px; margin-top: 15px;">Network error. Please confirm your web connect options.</div>`;
             });
         }
 
-        // Navigation Controller
         function nextStep(currentStep) {
-            if(currentStep === 1) {
-                const nameInput = document.getElementById('name');
-                const emailInput = document.getElementById('email');
-                const phoneInput = document.getElementById('phone');
-                if(!nameInput.checkValidity() || !emailInput.checkValidity() || !phoneInput.checkValidity()) {
-                    if(!nameInput.checkValidity()) nameInput.reportValidity();
-                    else if(!emailInput.checkValidity()) emailInput.reportValidity();
-                    else phoneInput.reportValidity();
-                    return;
-                }
-            }
             document.getElementById('panel-'+currentStep).classList.remove('active-panel');
             document.getElementById('panel-'+(currentStep+1)).classList.add('active-panel');
             document.getElementById('ind-'+(currentStep+1)).classList.add('active-indicator');
