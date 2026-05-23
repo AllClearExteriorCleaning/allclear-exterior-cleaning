@@ -357,25 +357,23 @@
 
     <section id="locations" class="geo-seo-content-block">
         <div class="container-center">
-            <h2 class="block-title">Local Exterior Cleaning Service Areas</h2>
-            <p class="block-subtitle">We proudly operate a structured routine route schedule across the following regional service zones:</p>
+            <h2 class="block-title">Local {{ SERVICE_NAME }} Services in {{ LOCATION_NAME }}</h2>
+            <p class="block-subtitle">{{ SERVICE_INTRO }}</p>
             
             <div class="geo-text-grid">
-                <div class="geo-zone-card">
-                    <h4>Andover Cleaning</h4>
-                    <p>Our foundational regular maintenance hub route covering comprehensive domestic window and safe gutter clearing services throughout the entire Andover area.</p>
+                <div class="geo-zone-card" style="grid-column: span 2; text-align: left;">
+                    <h4>About Our Work in {{ LOCATION_NAME }}</h4>
+                    <p>Operating locally around {{ LANDMARK }}, we provide dedicated {{ SERVICE_NAME }} specifically tailored for the {{ POSTCODE }} area.</p>
+                    <p>{{ SERVICE_NOTE }}</p>
                 </div>
+                
                 <div class="geo-zone-card">
-                    <h4>Basingstoke Cleaning</h4>
-                    <p>Scheduled monthly exterior care routines for home and business clients located across Basingstoke, Oakley, and surround areas.</p>
-                </div>
-                <div class="geo-zone-card">
-                    <h4>Winchester Cleaning</h4>
-                    <p>Meticulous restoration packages specialized for premium historical properties and modern homes situated within Winchester.</p>
-                </div>
-                <div class="geo-zone-card">
-                    <h4>Eastleigh Cleaning</h4>
-                    <p>Comprehensive residential glass cleaning, UPVC fascia detailing, and full extension gutter clearing services across Eastleigh.</p>
+                    <h4>Why Choose Us Locally?</h4>
+                    <ul style="text-align: left; padding-left: 20px;">
+                        <li>Reliable routing through {{ LOCATION_NAME }}</li>
+                        <li>Fully insured exterior cleaning</li>
+                        <li>Text reminders sent the night before</li>
+                    </ul>
                 </div>
             </div>
         </div>
