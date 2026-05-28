@@ -275,7 +275,7 @@
                 </div>
                 
                 <div class="service-card">
-                    <div class="card-icon"><i class="fa-solid fa-sun"></i></div>
+                    <div class="fa-solid fa-sun"></i></div>
                     <h3>Conservatory Roof Cleaning</h3>
                     <p>Specialist safe treatment for delicate glass or polycarbonate roof panels. Removes green organic film and debris build-up to allow maximum bright natural sunlight back into your living spaces.</p>
                 </div>
@@ -486,10 +486,7 @@
                 let html = `<div style="background: var(--brand-light-sky, #F0F4F8); padding: 20px; border-radius: 8px; margin-top: 15px;">`;
                 
                 if (calcResult.isWindowCleaning) {
-                    let firstCleanCost = calcResult.routineCost * 1.5;
-                    let formattedFirstClean = Number.isInteger(firstCleanCost) ? firstCleanCost : firstCleanCost.toFixed(2);
-                    html += `<div style="font-size: 1.1rem; margin-bottom: 5px;">First Clean: <strong>£${formattedFirstClean}</strong></div>
-                             <div style="font-size: 1.1rem; margin-bottom: 20px;">Ongoing Routine Clean: <strong>£${calcResult.routineCost}</strong></div>`;
+                    html += `<div style="font-size: 1.1rem; margin-bottom: 20px;">Price: <strong>£${calcResult.routineCost}</strong></div>`;
                 } else {
                     html += `<div style="font-size: 1.1rem; margin-bottom: 20px;">Estimated Total: <strong>£${calcResult.routineCost}</strong></div>`;
                 }
