@@ -1,45 +1,38 @@
 export async function onRequestPost(context) {
     try {
         const input = await context.request.json();
-        const sumupApiKey = context.env.SUMUP_API_KEY; 
-        const merchantCode = context.env.SUMUP_MERCHANT_CODE;
+        const apiKey = context.env.SUMUP_API_KEY;
+        const merchant = context.env.SUMUP_MERCHANT_CODE;
 
-        // Check if variables exist
-        if (!sumupApiKey || !merchantCode) {
-            return new Response(JSON.stringify({ error: "Missing Keys: Check Cloudflare Pages Settings" }), { status: 500 });
+        if (!apiKey || !merchant) {
+            return new Response("Error: API Keys not set in Cloudflare Settings", { status: 500 });
         }
 
-        // Prepare the request
-        // Note: SumUp often requires amount in pence (multiply by 100)
-        const amountInPence = Math.round(parseFloat(input.amount) * 100);
-
-        const sumupResponse = await fetch("https://api.sumup.com/v0.1/checkouts", {
+        const response = await fetch("https://api.sumup.com/v0.1/checkouts", {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${sumupApiKey}`,
+                "Authorization": `Bearer ${apiKey}`,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 checkout_reference: `clean-${Date.now()}`,
-                amount: amountInPence,
+                amount: Math.round(parseFloat(input.amount) * 100),
                 currency: "GBP",
-                merchant_code: merchantCode,
-                description: input.description || "Exterior Cleaning Services"
+                merchant_code: merchant,
+                description: input.description || "Cleaning Service"
             })
         });
 
-        const data = await sumupResponse.json();
+        const data = await response.json();
 
-        if (!sumupResponse.ok) {
-            // This returns the exact error from SumUp to your screen
-            return new Response(JSON.stringify({ error: "SumUp Rejected: " + JSON.stringify(data) }), { status: 400 });
+        if (!response.ok) {
+            return new Response("SumUp Error: " + JSON.stringify(data), { status: 400 });
         }
 
         return new Response(JSON.stringify({ checkout_id: data.id }), {
             headers: { "Content-Type": "application/json" }
         });
-
-    } catch (error) {
-        return new Response(JSON.stringify({ error: "Code Error: " + error.message }), { status: 500 });
+    } catch (e) {
+        return new Response("System Error: " + e.message, { status: 500 });
     }
 }
