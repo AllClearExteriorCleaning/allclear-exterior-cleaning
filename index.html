@@ -49,6 +49,39 @@
         .conditional-field {
             transition: all 0.3s ease;
         }
+
+        /* Multi-select Service Grid */
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        @media(min-width: 768px) {
+            .checkbox-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #fff;
+            transition: all 0.2s ease;
+        }
+        .checkbox-item:hover {
+            border-color: var(--brand-blue, #0A58CA);
+            background: #f8fbff;
+        }
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
     </style>
 
     <script type="application/ld+json">
@@ -197,18 +230,34 @@
 
                     <div class="form-panel" id="panel-3">
                         <h4 class="step-panel-title">Service Details</h4>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="service">Service Required *</label>
-                                <select id="service" name="service_type" required onchange="toggleFrequencyField()">
-                                    <option value="" disabled selected>Select Service...</option>
-                                    <option value="Window Cleaning">Window Cleaning (Includes Frames, Sills &amp; Doors)</option>
-                                    <option value="Gutter Clearance">Gutter Clearance</option>
-                                    <option value="Fascia &amp; Soffit Cleaning">Fascia &amp; Soffit Cleaning</option>
-                                    <option value="Conservatory Roof Cleaning">Conservatory Roof Cleaning Only</option>
-                                    <option value="Full Exterior Package">Full Exterior Package (Windows, Gutters &amp; Fascias)</option>
-                                </select>
+                        
+                        <div class="form-group-full">
+                            <label>Services Required (Select all that apply) *</label>
+                            <div class="checkbox-grid" id="service-checkboxes">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" class="service-checkbox" value="Window Cleaning" onchange="toggleFrequencyField()"> 
+                                    Window Cleaning (Frames, Sills & Doors)
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" class="service-checkbox" value="Gutter Clearance" onchange="toggleFrequencyField()"> 
+                                    Gutter Clearance
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" class="service-checkbox" value="Fascia & Soffit Cleaning" onchange="toggleFrequencyField()"> 
+                                    Fascia & Soffit Cleaning
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" class="service-checkbox" value="Conservatory Roof Cleaning" onchange="toggleFrequencyField()"> 
+                                    Conservatory Roof Cleaning Only
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" class="service-checkbox" value="Full Exterior Package" onchange="toggleFrequencyField()"> 
+                                    Full Exterior Package
+                                </label>
                             </div>
+                        </div>
+
+                        <div class="form-row" style="margin-top: 15px;">
                             <div class="form-group">
                                 <label for="velux">Number of Velux Windows?</label>
                                 <select id="velux" name="velux_count">
@@ -219,19 +268,18 @@
                                     <option value="4+">4+ Velux</option>
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label for="extensions">Conservatory or Extension present? (Excludes Roof)</label>
+                                <select id="extensions" name="extensions_present">
+                                    <option value="None" selected>No conservatory or extension</option>
+                                    <option value="Yes">Yes, Conservatory / Extension present</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <div class="form-group-full">
-                            <label for="extensions">Conservatory or Extension present? (Excludes Roof)</label>
-                            <select id="extensions" name="extensions_present">
-                                <option value="None" selected>No conservatory or extension</option>
-                                <option value="Yes">Yes, Conservatory / Extension present</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group-full conditional-field" id="frequency-container" style="margin-top: 15px;">
+                        <div class="form-group-full conditional-field" id="frequency-container" style="margin-top: 15px; display: none;">
                             <label for="frequency">Cleaning Frequency Required *</label>
-                            <select id="frequency" name="cleaning_frequency" required>
+                            <select id="frequency" name="cleaning_frequency">
                                 <option value="" disabled selected>Select Schedule...</option>
                                 <option value="4 Weekly">4 Weekly (Window Cleaning)</option>
                                 <option value="8 Weekly">8 Weekly (Window Cleaning)</option>
@@ -275,7 +323,7 @@
                 </div>
                 
                 <div class="service-card">
-                    <div class="fa-solid fa-sun"></i></div>
+                    <div class="card-icon"><i class="fa-solid fa-sun"></i></div>
                     <h3>Conservatory Roof Cleaning</h3>
                     <p>Specialist safe treatment for delicate glass or polycarbonate roof panels. Removes green organic film and debris build-up to allow maximum bright natural sunlight back into your living spaces.</p>
                 </div>
@@ -382,11 +430,19 @@
         });
 
         function toggleFrequencyField() {
-            const service = document.getElementById('service').value;
+            const checkboxes = document.querySelectorAll('.service-checkbox:checked');
             const freqContainer = document.getElementById('frequency-container');
             const freqSelect = document.getElementById('frequency');
 
-            if (service === "Window Cleaning" || service === "Full Exterior Package") {
+            let requiresFrequency = false;
+            
+            checkboxes.forEach(cb => {
+                if (cb.value === "Window Cleaning" || cb.value === "Full Exterior Package") {
+                    requiresFrequency = true;
+                }
+            });
+
+            if (requiresFrequency) {
                 freqContainer.style.display = 'block';
                 freqSelect.required = true;
             } else {
@@ -399,38 +455,53 @@
         function runPricingCalculation() {
             const storeys = document.getElementById('storeys').value;
             const bedrooms = document.getElementById('bedrooms').value;
-            const service = document.getElementById('service').value;
             const veluxCount = document.getElementById('velux').value;
             const extensions = document.getElementById('extensions').value;
             const priceDisplayBox = document.getElementById('instant-price-display');
 
+            const selectedServices = Array.from(document.querySelectorAll('.service-checkbox:checked')).map(cb => cb.value);
+
             if (!priceDisplayBox) return "";
-
+            
+            // Check constraints
             if (storeys === "4+" || bedrooms === "6+") return "Custom Quote Required (Scale Limit)";
-            if (service === "Full Exterior Package" && bedrooms === "1") return "Custom Quote Required (1 Bed Package Limit)";
+            if (selectedServices.includes("Full Exterior Package") && bedrooms === "1") return "Custom Quote Required (1 Bed Package Limit)";
 
-            let routineCost = 0;
+            let cumulativeCost = 0;
             let isWindowCleaning = false; 
 
-            if (service === "Window Cleaning") {
-                isWindowCleaning = true;
-                const windowRates = { "1": 16, "2": 18, "3": 22, "4": 26, "5": 30 };
-                routineCost = windowRates[bedrooms] || 0;
-                if (storeys === "3") routineCost += 3;
-                if (veluxCount !== "0") routineCost += (veluxCount === "4+" ? 4 : parseInt(veluxCount));
-                if (extensions === "Yes") routineCost += 5;
-            } else if (service === "Gutter Clearance" || service === "Fascia & Soffit Cleaning") {
-                const flatRates = { "1": 70, "2": 70, "3": 90, "4": 105, "5": 120 };
-                routineCost = flatRates[bedrooms] || 0;
-                if (extensions === "Yes") routineCost += 20;
-            } else if (service === "Conservatory Roof Cleaning") {
-                routineCost = 130;
-            } else if (service === "Full Exterior Package") {
-                const packageRates = { "2": 170, "3": 220, "4": 270, "5": 320 };
-                routineCost = packageRates[bedrooms] || 0;
-                if (extensions === "Yes") routineCost += 60;
-            }
-            return { routineCost, isWindowCleaning };
+            // Calculate cost for each selected service
+            selectedServices.forEach(service => {
+                let serviceCost = 0;
+
+                if (service === "Window Cleaning") {
+                    isWindowCleaning = true;
+                    const windowRates = { "1": 16, "2": 18, "3": 22, "4": 26, "5": 30 };
+                    serviceCost = windowRates[bedrooms] || 0;
+                    if (storeys === "3") serviceCost += 3;
+                    if (veluxCount !== "0") serviceCost += (veluxCount === "4+" ? 4 : parseInt(veluxCount));
+                    if (extensions === "Yes") serviceCost += 5;
+                    
+                } else if (service === "Gutter Clearance" || service === "Fascia & Soffit Cleaning") {
+                    const flatRates = { "1": 70, "2": 70, "3": 90, "4": 105, "5": 120 };
+                    serviceCost = flatRates[bedrooms] || 0;
+                    // Add extension fee to both if both are selected, adjust if you want to cap it.
+                    if (extensions === "Yes") serviceCost += 20; 
+                    
+                } else if (service === "Conservatory Roof Cleaning") {
+                    serviceCost = 130;
+                    
+                } else if (service === "Full Exterior Package") {
+                    isWindowCleaning = true;
+                    const packageRates = { "2": 170, "3": 220, "4": 270, "5": 320 };
+                    serviceCost = packageRates[bedrooms] || 0;
+                    if (extensions === "Yes") serviceCost += 60;
+                }
+
+                cumulativeCost += serviceCost;
+            });
+
+            return { routineCost: cumulativeCost, isWindowCleaning };
         }
 
         // Helper function to insert clean dynamic tracking inputs into Web3Forms
@@ -448,19 +519,30 @@
 
         // STAGE 1: Fires lead parameters instantly to your inbox on price generation click
         function submitInitialLeadAndShowPrice() {
-            const serviceSelect = document.getElementById('service');
+            const selectedCheckboxes = document.querySelectorAll('.service-checkbox:checked');
             const freqSelect = document.getElementById('frequency');
             const priceDisplayBox = document.getElementById('instant-price-display');
             const navBlock = document.getElementById('form-action-nav-block');
             
-            if (!serviceSelect.checkValidity()) { serviceSelect.reportValidity(); return; }
-            if (freqSelect.required && !freqSelect.checkValidity()) { freqSelect.reportValidity(); return; }
+            // Validation
+            if (selectedCheckboxes.length === 0) {
+                alert("Please select at least one service.");
+                return;
+            }
+            if (freqSelect.required && !freqSelect.checkValidity()) { 
+                freqSelect.reportValidity(); 
+                return; 
+            }
 
             const calcResult = runPricingCalculation();
+            
+            // Join all selected services into a single string for your email notification
+            const servicesList = Array.from(selectedCheckboxes).map(cb => cb.value).join(', ');
+            updateHiddenFormInput('services_requested', servicesList);
 
             // Intercept standard logic if property matches profile constraints
             if (typeof calcResult === "string" || calcResult.routineCost === 0) {
-                priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: var(--brand-blue);"><i class="fa-solid fa-spinner fa-spin"></i> Submitting custom quote profile...</div>`;
+                priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: var(--brand-blue, #0A58CA);"><i class="fa-solid fa-spinner fa-spin"></i> Submitting custom quote profile...</div>`;
                 updateHiddenFormInput('calculated_quote_estimate', "Custom Quote Needed");
                 updateHiddenFormInput('submission_stage', "Initial Lead (Out of Regular Calculation bounds)");
                 
@@ -472,7 +554,7 @@
             }
 
             // Display loading indicator for quick lead sync
-            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: var(--brand-blue);"><i class="fa-solid fa-spinner fa-spin"></i> Syncing your quote...</div>`;
+            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: var(--brand-blue, #0A58CA);"><i class="fa-solid fa-spinner fa-spin"></i> Syncing your quote...</div>`;
 
             // Pack form parameters for Stage 1 Email Generation
             updateHiddenFormInput('calculated_quote_estimate', `Routine Base Rate Calculated: £${calcResult.routineCost}`);
@@ -485,11 +567,8 @@
 
                 let html = `<div style="background: var(--brand-light-sky, #F0F4F8); padding: 20px; border-radius: 8px; margin-top: 15px;">`;
                 
-                if (calcResult.isWindowCleaning) {
-                    html += `<div style="font-size: 1.1rem; margin-bottom: 20px;">Price: <strong>£${calcResult.routineCost}</strong></div>`;
-                } else {
-                    html += `<div style="font-size: 1.1rem; margin-bottom: 20px;">Estimated Total: <strong>£${calcResult.routineCost}</strong></div>`;
-                }
+                // Output total price
+                html += `<div style="font-size: 1.1rem; margin-bottom: 20px;">Estimated Total: <strong>£${calcResult.routineCost}</strong></div>`;
 
                 // Append Booking Strategy Radios & Text Reminder Notice
                 html += `
