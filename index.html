@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="/style.css?v=2026.05.19">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- SumUp Secure Payment Script added here -->
     <script src="https://gateway.sumup.com/gateway/ecom/modal/v2.js"></script>
 
     <style>
@@ -289,7 +288,6 @@
                             </select>
                         </div>
 
-                        <!-- Price display and new SumUp container -->
                         <div id="instant-price-display"></div>
                         <div id="sumup-payment-container" style="margin-top: 15px;"></div>
 
@@ -534,6 +532,33 @@
         }
 
         // STAGE 1: Fires lead parameters instantly to your inbox on price generation click
+        async function firePayloadToWeb3Forms(successCallback) {
+            const form = document.getElementById('multiStepForm');
+            const priceDisplayBox = document.getElementById('instant-price-display');
+            
+            try {
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(Object.fromEntries(new FormData(form)))
+                });
+                
+                const result = await response.json();
+
+                if (response.ok) {
+                    successCallback();
+                } else {
+                    priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px; margin-top: 15px;">
+                        <strong>Submission Error:</strong> ${result.message || 'Check your Access Key or form configuration'}
+                    </div>`;
+                }
+            } catch (error) {
+                priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px; margin-top: 15px;">
+                    <strong>Network Error:</strong> ${error.message}
+                </div>`;
+            }
+        }
+
         function submitInitialLeadAndShowPrice() {
             const selectedCheckboxes = document.querySelectorAll('.service-checkbox:checked');
             const freqSelect = document.getElementById('frequency');
@@ -684,28 +709,6 @@
                 console.error("Payment initialization failed:", error);
                 priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px;">Could not connect to payment gateway. We will contact you directly to arrange your clean.</div>`;
             }
-        }
-
-        // Unified network payload execution block
-        function firePayloadToWeb3Forms(successCallback) {
-            const form = document.getElementById('multiStepForm');
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(Object.fromEntries(new FormData(form)))
-            })
-            .then(response => {
-                if (response.status === 200) {
-                    successCallback();
-                } else {
-                    const priceDisplayBox = document.getElementById('instant-price-display');
-                    priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px; margin-top: 15px;">Submission error. Please check form settings or reload page.</div>`;
-                }
-            })
-            .catch(error => {
-                const priceDisplayBox = document.getElementById('instant-price-display');
-                priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px; margin-top: 15px;">Network error. Please confirm your web connect options.</div>`;
-            });
         }
 
         function nextStep(currentStep) {
