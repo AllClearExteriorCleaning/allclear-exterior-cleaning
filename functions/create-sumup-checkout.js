@@ -4,9 +4,8 @@ export async function onRequestPost(context) {
         const sumupApiKey = context.env.SUMUP_API_KEY; 
         const merchantCode = context.env.SUMUP_MERCHANT_CODE;
 
-        // DEBUG: Check if keys are present (Remove this after testing)
         if (!sumupApiKey || !merchantCode) {
-            return new Response(JSON.stringify({ error: "Missing API Key or Merchant Code in Cloudflare" }), { status: 500 });
+            return new Response(JSON.stringify({ error: "Cloudflare ERROR: Missing API Key or Merchant Code in Environment Variables" }), { status: 500 });
         }
 
         const sumupResponse = await fetch("https://api.sumup.com/v0.1/checkouts", {
@@ -27,8 +26,7 @@ export async function onRequestPost(context) {
         const data = await sumupResponse.json();
 
         if (!sumupResponse.ok) {
-            // This now returns the ACTUAL error from SumUp to your screen
-            return new Response(JSON.stringify({ error: "SumUp Rejected: " + JSON.stringify(data) }), { status: 400 });
+            return new Response(JSON.stringify({ error: "SUMUP API REJECTED: " + JSON.stringify(data) }), { status: 400 });
         }
 
         return new Response(JSON.stringify({ checkout_id: data.id }), {
@@ -36,6 +34,6 @@ export async function onRequestPost(context) {
         });
 
     } catch (error) {
-        return new Response(JSON.stringify({ error: "System error: " + error.message }), { status: 500 });
+        return new Response(JSON.stringify({ error: "SERVER EXCEPTION: " + error.message }), { status: 500 });
     }
 }
