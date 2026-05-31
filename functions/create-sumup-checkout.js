@@ -9,7 +9,7 @@ export async function onRequestPost(context) {
         const response = await fetch('https://api.sumup.com/v1.0/checkouts', {
             method: 'POST',
             headers: {
-                'Authorization': 'Bearer YOUR_SUMUP_ACCESS_TOKEN',
+                'Authorization': 'Bearer sup_sk_qZorUbMrpcuYKZ1enrr4bIs0Jl8Q49viv',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
