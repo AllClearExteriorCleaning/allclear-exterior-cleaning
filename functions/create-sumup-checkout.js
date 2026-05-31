@@ -1,16 +1,32 @@
 export async function onRequestPost(context) {
     try {
-        const input = await context.request.json();
+        const { request } = context;
+        const body = await request.json();
 
-        return new Response(JSON.stringify({
-            apiKeyExists: !!context.env.SUMUP_API_KEY,
-            merchantExists: !!context.env.SUMUP_MERCHANT_CODE,
-            amountReceived: input.amount
-        }), {
-            headers: { "Content-Type": "application/json" }
+        // 1. Process your SumUp API call here
+        // (Ensure you have your API key/headers set up inside this function)
+        
+        const response = await fetch('https://api.sumup.com/v1.0/checkouts', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer YOUR_SUMUP_ACCESS_TOKEN',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                amount: body.amount,
+                currency: 'GBP',
+                checkout_reference: 'Order-' + Date.now(),
+                pay_to_email: 'info@allclearexteriorcleaning.co.uk'
+            })
         });
 
-    } catch (e) {
-        return new Response(e.message, { status: 500 });
+        const data = await response.json();
+
+        // 2. Return the result back to your form
+        return new Response(JSON.stringify(data), {
+            headers: { 'Content-Type': 'application/json' }
+        });
+    } catch (err) {
+        return new Response(JSON.stringify({ error: err.message }), { status: 500 });
     }
 }
