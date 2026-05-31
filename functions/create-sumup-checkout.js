@@ -16,7 +16,7 @@ export async function onRequestPost(context) {
             },
             body: JSON.stringify({
                 checkout_reference: `clean-${Date.now()}`,
-                amount: Math.round(parseFloat(input.amount) * 100),
+                amount: parseFloat(input.amount),
                 currency: "GBP",
                 merchant_code: merchant,
                 description: input.description || "Cleaning Service"
