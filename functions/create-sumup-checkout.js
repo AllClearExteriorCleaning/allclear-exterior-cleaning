@@ -1,7 +1,7 @@
 export async function onRequestPost(context) {
     try {
         const { request } = context;
-        const body = await request.json();
+        const bod = await request.json();
 
         // 1. Process your SumUp API call here
         // (Ensure you have your API key/headers set up inside this function)
