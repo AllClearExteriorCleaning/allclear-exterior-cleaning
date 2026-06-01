@@ -6,12 +6,14 @@ export async function onRequestPost(context) {
     try {
         const body = await request.json();
         
+        // We will try an even simpler reference format
+        const cleanRef = "ORD" + Date.now().toString().slice(-8);
+
         const payload = {
             amount: parseFloat(body.amount),
             currency: 'GBP',
-            checkout_reference: 'ORD-' + Date.now().toString(),
-            merchant_code: merchantCode,
-            description: 'Exterior Cleaning Service'
+            checkout_reference: cleanRef,
+            merchant_code: merchantCode
         };
 
         const response = await fetch('https://api.sumup.com/v1.0/checkouts', {
@@ -23,18 +25,17 @@ export async function onRequestPost(context) {
             body: JSON.stringify(payload)
         });
 
-        // Get the raw text response first to ensure we don't miss anything
-        const rawResponse = await response.text();
+        const raw = await response.text();
         
         return new Response(JSON.stringify({
             status: response.status,
-            raw: rawResponse,
-            sent_payload: payload // This will help us verify exactly what we sent
+            raw: raw,
+            sent_payload: payload
         }), { 
             headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
         });
 
     } catch (err) {
-        return new Response(JSON.stringify({ error: "Catch Block Error", details: err.message }), { status: 500 });
+        return new Response(JSON.stringify({ error: "Catch", details: err.message }), { status: 500 });
     }
 }
