@@ -1,13 +1,18 @@
 export async function onRequestPost(context) {
-    try {
-        const { request, env } = context;
-        const token = env.SUMUP_ACCESS_TOKEN;
-        const merchantCode = env.SUMUP_MERCHANT_CODE;
+    const { request, env } = context;
+    const token = env.SUMUP_ACCESS_TOKEN;
+    const merchantCode = env.SUMUP_MERCHANT_CODE;
 
+    try {
         const body = await request.json();
         
-        // Use the value as-is (e.g., 10.50), NOT multiplied by 100
-        const amount = parseFloat(body.amount);
+        const payload = {
+            amount: parseFloat(body.amount),
+            currency: 'GBP',
+            checkout_reference: 'ORD-' + Date.now().toString(),
+            merchant_code: merchantCode,
+            description: 'Exterior Cleaning Service'
+        };
 
         const response = await fetch('https://api.sumup.com/v1.0/checkouts', {
             method: 'POST',
@@ -15,41 +20,21 @@ export async function onRequestPost(context) {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                amount: amount, 
-                currency: 'GBP',
-                checkout_reference: 'ORD-' + Date.now().toString(),
-                merchant_code: merchantCode,
-                description: 'Exterior Cleaning Service'
-            })
+            body: JSON.stringify(payload)
         });
 
-        const data = await response.json();
-
-        // If the request fails, return the full data object so we can see the exact cause
-        if (!response.ok) {
-            return new Response(JSON.stringify({ 
-                error: "SumUp API Validation Failure", 
-                status: response.status,
-                apiResponse: data 
-            }), { status: response.status, headers: { 'Content-Type': 'application/json' } });
-        }
-
-        return new Response(JSON.stringify(data), {
+        // Get the raw text response first to ensure we don't miss anything
+        const rawResponse = await response.text();
+        
+        return new Response(JSON.stringify({
+            status: response.status,
+            raw: rawResponse,
+            sent_payload: payload // This will help us verify exactly what we sent
+        }), { 
             headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
         });
 
     } catch (err) {
-        return new Response(JSON.stringify({ error: err.message }), { status: 500 });
+        return new Response(JSON.stringify({ error: "Catch Block Error", details: err.message }), { status: 500 });
     }
-}
-
-export async function onRequestOptions() {
-    return new Response(null, {
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Authorization'
-        }
-    });
 }
