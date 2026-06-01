@@ -660,7 +660,7 @@
             priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--brand-blue, #0A58CA);"><i class="fa-solid fa-spinner fa-spin" style="font-size: 1.5rem; margin-bottom: 10px;"></i><br>Generating secure payment link...</div>`;
             
             try {
-                // Fire lead off to Web3Forms so you capture the data even if they don't pay immediately
+                // Fire lead off to Web3Forms
                 firePayloadToWeb3Forms(() => {});
 
                 // 1. Call Cloudflare Function
@@ -674,6 +674,14 @@
                 });
                 
                 const data = await response.json();
+
+                // 🛑 TEMPORARY DEBUG BLOCK: Print the raw server data to the screen and STOP
+                priceDisplayBox.innerHTML = `
+                    <div style="background: #222; color: #00FF00; padding: 15px; border-radius: 6px; text-align: left; font-family: monospace; font-size: 0.9rem; word-wrap: break-word;">
+                        <strong>RAW CLOUDFLARE RESPONSE:</strong><br><br>
+                        ${JSON.stringify(data, null, 2)}
+                    </div>`;
+                return; // Stops the script here so SumUp doesn't try to load
 
                 // Intercept server-side rejections and display raw data string directly on device screen
                 if (data.error) {
