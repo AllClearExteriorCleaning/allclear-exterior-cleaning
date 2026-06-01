@@ -3,11 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!DOCTYPE html>
-<html lang="en-GB">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title id="dynamic-site-title">All Clear Exterior Cleaning | Window, Gutter &amp; Conservatory Cleaning Hampshire</title>
     
@@ -85,10 +80,10 @@
             cursor: pointer;
         }
 
-        /* Live price summary */
+        /* Selected services summary (no prices shown until after lead capture) */
         #live-price-summary {
             margin-top: 14px;
-            padding: 14px 16px;
+            padding: 12px 16px;
             background: #f0f6ff;
             border: 1px solid #c2d9f8;
             border-radius: 8px;
@@ -96,7 +91,7 @@
         }
         #live-price-summary .lps-title {
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #555;
             margin-bottom: 8px;
             text-transform: uppercase;
@@ -104,28 +99,21 @@
         }
         #live-price-summary .lps-line {
             display: flex;
-            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
             font-size: 0.92rem;
-            padding: 3px 0;
-            border-bottom: 1px solid #dde8f8;
+            padding: 4px 0;
+            color: #1a1a1a;
         }
-        #live-price-summary .lps-line:last-of-type {
-            border-bottom: none;
-        }
-        #live-price-summary .lps-total {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-top: 10px;
+        #live-price-summary .lps-line i {
             color: #0A58CA;
-            padding-top: 8px;
-            border-top: 2px solid #0A58CA;
+            font-size: 0.8rem;
         }
         #live-price-summary .lps-note {
             font-size: 0.8rem;
-            color: #777;
-            margin-top: 6px;
+            color: #555;
+            margin-top: 8px;
+            font-style: italic;
         }
     </style>
 
@@ -330,15 +318,11 @@
                             </select>
                         </div>
 
-                        <!-- Live price summary shown as services are selected -->
+                        <!-- Services selected confirmation (no prices — revealed after lead capture) -->
                         <div id="live-price-summary">
-                            <div class="lps-title">Your Price Breakdown</div>
+                            <div class="lps-title">Services Selected</div>
                             <div id="lps-lines"></div>
-                            <div class="lps-total">
-                                <span>Total Price</span>
-                                <span id="lps-total-value"></span>
-                            </div>
-                            <div class="lps-note" id="lps-note"></div>
+                            <div class="lps-note" id="lps-note">Click "Get My Quote" to instantly see your full price breakdown.</div>
                         </div>
 
                         <div id="instant-price-display"></div>
@@ -537,45 +521,21 @@
         }
 
         /* ── Live price summary (updates as user ticks boxes / changes dropdowns) ── */
+        /* ── Live selection summary — shows services chosen, NO prices until after lead capture ── */
         function updateLivePriceSummary() {
-            const summaryBox  = document.getElementById('live-price-summary');
-            const linesBox    = document.getElementById('lps-lines');
-            const totalBox    = document.getElementById('lps-total-value');
-            const noteBox     = document.getElementById('lps-note');
-            const checked     = document.querySelectorAll('.service-checkbox:checked');
+            const summaryBox = document.getElementById('live-price-summary');
+            const linesBox   = document.getElementById('lps-lines');
+            const checked    = document.querySelectorAll('.service-checkbox:checked');
 
             if (checked.length === 0) {
                 summaryBox.style.display = 'none';
                 return;
             }
 
-            const { total, lines } = runPricingCalculation();
-
             summaryBox.style.display = 'block';
-
-            if (total === "custom") {
-                linesBox.innerHTML = '';
-                totalBox.textContent = 'Custom';
-                noteBox.textContent  = 'We will contact you with a tailored quote for your property.';
-                return;
-            }
-
-            linesBox.innerHTML = lines.map(l =>
-                `<div class="lps-line"><span>${l.label}</span><span>£${l.price}</span></div>`
+            linesBox.innerHTML = Array.from(checked).map(cb =>
+                `<div class="lps-line"><i class="fa-solid fa-circle-check"></i> ${cb.value}</div>`
             ).join('');
-
-            totalBox.textContent = `£${total}`;
-
-            // Note depends on whether window cleaning is included (recurring vs one-off)
-            const hasWindows = lines.some(l => l.label === "Window Cleaning");
-            const hasOneOff  = lines.some(l => l.label !== "Window Cleaning");
-            if (hasWindows && hasOneOff) {
-                noteBox.textContent = 'Window cleaning is priced per scheduled visit. Other services are priced per clean.';
-            } else if (hasWindows) {
-                noteBox.textContent = 'Price shown is per scheduled visit.';
-            } else {
-                noteBox.textContent = 'Price shown is per clean.';
-            }
         }
 
         /* ── Called on every checkbox change ── */
@@ -717,585 +677,6 @@
             document.getElementById('panel-' + currentStep).classList.remove('active-panel');
             document.getElementById('panel-' + (currentStep - 1)).classList.add('active-panel');
             document.getElementById('ind-' + currentStep).classList.remove('active-indicator');
-        }
-    </script>
-</body>
-</html>
-
-    <title id="dynamic-site-title">All Clear Exterior Cleaning | Window, Gutter &amp; Conservatory Cleaning Hampshire</title>
-    
-    <meta name="description" content="Trusted residential and commercial exterior cleaning across Andover, Winchester, Basingstoke, and Eastleigh. Expert window cleaning, gutter clearance, fascia &amp; soffit washing, and conservatory roof cleaning.">
-    <link rel="stylesheet" href="/style.css?v=2026.05.19">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        .form-panel {
-            display: none !important;
-        }
-        .form-panel.active-panel {
-            display: flex !important;
-            flex-direction: column !important;
-        }
-        
-        .form-row, .form-row-triple {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 15px;
-            width: 100%;
-        }
-        .form-group, .form-group-full {
-            width: 100%;
-        }
-        .form-group input, .form-group select, .form-group-full select {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 10px;
-        }
-
-        @media(min-width: 768px) {
-            .form-row, .form-row-triple {
-                flex-direction: row;
-            }
-            .form-group {
-                flex: 1;
-            }
-        }
-
-        .conditional-field {
-            transition: all 0.3s ease;
-        }
-
-        .checkbox-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-            margin-top: 8px;
-        }
-        @media(min-width: 768px) {
-            .checkbox-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            cursor: pointer;
-            background: #fff;
-            transition: all 0.2s ease;
-        }
-        .checkbox-item:hover {
-            border-color: var(--brand-blue, #0A58CA);
-            background: #f8fbff;
-        }
-        .checkbox-item input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-    </style>
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "All Clear Exterior Cleaning",
-      "image": "https://allclearexteriorcleaning.co.uk/logo.png",
-      "telePhone": "07305572453",
-      "email": "info@allclearexteriorcleaning.co.uk",
-      "url": "https://allclearexteriorcleaning.co.uk",
-      "priceRange": "££",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Andover",
-        "addressRegion": "Hampshire",
-        "addressCountry": "GB"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 51.208,
-        "longitude": -1.482
-      },
-      "areaServed": [
-        {"@type": "AdministrativeArea", "name": "Andover"},
-        {"@type": "AdministrativeArea", "name": "Basingstoke"},
-        {"@type": "AdministrativeArea", "name": "Winchester"},
-        {"@type": "AdministrativeArea", "name": "Eastleigh"}
-      ]
-    }
-    </script>
-</head>
-<body>
-
-    <header class="site-header">
-        <div class="header-container">
-            <a href="index.html" class="logo-brand">
-                <span class="brand-main">ALL CLEAR</span>
-                <span class="brand-sub">EXTERIOR CLEANING</span>
-            </a>
-            
-            <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle Navigation Menu">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-
-            <nav class="nav-menu" id="mainNavMenu">
-                <a href="index.html" class="nav-item">Home</a>
-                <a href="#services" class="nav-item">Our Services</a>
-                <a href="#about" class="nav-item">Why Choose Us</a>
-                <a href="#locations" class="nav-item">Areas Covered</a>
-                <a href="#contact-footer" class="nav-item">Contact</a>
-                <a href="#quote-section" class="btn-quote-header">Get a Free Quote <i class="fa-solid fa-chevron-right"></i></a>
-            </nav>
-        </div>
-    </header>
-
-    <section class="hero-viewport">
-        <div class="hero-overlay"></div>
-        <div class="hero-wrapper">
-            <div class="hero-text-block">
-                <h1 id="dynamic-main-heading">Sparkling Clean Windows, Conservatories &amp; Clear Gutters Across Hampshire</h1>
-                <p>Reliable, fully insured exterior cleaning specialists serving homeowners and commercial properties with pristine results every single time.</p>
-                <div class="hero-badges">
-                    <span><i class="fa-solid fa-circle-check"></i> Fully Insured &amp; Highly Recommended</span>
-                    <span><i class="fa-solid fa-circle-check"></i> Text Reminders Sent the Night Before</span>
-                    <span><i class="fa-solid fa-circle-check"></i> Eco-Friendly Pure Water Solutions</span>
-                </div>
-            </div>
-            
-            <div class="hero-form-card" id="quote-section">
-                <h3>Request an Instant Price Quote</h3>
-                <p>Fill out your details below to instantly calculate your property cleaning costs.</p>
-                
-                <div class="form-progress-indicator">
-                    <div class="progress-step active-indicator" id="ind-1">1</div>
-                    <div class="progress-line"></div>
-                    <div class="progress-step" id="ind-2">2</div>
-                    <div class="progress-line"></div>
-                    <div class="progress-step" id="ind-3">3</div>
-                </div>
-                
-                <form id="multiStepForm" class="quote-form-engine">
-                    <input type="hidden" name="access_key" value="cfa0dbd3-f3c3-4d3d-a5ad-da28be2951d9">
-                    <input type="checkbox" name="botcheck" class="hidden-honeypot" style="display: none;">
-
-                    <div class="form-panel active-panel" id="panel-1">
-                        <h4 class="step-panel-title">Contact Information</h4>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">Full Name *</label>
-                                <input type="text" id="name" name="name" placeholder="John Smith" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone Number *</label>
-                                <input type="tel" id="phone" name="phone" placeholder="07123 456789" required>
-                            </div>
-                        </div>
-                        <div class="form-navigation-buttons">
-                            <button type="button" class="btn-step-next" onclick="nextStep(1)">Next Step <i class="fa-solid fa-arrow-right"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="form-panel" id="panel-2">
-                        <h4 class="step-panel-title">Property Details</h4>
-                        <div class="form-row-triple">
-                            <div class="form-group">
-                                <label for="house_number">House No. / Name *</label>
-                                <input type="text" id="house_number" name="house_number" placeholder="e.g. 12 or Woodside" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="address">Street Address *</label>
-                                <input type="text" id="address" name="address" placeholder="High Street" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="postcode">Postcode *</label>
-                                <input type="text" id="postcode" name="postcode" placeholder="SP10 1AA" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="storeys">Number of Storeys *</label>
-                                <select id="storeys" name="property_storeys" required>
-                                    <option value="1">Bungalow (1 Storey)</option>
-                                    <option value="2" selected>Standard House (2 Storeys)</option>
-                                    <option value="3">3 Storeys</option>
-                                    <option value="4+">More than 3 Storeys</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="bedrooms">Number of Bedrooms *</label>
-                                <select id="bedrooms" name="bedroom_count" required>
-                                    <option value="1">1 Bedroom</option>
-                                    <option value="2">2 Bedrooms</option>
-                                    <option value="3" selected>3 Bedrooms</option>
-                                    <option value="4">4 Bedrooms</option>
-                                    <option value="5">5 Bedrooms</option>
-                                    <option value="6+">More than 5 Bedrooms</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-navigation-buttons">
-                            <button type="button" class="btn-step-prev" onclick="prevStep(2)"><i class="fa-solid fa-arrow-left"></i> Back</button>
-                            <button type="button" class="btn-step-next" onclick="nextStep(2)">Next Step <i class="fa-solid fa-arrow-right"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="form-panel" id="panel-3">
-                        <h4 class="step-panel-title">Service Details</h4>
-                        
-                        <div class="form-group-full">
-                            <label>Services Required (Select all that apply) *</label>
-                            <div class="checkbox-grid" id="service-checkboxes">
-                                <label class="checkbox-item">
-                                    <input type="checkbox" class="service-checkbox" value="Window Cleaning" onchange="toggleFrequencyField()"> 
-                                    Window Cleaning (Frames, Sills & Doors)
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" class="service-checkbox" value="Gutter Clearance" onchange="toggleFrequencyField()"> 
-                                    Gutter Clearance
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" class="service-checkbox" value="Fascia & Soffit Cleaning" onchange="toggleFrequencyField()"> 
-                                    Fascia & Soffit Cleaning
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" class="service-checkbox" value="Conservatory Roof Cleaning" onchange="toggleFrequencyField()"> 
-                                    Conservatory Roof Cleaning Only
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" class="service-checkbox" value="Full Exterior Package" onchange="toggleFrequencyField()"> 
-                                    Full Exterior Package
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-row" style="margin-top: 15px;">
-                            <div class="form-group">
-                                <label for="velux">Number of Velux Windows?</label>
-                                <select id="velux" name="velux_count">
-                                    <option value="0" selected>None</option>
-                                    <option value="1">1 Velux</option>
-                                    <option value="2">2 Velux</option>
-                                    <option value="3">3 Velux</option>
-                                    <option value="4+">4+ Velux</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="extensions">Conservatory or Extension present? (Excludes Roof)</label>
-                                <select id="extensions" name="extensions_present">
-                                    <option value="None" selected>No conservatory or extension</option>
-                                    <option value="Yes">Yes, Conservatory / Extension present</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group-full conditional-field" id="frequency-container" style="margin-top: 15px; display: none;">
-                            <label for="frequency">Cleaning Frequency Required *</label>
-                            <select id="frequency" name="cleaning_frequency">
-                                <option value="" disabled selected>Select Schedule...</option>
-                                <option value="4 Weekly">4 Weekly (Window Cleaning)</option>
-                                <option value="8 Weekly">8 Weekly (Window Cleaning)</option>
-                            </select>
-                        </div>
-
-                        <div id="instant-price-display"></div>
-
-                        <div class="form-navigation-buttons" id="form-action-nav-block">
-                            <button type="button" class="btn-step-prev" onclick="prevStep(3)"><i class="fa-solid fa-arrow-left"></i> Back</button>
-                            <button type="button" class="btn-submit-quote" onclick="submitInitialLeadAndShowPrice()">Calculate My Price <i class="fa-solid fa-calculator"></i></button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <section id="services" class="services-block">
-        <div class="container-center">
-            <h2 class="block-title">Our Professional Exterior Cleaning Services</h2>
-            <p class="block-subtitle">Premium equipment and pure water systems to keep your home immaculate and protected year-round.</p>
-            
-            <div class="services-card-grid">
-                <div class="service-card">
-                    <div class="card-icon"><i class="fa-solid fa-window-maximize"></i></div>
-                    <h3>Pure Water Window Cleaning</h3>
-                    <p>Using reach-and-wash carbon poles with clean, purified water. <strong>We wash all glass, frames, sills, and external doors as standard on every single visit</strong>.</p>
-                </div>
-                <div class="service-card">
-                    <div class="card-icon"><i class="fa-solid fa-bore-hole"></i></div>
-                    <h3>skyVac Gutter Clearance</h3>
-                    <p>Safe, powerful ground-level clearance of heavy sludge, leaves, and blockages.</p>
-                </div>
-                <div class="service-card">
-                    <div class="card-icon"><i class="fa-solid fa-house"></i></div>
-                    <h3>Fascia &amp; Soffit Washing</h3>
-                    <p>Deep-clean treatment that strips away stubborn green algae and grime.</p>
-                </div>
-                <div class="service-card">
-                    <div class="card-icon"><i class="fa-solid fa-sun"></i></div>
-                    <h3>Conservatory Roof Cleaning</h3>
-                    <p>Specialist safe treatment for delicate glass or polycarbonate roof panels.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="about-block">
-        <div class="container-center">
-            <div class="about-profile-wrapper">
-                <div class="about-profile-image">
-                    <img src="IMG_9194.jpeg" alt="Jack - All Clear Exterior Cleaning Owner" style="width:100%; max-width:380px; border-radius:12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
-                </div>
-                <div class="about-profile-text">
-                    <h2 class="section-heading-left">Meet Your Local Cleaning Specialist</h2>
-                    <p>Hi, I'm Jack, owner and operator of <strong>All Clear Exterior Cleaning</strong>.</p>
-                    <p>When you request a service, you are dealing with a fully insured, dedicated local professional who guarantees a streak-free, flawless finish every single visit.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="locations" class="geo-seo-content-block">
-        <div class="container-center">
-            <h2 class="block-title">Local Exterior Cleaning Service Areas</h2>
-            <p class="block-subtitle">We proudly operate a structured routine route schedule across the following regional service zones:</p>
-            
-            <div class="geo-text-grid">
-                <div class="geo-zone-card"><h4>Andover Cleaning</h4><p>Regular maintenance hub route.</p></div>
-                <div class="geo-zone-card"><h4>Basingstoke Cleaning</h4><p>Scheduled monthly exterior care routines.</p></div>
-                <div class="geo-zone-card"><h4>Winchester Cleaning</h4><p>Meticulous restoration packages.</p></div>
-                <div class="geo-zone-card"><h4>Eastleigh Cleaning</h4><p>Comprehensive residential services.</p></div>
-            </div>
-        </div>
-    </section>
-
-    <footer id="contact-footer" class="site-footer">
-        <div class="footer-wrap">
-            <div class="footer-brand-side">
-                <h3>ALL CLEAR EXTERIOR CLEANING</h3>
-                <p>Delivering premier window cleaning, gutter clearance, conservatory care, and fascia &amp; soffit restoration solutions across Hampshire.</p>
-                <p class="working-hours"><i class="fa-solid fa-clock"></i> Mon - Fri: 8:00 AM - 5:00 PM</p>
-            </div>
-            <div class="footer-contact-side">
-                <h4>Connect Direct</h4>
-                <a href="tel:07305572453" class="contact-link"><i class="fa-solid fa-phone"></i> 07305 572453</a>
-                <a href="mailto:info@allclearexteriorcleaning.co.uk" class="contact-link"><i class="fa-solid fa-envelope"></i> info@allclearexteriorcleaning.co.uk</a>
-            </div>
-        </div>
-
-        <div class="footer-hubs-drawer">
-            <div class="container-center" style="text-align: center; padding: 20px 0;">
-                <a href="/areas-we-cover.html" style="color: var(--brand-blue, #0A58CA); text-decoration: underline; font-weight: 700; font-size: 1.1rem;">
-                    Browse All Local Areas Covered
-                </a>
-            </div>
-        </div>
-
-        <div class="footer-copyright">
-            &copy; 2026 All Clear Exterior Cleaning. All Rights Reserved.
-        </div>
-    </footer>
-
-    <script>
-        const mobileNavToggle = document.getElementById('mobileNavToggle');
-        const mainNavMenu = document.getElementById('mainNavMenu');
-
-        mobileNavToggle.addEventListener('click', () => {
-            mainNavMenu.classList.toggle('nav-menu-open');
-        });
-
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', () => mainNavMenu.classList.remove('nav-menu-open'));
-        });
-
-        document.addEventListener("DOMContentLoaded", function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            let areaName = urlParams.get('area');
-            if (areaName) {
-                areaName = areaName.trim();
-                areaName = areaName.charAt(0).toUpperCase() + areaName.slice(1).toLowerCase();
-                document.title = `Window Cleaning in ${areaName} | All Clear Exterior Cleaning`;
-                const mainHeadline = document.getElementById('dynamic-main-heading');
-                if (mainHeadline) mainHeadline.innerHTML = `Professional Window, Gutter &amp; Exterior Cleaning in ${areaName}`;
-            }
-            toggleFrequencyField();
-        });
-
-        function toggleFrequencyField() {
-            const checkboxes = document.querySelectorAll('.service-checkbox:checked');
-            const freqContainer = document.getElementById('frequency-container');
-            const freqSelect = document.getElementById('frequency');
-
-            let requiresFrequency = false;
-            checkboxes.forEach(cb => {
-                if (cb.value === "Window Cleaning" || cb.value === "Full Exterior Package") requiresFrequency = true;
-            });
-
-            if (requiresFrequency) {
-                freqContainer.style.display = 'block';
-                freqSelect.required = true;
-            } else {
-                freqContainer.style.display = 'none';
-                freqSelect.required = false;
-                freqSelect.value = "";
-            }
-        }
-
-        function runPricingCalculation() {
-            const storeys = document.getElementById('storeys').value;
-            const bedrooms = document.getElementById('bedrooms').value;
-            const veluxCount = document.getElementById('velux').value;
-            const extensions = document.getElementById('extensions').value;
-
-            const selectedServices = Array.from(document.querySelectorAll('.service-checkbox:checked')).map(cb => cb.value);
-
-            if (storeys === "4+" || bedrooms === "6+") return "Custom Quote Required";
-            if (selectedServices.includes("Full Exterior Package") && bedrooms === "1") return "Custom Quote Required";
-
-            let totalCost = 0;
-
-            selectedServices.forEach(service => {
-                let serviceCost = 0;
-                if (service === "Window Cleaning") {
-                    const windowRates = { "1": 16, "2": 18, "3": 22, "4": 26, "5": 30 };
-                    serviceCost = windowRates[bedrooms] || 0;
-                    if (storeys === "3") serviceCost += 3;
-                    if (veluxCount !== "0") serviceCost += (veluxCount === "4+" ? 4 : parseInt(veluxCount));
-                    if (extensions === "Yes") serviceCost += 5;
-                } else if (service === "Gutter Clearance" || service === "Fascia & Soffit Cleaning") {
-                    const flatRates = { "1": 70, "2": 70, "3": 90, "4": 105, "5": 120 };
-                    serviceCost = flatRates[bedrooms] || 0;
-                    if (extensions === "Yes") serviceCost += 20;
-                } else if (service === "Conservatory Roof Cleaning") {
-                    serviceCost = 130;
-                } else if (service === "Full Exterior Package") {
-                    const packageRates = { "2": 170, "3": 220, "4": 270, "5": 320 };
-                    serviceCost = packageRates[bedrooms] || 0;
-                    if (extensions === "Yes") serviceCost += 60;
-                }
-                totalCost += serviceCost;
-            });
-
-            return totalCost;
-        }
-
-        function updateHiddenFormInput(name, value) {
-            const form = document.getElementById('multiStepForm');
-            let input = form.querySelector(`input[name="${name}"]`);
-            if (!input) {
-                input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = name;
-                form.appendChild(input);
-            }
-            input.value = value;
-        }
-
-        async function firePayloadToWeb3Forms(successCallback) {
-            const form = document.getElementById('multiStepForm');
-            const priceDisplayBox = document.getElementById('instant-price-display');
-            
-            try {
-                const response = await fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify(Object.fromEntries(new FormData(form)))
-                });
-                
-                const result = await response.json();
-                if (response.ok) {
-                    if (typeof successCallback === 'function') successCallback();
-                } else {
-                    priceDisplayBox.innerHTML += `<div style="color: #721c24; background: #f8d7da; padding: 10px; border-radius: 6px; margin-top: 10px;">Submission Error: ${result.message || 'Please try again'}</div>`;
-                }
-            } catch (error) {
-                priceDisplayBox.innerHTML += `<div style="color: #721c24; background: #f8d7da; padding: 10px; border-radius: 6px; margin-top: 10px;">Network Error: ${error.message}</div>`;
-            }
-        }
-
-        function submitInitialLeadAndShowPrice() {
-            const selectedCheckboxes = document.querySelectorAll('.service-checkbox:checked');
-            const freqSelect = document.getElementById('frequency');
-            const priceDisplayBox = document.getElementById('instant-price-display');
-            const navBlock = document.getElementById('form-action-nav-block');
-            
-            if (selectedCheckboxes.length === 0) {
-                alert("Please select at least one service.");
-                return;
-            }
-            if (freqSelect.required && !freqSelect.checkValidity()) {
-                freqSelect.reportValidity();
-                return;
-            }
-
-            const calcResult = runPricingCalculation();
-            const servicesList = Array.from(selectedCheckboxes).map(cb => cb.value).join(', ');
-            updateHiddenFormInput('services_requested', servicesList);
-
-            if (typeof calcResult === "string" || calcResult === 0) {
-                priceDisplayBox.innerHTML = `<div style="background: #FFFBEB; padding: 20px; border: 2px solid #F59E0B; border-radius: 8px; text-align: center;">Custom Quote Required. We will contact you shortly.</div>`;
-                updateHiddenFormInput('calculated_quote_estimate', "Custom Quote Needed");
-                updateHiddenFormInput('submission_stage', "Initial Lead (Custom)");
-                firePayloadToWeb3Forms();
-                if (navBlock) navBlock.style.display = 'none';
-                return;
-            }
-
-            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: #0A58CA;"><i class="fa-solid fa-spinner fa-spin"></i> Calculating...</div>`;
-
-            updateHiddenFormInput('calculated_quote_estimate', `£${calcResult} per clean`);
-            updateHiddenFormInput('submission_stage', 'Stage 1: Price Calculated');
-
-            firePayloadToWeb3Forms(() => {
-                if (navBlock) navBlock.style.display = 'none';
-
-                const html = `
-                    <div style="background: #F0F4F8; padding: 20px; border-radius: 8px; margin-top: 15px; text-align: center;">
-                        <div style="font-size: 1.3rem; margin-bottom: 10px;">Your Estimated Regular Price:</div>
-                        <div style="font-size: 2.4rem; font-weight: bold; color: #0A58CA;">£${calcResult}</div>
-                        <div style="margin: 10px 0; color: #555;">per scheduled clean</div>
-                        <p style="margin: 20px 0; font-size: 1rem;">We'll contact you shortly to arrange your first visit.</p>
-                        <button type="button" style="width: 100%; padding: 14px; font-size: 1.1rem; background: #198754; color: white; border: none; border-radius: 6px; cursor: pointer;" onclick="submitBookingRequest()">
-                            Request Booking
-                        </button>
-                    </div>`;
-
-                priceDisplayBox.innerHTML = html;
-            });
-        }
-
-        // NEW FUNCTION - Second Email on "Request Booking"
-        function submitBookingRequest() {
-            const priceDisplayBox = document.getElementById('instant-price-display');
-            
-            updateHiddenFormInput('submission_stage', 'Stage 2: Booking Requested After Price');
-            updateHiddenFormInput('customer_booking_preference', 'Requested Booking via Form');
-
-            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 20px; color: #0A58CA;"><i class="fa-solid fa-spinner fa-spin"></i><br>Sending your booking request...</div>`;
-
-            firePayloadToWeb3Forms(() => {
-                priceDisplayBox.innerHTML = `
-                    <div style="background: #D1E7DD; color: #0F5132; padding: 25px; border-radius: 8px; text-align: center;">
-                        <h4 style="margin:0 0 10px 0;">✅ Request Received!</h4>
-                        <p>Thank you! We have received your booking request and will contact you shortly to confirm details and schedule your first clean.</p>
-                        <p style="margin-top:15px; font-size:0.95rem;">You will receive a text reminder the evening before we arrive.</p>
-                    </div>`;
-            });
-        }
-
-        function nextStep(currentStep) {
-            document.getElementById('panel-'+currentStep).classList.remove('active-panel');
-            document.getElementById('panel-'+(currentStep+1)).classList.add('active-panel');
-            document.getElementById('ind-'+(currentStep+1)).classList.add('active-indicator');
-        }
-
-        function prevStep(currentStep) {
-            document.getElementById('panel-'+currentStep).classList.remove('active-panel');
-            document.getElementById('panel-'+(currentStep-1)).classList.add('active-panel');
-            document.getElementById('ind-'+currentStep).classList.remove('active-indicator');
         }
     </script>
 </body>
