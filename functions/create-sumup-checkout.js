@@ -2,13 +2,11 @@ export async function onRequestPost(context) {
     try {
         const { request, env } = context;
         
-        // 1. Verify the secret token exists
         const token = env.SUMUP_ACCESS_TOKEN;
         if (!token) {
-            return new Response(JSON.stringify({ error: "SUMUP_ACCESS_TOKEN is missing in Cloudflare settings." }), { status: 500 });
+            return new Response(JSON.stringify({ error: "SUMUP_ACCESS_TOKEN missing." }), { status: 500 });
         }
 
-        // 2. Flexible parsing to handle JSON, FormData, or URL-encoded data from mobile
         const contentType = request.headers.get("content-type") || "";
         let amount = 0;
 
@@ -20,14 +18,14 @@ export async function onRequestPost(context) {
             amount = formData.get("amount");
         }
 
-        // 3. Clean and validate the amount
         const cleanAmount = parseFloat(amount);
         if (isNaN(cleanAmount) || cleanAmount <= 0) {
-            return new Response(JSON.stringify({ error: `Invalid amount received: ${amount}` }), { status: 400 });
+            return new Response(JSON.stringify({ error: `Invalid amount: ${amount}` }), { status: 400 });
         }
 
-       
-        // 4. Send the request to SumUp with added description and proper amount formatting
+        // IMPORTANT: Convert decimal amount to pence (e.g., 10.50 -> 1050)
+        const amountInPence = Math.round(cleanAmount * 100);
+
         const response = await fetch('https://api.sumup.com/v0.1/checkouts', {
             method: 'POST',
             headers: {
@@ -35,35 +33,31 @@ export async function onRequestPost(context) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                amount: cleanAmount,
+                amount: amountInPence, 
                 currency: 'GBP',
-                checkout_reference: 'Order-' + Date.now().toString(),
+                checkout_reference: 'ORDER-' + Date.now().toString(),
                 merchant_code: env.SUMUP_MERCHANT_CODE,
-                description: 'Exterior Cleaning Service' // Mandatory for many merchant profiles
+                description: 'Exterior Cleaning Service'
             })
         });
 
-
         const data = await response.json();
 
-        // 5. Return the exact response back to the website
+        // If the request fails, the API response body contains the specific failed constraint
+        if (!response.ok) {
+            console.error("SumUp API Validation Failure:", JSON.stringify(data));
+        }
+
         return new Response(JSON.stringify(data), {
             status: response.status,
-            headers: { 
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*' 
-            }
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
         });
 
     } catch (err) {
-        return new Response(JSON.stringify({ error: err.message }), { 
-            status: 500,
-            headers: { 'Content-Type': 'application/json' }
-        });
+        return new Response(JSON.stringify({ error: err.message }), { status: 500 });
     }
 }
 
-// Handle preflight requests safely (common on mobile browsers)
 export async function onRequestOptions() {
     return new Response(null, {
         headers: {
