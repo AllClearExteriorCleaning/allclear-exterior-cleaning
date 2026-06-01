@@ -19,7 +19,6 @@
             flex-direction: column !important;
         }
         
-        /* Mobile-first Responsive Layout Rows */
         .form-row, .form-row-triple {
             display: flex;
             flex-direction: column;
@@ -36,7 +35,6 @@
             padding: 10px;
         }
 
-        /* Desktop Grid Upgrades */
         @media(min-width: 768px) {
             .form-row, .form-row-triple {
                 flex-direction: row;
@@ -50,7 +48,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Multi-select Service Grid */
         .checkbox-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -290,7 +287,7 @@
 
                         <div class="form-navigation-buttons" id="form-action-nav-block">
                             <button type="button" class="btn-step-prev" onclick="prevStep(3)"><i class="fa-solid fa-arrow-left"></i> Back</button>
-                            <button type="button" class="btn-submit-quote" id="calc-trigger-btn" onclick="submitInitialLeadAndShowPrice()">Calculate My Price <i class="fa-solid fa-calculator"></i></button>
+                            <button type="button" class="btn-submit-quote" onclick="submitInitialLeadAndShowPrice()">Calculate My Price <i class="fa-solid fa-calculator"></i></button>
                         </div>
                     </div>
                 </form>
@@ -307,25 +304,22 @@
                 <div class="service-card">
                     <div class="card-icon"><i class="fa-solid fa-window-maximize"></i></div>
                     <h3>Pure Water Window Cleaning</h3>
-                    <p>Using reach-and-wash carbon poles with clean, purified water. <strong>We wash all glass, frames, sills, and external doors as standard on every single visit</strong> to ensure a flawless finish without any sticky soap film left behind.</p>
+                    <p>Using reach-and-wash carbon poles with clean, purified water. <strong>We wash all glass, frames, sills, and external doors as standard on every single visit</strong>.</p>
                 </div>
-                
                 <div class="service-card">
                     <div class="card-icon"><i class="fa-solid fa-bore-hole"></i></div>
                     <h3>skyVac Gutter Clearance</h3>
-                    <p>Safe, powerful ground-level clearance of heavy sludge, leaves, and blockages using industrial suction setups. Keeps drainage working perfectly to prevent expensive internal property damp issues.</p>
+                    <p>Safe, powerful ground-level clearance of heavy sludge, leaves, and blockages.</p>
                 </div>
-                
                 <div class="service-card">
                     <div class="card-icon"><i class="fa-solid fa-house"></i></div>
                     <h3>Fascia &amp; Soffit Washing</h3>
-                    <p>Deep-clean treatment that strips away stubborn green algae, heavy weather grime, and grey pollution stains from rooflines to fully restore your property's primary street-side curb appeal.</p>
+                    <p>Deep-clean treatment that strips away stubborn green algae and grime.</p>
                 </div>
-                
                 <div class="service-card">
                     <div class="card-icon"><i class="fa-solid fa-sun"></i></div>
                     <h3>Conservatory Roof Cleaning</h3>
-                    <p>Specialist safe treatment for delicate glass or polycarbonate roof panels. Removes green organic film and debris build-up to allow maximum bright natural sunlight back into your living spaces.</p>
+                    <p>Specialist safe treatment for delicate glass or polycarbonate roof panels.</p>
                 </div>
             </div>
         </div>
@@ -339,8 +333,8 @@
                 </div>
                 <div class="about-profile-text">
                     <h2 class="section-heading-left">Meet Your Local Cleaning Specialist</h2>
-                    <p>Hi, I'm Jack, owner and operator of <strong>All Clear Exterior Cleaning</strong>. We take absolute pride in maintaining homes across Hampshire with high-reach pure water fed systems, professional skyVac gutter systems, and meticulous conservatory roof restoration solutions.</p>
-                    <p>When you request a service, you are dealing with a fully insured, dedicated local professional who guarantees a streak-free, flawless finish every single visit. No shortcuts, no hidden surprises—just an immaculate home frame-to-glass.</p>
+                    <p>Hi, I'm Jack, owner and operator of <strong>All Clear Exterior Cleaning</strong>.</p>
+                    <p>When you request a service, you are dealing with a fully insured, dedicated local professional who guarantees a streak-free, flawless finish every single visit.</p>
                 </div>
             </div>
         </div>
@@ -352,22 +346,10 @@
             <p class="block-subtitle">We proudly operate a structured routine route schedule across the following regional service zones:</p>
             
             <div class="geo-text-grid">
-                <div class="geo-zone-card">
-                    <h4>Andover Cleaning</h4>
-                    <p>Our foundational regular maintenance hub route covering comprehensive domestic window and safe gutter clearing services throughout the entire Andover area.</p>
-                </div>
-                <div class="geo-zone-card">
-                    <h4>Basingstoke Cleaning</h4>
-                    <p>Scheduled monthly exterior care routines for home and business clients located across Basingstoke, Oakley, and surround areas.</p>
-                </div>
-                <div class="geo-zone-card">
-                    <h4>Winchester Cleaning</h4>
-                    <p>Meticulous restoration packages specialized for premium historical properties and modern homes situated within Winchester.</p>
-                </div>
-                <div class="geo-zone-card">
-                    <h4>Eastleigh Cleaning</h4>
-                    <p>Comprehensive residential glass cleaning, UPVC fascia detailing, and full extension gutter clearing services across Eastleigh.</p>
-                </div>
+                <div class="geo-zone-card"><h4>Andover Cleaning</h4><p>Regular maintenance hub route.</p></div>
+                <div class="geo-zone-card"><h4>Basingstoke Cleaning</h4><p>Scheduled monthly exterior care routines.</p></div>
+                <div class="geo-zone-card"><h4>Winchester Cleaning</h4><p>Meticulous restoration packages.</p></div>
+                <div class="geo-zone-card"><h4>Eastleigh Cleaning</h4><p>Comprehensive residential services.</p></div>
             </div>
         </div>
     </section>
@@ -408,23 +390,18 @@
         });
 
         document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', () => {
-                mainNavMenu.classList.remove('nav-menu-open');
-            });
+            item.addEventListener('click', () => mainNavMenu.classList.remove('nav-menu-open'));
         });
 
         document.addEventListener("DOMContentLoaded", function() {
             const urlParams = new URLSearchParams(window.location.search);
             let areaName = urlParams.get('area');
-
             if (areaName) {
                 areaName = areaName.trim();
                 areaName = areaName.charAt(0).toUpperCase() + areaName.slice(1).toLowerCase();
                 document.title = `Window Cleaning in ${areaName} | All Clear Exterior Cleaning`;
                 const mainHeadline = document.getElementById('dynamic-main-heading');
-                if (mainHeadline) {
-                    mainHeadline.innerHTML = `Professional Window, Gutter &amp; Exterior Cleaning in ${areaName}`;
-                }
+                if (mainHeadline) mainHeadline.innerHTML = `Professional Window, Gutter &amp; Exterior Cleaning in ${areaName}`;
             }
             toggleFrequencyField();
         });
@@ -435,11 +412,8 @@
             const freqSelect = document.getElementById('frequency');
 
             let requiresFrequency = false;
-            
             checkboxes.forEach(cb => {
-                if (cb.value === "Window Cleaning" || cb.value === "Full Exterior Package") {
-                    requiresFrequency = true;
-                }
+                if (cb.value === "Window Cleaning" || cb.value === "Full Exterior Package") requiresFrequency = true;
             });
 
             if (requiresFrequency) {
@@ -448,7 +422,7 @@
             } else {
                 freqContainer.style.display = 'none';
                 freqSelect.required = false;
-                freqSelect.value = ""; 
+                freqSelect.value = "";
             }
         }
 
@@ -467,28 +441,23 @@
 
             selectedServices.forEach(service => {
                 let serviceCost = 0;
-
                 if (service === "Window Cleaning") {
                     const windowRates = { "1": 16, "2": 18, "3": 22, "4": 26, "5": 30 };
                     serviceCost = windowRates[bedrooms] || 0;
                     if (storeys === "3") serviceCost += 3;
                     if (veluxCount !== "0") serviceCost += (veluxCount === "4+" ? 4 : parseInt(veluxCount));
                     if (extensions === "Yes") serviceCost += 5;
-                    
                 } else if (service === "Gutter Clearance" || service === "Fascia & Soffit Cleaning") {
                     const flatRates = { "1": 70, "2": 70, "3": 90, "4": 105, "5": 120 };
                     serviceCost = flatRates[bedrooms] || 0;
                     if (extensions === "Yes") serviceCost += 20;
-                    
                 } else if (service === "Conservatory Roof Cleaning") {
                     serviceCost = 130;
-                    
                 } else if (service === "Full Exterior Package") {
                     const packageRates = { "2": 170, "3": 220, "4": 270, "5": 320 };
                     serviceCost = packageRates[bedrooms] || 0;
                     if (extensions === "Yes") serviceCost += 60;
                 }
-
                 totalCost += serviceCost;
             });
 
@@ -519,18 +488,13 @@
                 });
                 
                 const result = await response.json();
-
                 if (response.ok) {
                     if (typeof successCallback === 'function') successCallback();
                 } else {
-                    priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px; margin-top: 15px;">
-                        <strong>Submission Error:</strong> ${result.message || 'Check your Access Key or form configuration'}
-                    </div>`;
+                    priceDisplayBox.innerHTML += `<div style="color: #721c24; background: #f8d7da; padding: 10px; border-radius: 6px; margin-top: 10px;">Submission Error: ${result.message || 'Please try again'}</div>`;
                 }
             } catch (error) {
-                priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px; margin-top: 15px;">
-                    <strong>Network Error:</strong> ${error.message}
-                </div>`;
+                priceDisplayBox.innerHTML += `<div style="color: #721c24; background: #f8d7da; padding: 10px; border-radius: 6px; margin-top: 10px;">Network Error: ${error.message}</div>`;
             }
         }
 
@@ -544,9 +508,9 @@
                 alert("Please select at least one service.");
                 return;
             }
-            if (freqSelect.required && !freqSelect.checkValidity()) { 
-                freqSelect.reportValidity(); 
-                return; 
+            if (freqSelect.required && !freqSelect.checkValidity()) {
+                freqSelect.reportValidity();
+                return;
             }
 
             const calcResult = runPricingCalculation();
@@ -554,9 +518,7 @@
             updateHiddenFormInput('services_requested', servicesList);
 
             if (typeof calcResult === "string" || calcResult === 0) {
-                priceDisplayBox.innerHTML = `<div style="background: #FFFBEB; padding: 20px; border: 2px solid #F59E0B; border-radius: 8px; text-align: center;">
-                    Custom Quote Required. We will contact you shortly.
-                </div>`;
+                priceDisplayBox.innerHTML = `<div style="background: #FFFBEB; padding: 20px; border: 2px solid #F59E0B; border-radius: 8px; text-align: center;">Custom Quote Required. We will contact you shortly.</div>`;
                 updateHiddenFormInput('calculated_quote_estimate', "Custom Quote Needed");
                 updateHiddenFormInput('submission_stage', "Initial Lead (Custom)");
                 firePayloadToWeb3Forms();
@@ -564,7 +526,7 @@
                 return;
             }
 
-            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: var(--brand-blue, #0A58CA);"><i class="fa-solid fa-spinner fa-spin"></i> Calculating your price...</div>`;
+            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: #0A58CA;"><i class="fa-solid fa-spinner fa-spin"></i> Calculating...</div>`;
 
             updateHiddenFormInput('calculated_quote_estimate', `£${calcResult} per clean`);
             updateHiddenFormInput('submission_stage', 'Stage 1: Price Calculated');
@@ -572,18 +534,37 @@
             firePayloadToWeb3Forms(() => {
                 if (navBlock) navBlock.style.display = 'none';
 
-                let html = `
+                const html = `
                     <div style="background: #F0F4F8; padding: 20px; border-radius: 8px; margin-top: 15px; text-align: center;">
                         <div style="font-size: 1.3rem; margin-bottom: 10px;">Your Estimated Regular Price:</div>
-                        <div style="font-size: 2.2rem; font-weight: bold; color: #0A58CA;">£${calcResult}</div>
-                        <div style="margin: 15px 0; color: #555;">per scheduled clean</div>
-                        <p style="margin: 20px 0; font-size: 1rem;">We'll contact you shortly to confirm details and arrange your first visit.</p>
-                        <button type="button" style="width: 100%; padding: 14px; font-size: 1.1rem; background: #198754; color: white; border: none; border-radius: 6px; cursor: pointer;" onclick="alert('Thank you! We have received your request and will be in touch soon.')">
+                        <div style="font-size: 2.4rem; font-weight: bold; color: #0A58CA;">£${calcResult}</div>
+                        <div style="margin: 10px 0; color: #555;">per scheduled clean</div>
+                        <p style="margin: 20px 0; font-size: 1rem;">We'll contact you shortly to arrange your first visit.</p>
+                        <button type="button" style="width: 100%; padding: 14px; font-size: 1.1rem; background: #198754; color: white; border: none; border-radius: 6px; cursor: pointer;" onclick="submitBookingRequest()">
                             Request Booking
                         </button>
                     </div>`;
 
                 priceDisplayBox.innerHTML = html;
+            });
+        }
+
+        // NEW FUNCTION - Second Email on "Request Booking"
+        function submitBookingRequest() {
+            const priceDisplayBox = document.getElementById('instant-price-display');
+            
+            updateHiddenFormInput('submission_stage', 'Stage 2: Booking Requested After Price');
+            updateHiddenFormInput('customer_booking_preference', 'Requested Booking via Form');
+
+            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 20px; color: #0A58CA;"><i class="fa-solid fa-spinner fa-spin"></i><br>Sending your booking request...</div>`;
+
+            firePayloadToWeb3Forms(() => {
+                priceDisplayBox.innerHTML = `
+                    <div style="background: #D1E7DD; color: #0F5132; padding: 25px; border-radius: 8px; text-align: center;">
+                        <h4 style="margin:0 0 10px 0;">✅ Request Received!</h4>
+                        <p>Thank you! We have received your booking request and will contact you shortly to confirm details and schedule your first clean.</p>
+                        <p style="margin-top:15px; font-size:0.95rem;">You will receive a text reminder the evening before we arrive.</p>
+                    </div>`;
             });
         }
 
