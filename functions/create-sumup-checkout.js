@@ -1,4 +1,4 @@
-export async function onRequestPost(context) {
+expor async function onRequestPost(context) {
     try {
         const { request } = context;
         // Access your stored secret directly from the context environment
