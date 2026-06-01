@@ -20,14 +20,14 @@ export async function onRequestPost(context) {
             amount = formData.get("amount");
         }
 
-        // 3. Clean and validate the amount (ensure it's a valid number for SumUp)
+        // 3. Clean and validate the amount
         const cleanAmount = parseFloat(amount);
         if (isNaN(cleanAmount) || cleanAmount <= 0) {
             return new Response(JSON.stringify({ error: `Invalid amount received: ${amount}` }), { status: 400 });
         }
 
-        // 4. Send the request to SumUp
-        const response = await fetch('https://api.sumup.com/v1.0/checkouts', {
+        // 4. Send the request to SumUp (Updated to use Merchant Code)
+        const response = await fetch('https://api.sumup.com/v0.1/checkouts', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -37,7 +37,7 @@ export async function onRequestPost(context) {
                 amount: cleanAmount,
                 currency: 'GBP',
                 checkout_reference: 'Order-' + Date.now(),
-                pay_to_email: 'info@allclearexteriorcleaning.co.uk'
+                merchant_code: env.SUMUP_MERCHANT_CODE // <-- We are now using your Merchant Code!
             })
         });
 
@@ -48,12 +48,11 @@ export async function onRequestPost(context) {
             status: response.status,
             headers: { 
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*' // Prevents mobile CORS blocking
+                'Access-Control-Allow-Origin': '*' 
             }
         });
 
     } catch (err) {
-        // Catch any unexpected edge-case crashes
         return new Response(JSON.stringify({ error: err.message }), { 
             status: 500,
             headers: { 'Content-Type': 'application/json' }
