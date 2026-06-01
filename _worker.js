@@ -2,17 +2,18 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    // 1. Intercept the payment request
     if (url.pathname === '/create-sumup-checkout') {
       try {
         const token = env.SUMUP_ACCESS_TOKEN;
-        if (!token) {
-          return new Response(JSON.stringify({ error: "Missing SUMUP_ACCESS_TOKEN secret." }), { status: 500 });
+        const merchantCode = env.SUMUP_MERCHANT_CODE;
+
+        if (!token || !merchantCode) {
+          return new Response(JSON.stringify({ error: "Missing SumUp secrets in Cloudflare." }), { status: 500 });
         }
 
-        // Parse content sent from the form
         const contentType = request.headers.get("content-type") || "";
         let amount = 0;
+        
         if (contentType.includes("application/json")) {
           const body = await request.json();
           amount = body.amount;
@@ -26,8 +27,8 @@ export default {
           return new Response(JSON.stringify({ error: `Invalid amount: ${amount}` }), { status: 400 });
         }
 
-        // Send request to SumUp API
-        const response = await fetch('https://api.sumup.com/v1.0/checkouts', {
+        // Request checkout session from SumUp v0.1 API
+        const response = await fetch('https://api.sumup.com/v0.1/checkouts', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -37,11 +38,24 @@ export default {
             amount: cleanAmount,
             currency: 'GBP',
             checkout_reference: 'Order-' + Date.now(),
-            pay_to_email: 'info@allclearexteriorcleaning.co.uk'
+            merchant_code: merchantCode,
+            description: 'Initial Clean / One-off Service Payment'
           })
         });
 
         const data = await response.json();
+
+        // Pass exact errors back to the screen if SumUp still rejects it
+        if (!response.ok) {
+           return new Response(JSON.stringify({ error: data.message || data.error_code || "Payment rejected by SumUp" }), { 
+             status: 400,
+             headers: { 
+               'Content-Type': 'application/json',
+               'Access-Control-Allow-Origin': '*'
+             }
+           });
+        }
+
         return new Response(JSON.stringify(data), {
           status: response.status,
           headers: { 
@@ -55,7 +69,6 @@ export default {
       }
     }
 
-    // 2. Otherwise, serve your normal static website pages (index.html, style.css, etc.)
     return env.ASSETS.fetch(request);
   }
 };
