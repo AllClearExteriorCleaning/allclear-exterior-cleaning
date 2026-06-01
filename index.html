@@ -10,15 +10,13 @@
     <link rel="stylesheet" href="/style.css?v=2026.05.19">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <script src="https://gateway.sumup.com/gateway/ecom/modal/v2.js"></script>
-
     <style>
         .form-panel {
             display: none !important;
         }
         .form-panel.active-panel {
             display: flex !important;
-            flex-direction: column !important; /* Prevents fields from smashing horizontally on mobile */
+            flex-direction: column !important;
         }
         
         /* Mobile-first Responsive Layout Rows */
@@ -289,7 +287,6 @@
                         </div>
 
                         <div id="instant-price-display"></div>
-                        <div id="sumup-payment-container" style="margin-top: 15px;"></div>
 
                         <div class="form-navigation-buttons" id="form-action-nav-block">
                             <button type="button" class="btn-step-prev" onclick="prevStep(3)"><i class="fa-solid fa-arrow-left"></i> Back</button>
@@ -455,70 +452,49 @@
             }
         }
 
-        // Updated Pricing Logic to calculate routine AND upfront first clean costs
         function runPricingCalculation() {
             const storeys = document.getElementById('storeys').value;
             const bedrooms = document.getElementById('bedrooms').value;
             const veluxCount = document.getElementById('velux').value;
             const extensions = document.getElementById('extensions').value;
-            const priceDisplayBox = document.getElementById('instant-price-display');
 
             const selectedServices = Array.from(document.querySelectorAll('.service-checkbox:checked')).map(cb => cb.value);
 
-            if (!priceDisplayBox) return "";
-            
-            // Check constraints
-            if (storeys === "4+" || bedrooms === "6+") return "Custom Quote Required (Scale Limit)";
-            if (selectedServices.includes("Full Exterior Package") && bedrooms === "1") return "Custom Quote Required (1 Bed Package Limit)";
+            if (storeys === "4+" || bedrooms === "6+") return "Custom Quote Required";
+            if (selectedServices.includes("Full Exterior Package") && bedrooms === "1") return "Custom Quote Required";
 
-            let cumulativeRoutineCost = 0;
-            let cumulativeFirstCleanCost = 0;
-            let isWindowCleaning = false; 
+            let totalCost = 0;
 
-            // Calculate cost for each selected service
             selectedServices.forEach(service => {
                 let serviceCost = 0;
-                let firstCleanServiceCost = 0;
 
                 if (service === "Window Cleaning") {
-                    isWindowCleaning = true;
                     const windowRates = { "1": 16, "2": 18, "3": 22, "4": 26, "5": 30 };
                     serviceCost = windowRates[bedrooms] || 0;
                     if (storeys === "3") serviceCost += 3;
                     if (veluxCount !== "0") serviceCost += (veluxCount === "4+" ? 4 : parseInt(veluxCount));
                     if (extensions === "Yes") serviceCost += 5;
                     
-                    // Add 50% for the first clean
-                    firstCleanServiceCost = serviceCost * 1.5; 
-                    
                 } else if (service === "Gutter Clearance" || service === "Fascia & Soffit Cleaning") {
                     const flatRates = { "1": 70, "2": 70, "3": 90, "4": 105, "5": 120 };
                     serviceCost = flatRates[bedrooms] || 0;
-                    if (extensions === "Yes") serviceCost += 20; 
-                    
-                    firstCleanServiceCost = serviceCost; // One-off remains flat
+                    if (extensions === "Yes") serviceCost += 20;
                     
                 } else if (service === "Conservatory Roof Cleaning") {
                     serviceCost = 130;
-                    firstCleanServiceCost = serviceCost; // One-off remains flat
                     
                 } else if (service === "Full Exterior Package") {
-                    isWindowCleaning = true;
                     const packageRates = { "2": 170, "3": 220, "4": 270, "5": 320 };
                     serviceCost = packageRates[bedrooms] || 0;
                     if (extensions === "Yes") serviceCost += 60;
-                    
-                    firstCleanServiceCost = serviceCost; // Flat package rate upfront
                 }
 
-                cumulativeRoutineCost += serviceCost;
-                cumulativeFirstCleanCost += firstCleanServiceCost;
+                totalCost += serviceCost;
             });
 
-            return { routineCost: cumulativeRoutineCost, firstCleanCost: cumulativeFirstCleanCost, isWindowCleaning };
+            return totalCost;
         }
 
-        // Helper function to insert clean dynamic tracking inputs into Web3Forms
         function updateHiddenFormInput(name, value) {
             const form = document.getElementById('multiStepForm');
             let input = form.querySelector(`input[name="${name}"]`);
@@ -531,7 +507,6 @@
             input.value = value;
         }
 
-        // STAGE 1: Fires lead parameters instantly to your inbox on price generation click
         async function firePayloadToWeb3Forms(successCallback) {
             const form = document.getElementById('multiStepForm');
             const priceDisplayBox = document.getElementById('instant-price-display');
@@ -546,7 +521,7 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    successCallback();
+                    if (typeof successCallback === 'function') successCallback();
                 } else {
                     priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px; margin-top: 15px;">
                         <strong>Submission Error:</strong> ${result.message || 'Check your Access Key or form configuration'}
@@ -565,7 +540,6 @@
             const priceDisplayBox = document.getElementById('instant-price-display');
             const navBlock = document.getElementById('form-action-nav-block');
             
-            // Validation
             if (selectedCheckboxes.length === 0) {
                 alert("Please select at least one service.");
                 return;
@@ -576,154 +550,41 @@
             }
 
             const calcResult = runPricingCalculation();
-            
-            // Join all selected services into a single string for your email notification
             const servicesList = Array.from(selectedCheckboxes).map(cb => cb.value).join(', ');
             updateHiddenFormInput('services_requested', servicesList);
 
-            // Intercept standard logic if property matches profile constraints
-            if (typeof calcResult === "string" || calcResult.routineCost === 0) {
-                priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: var(--brand-blue, #0A58CA);"><i class="fa-solid fa-spinner fa-spin"></i> Submitting custom quote profile...</div>`;
+            if (typeof calcResult === "string" || calcResult === 0) {
+                priceDisplayBox.innerHTML = `<div style="background: #FFFBEB; padding: 20px; border: 2px solid #F59E0B; border-radius: 8px; text-align: center;">
+                    Custom Quote Required. We will contact you shortly.
+                </div>`;
                 updateHiddenFormInput('calculated_quote_estimate', "Custom Quote Needed");
-                updateHiddenFormInput('submission_stage', "Initial Lead (Out of Regular Calculation bounds)");
-                
-                firePayloadToWeb3Forms(() => {
-                    priceDisplayBox.innerHTML = `<div style="background: #FFFBEB; padding: 20px; border: 2px solid #F59E0B; border-radius: 8px;">Quote parameters logged. We will review your specs and contact you directly!</div>`;
-                    if (navBlock) navBlock.style.display = 'none';
-                });
+                updateHiddenFormInput('submission_stage', "Initial Lead (Custom)");
+                firePayloadToWeb3Forms();
+                if (navBlock) navBlock.style.display = 'none';
                 return;
             }
 
-            // Display loading indicator for quick lead sync
-            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: var(--brand-blue, #0A58CA);"><i class="fa-solid fa-spinner fa-spin"></i> Syncing your quote...</div>`;
+            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 15px; color: var(--brand-blue, #0A58CA);"><i class="fa-solid fa-spinner fa-spin"></i> Calculating your price...</div>`;
 
-            // Pack form parameters for Stage 1 Email Generation
-            updateHiddenFormInput('calculated_quote_estimate', `Routine: £${calcResult.routineCost} | Upfront/First Clean: £${calcResult.firstCleanCost}`);
-            updateHiddenFormInput('submission_stage', 'Stage 1: Price Calculated & Viewed (Follow-up Hot Lead)');
-            updateHiddenFormInput('customer_booking_preference', 'Abandoned at step 3 / No choice picked yet');
+            updateHiddenFormInput('calculated_quote_estimate', `£${calcResult} per clean`);
+            updateHiddenFormInput('submission_stage', 'Stage 1: Price Calculated');
 
-            // Fire Stage 1 API Call to Web3Forms
             firePayloadToWeb3Forms(() => {
                 if (navBlock) navBlock.style.display = 'none';
 
-                let html = `<div style="background: var(--brand-light-sky, #F0F4F8); padding: 20px; border-radius: 8px; margin-top: 15px;">`;
-                
-                // Output total upfront price
-                html += `<div style="font-size: 1.1rem; margin-bottom: 5px;">Initial Clean / Upfront Total: <strong>£${calcResult.firstCleanCost.toFixed(2)}</strong></div>`;
-                
-                // Clarify if there is an ongoing maintenance price difference
-                if (calcResult.routineCost !== calcResult.firstCleanCost) {
-                    html += `<div style="font-size: 0.95rem; margin-bottom: 20px; color: #555;">(Ongoing maintenance price: £${calcResult.routineCost.toFixed(2)} per clean)</div>`;
-                } else {
-                    html += `<div style="font-size: 0.95rem; margin-bottom: 20px; color: #555;">(One-off service)</div>`;
-                }
+                let html = `
+                    <div style="background: #F0F4F8; padding: 20px; border-radius: 8px; margin-top: 15px; text-align: center;">
+                        <div style="font-size: 1.3rem; margin-bottom: 10px;">Your Estimated Regular Price:</div>
+                        <div style="font-size: 2.2rem; font-weight: bold; color: #0A58CA;">£${calcResult}</div>
+                        <div style="margin: 15px 0; color: #555;">per scheduled clean</div>
+                        <p style="margin: 20px 0; font-size: 1rem;">We'll contact you shortly to confirm details and arrange your first visit.</p>
+                        <button type="button" style="width: 100%; padding: 14px; font-size: 1.1rem; background: #198754; color: white; border: none; border-radius: 6px; cursor: pointer;" onclick="alert('Thank you! We have received your request and will be in touch soon.')">
+                            Request Booking
+                        </button>
+                    </div>`;
 
-                // Append Booking Strategy Radios & Text Reminder Notice
-                html += `
-                    <div style="background: #fff; padding: 15px; border-radius: 6px; border: 1px solid #ccc; margin-bottom: 15px; text-align: left;">
-                        <p style="margin-top: 0; font-weight: 600; margin-bottom: 12px; color: #333;">How would you like to proceed?</p>
-                        <label style="display: block; margin-bottom: 12px; cursor: pointer; line-height: 1.4;">
-                            <input type="radio" name="temp_booking_pref" value="Book onto next available slot" checked> 
-                            Book onto next available slot when we're in your area (We will contact you to confirm)
-                        </label>
-                        <label style="display: block; cursor: pointer; line-height: 1.4;">
-                            <input type="radio" name="temp_booking_pref" value="Message me to arrange specific date"> 
-                            Message me to arrange a specific date alternative
-                        </label>
-                    </div>
-                    <div style="font-size: 0.9rem; color: #555; background: #e9ecef; padding: 10px; border-radius: 6px; margin-bottom: 20px; text-align: left;">
-                        <i class="fa-solid fa-circle-info" style="color: var(--brand-blue, #0A58CA); margin-right: 5px;"></i>
-                        <strong>Reminder:</strong> You will always receive a text reminder the evening before every scheduled clean.
-                    </div>
-                `;
-                
-                html += `<button type="button" id="final-booking-btn" style="width: 100%; padding: 14px; font-size: 1.1rem; font-weight: bold; background: var(--brand-green, #198754); color: white; border: none; border-radius: 6px; cursor: pointer;" onclick="confirmAndSubmitStageTwoBooking()">Proceed to Secure Payment</button></div>`;
-                
                 priceDisplayBox.innerHTML = html;
             });
-        }
-
-        // STAGE 2: SumUp Backend Communication & Payment Widget Mount
-        async function confirmAndSubmitStageTwoBooking() {
-            const priceDisplayBox = document.getElementById('instant-price-display');
-            const paymentContainer = document.getElementById('sumup-payment-container');
-            const selectedPreference = document.querySelector('input[name="temp_booking_pref"]:checked').value;
-            
-            // Adjust tracking keys for Stage 2
-            updateHiddenFormInput('customer_booking_preference', selectedPreference);
-            updateHiddenFormInput('submission_stage', 'Stage 2: Proceeding to Upfront Payment');
-            
-            // Get the upfront cost
-            const calcResult = runPricingCalculation();
-            const finalPrice = calcResult.firstCleanCost;
-
-            priceDisplayBox.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--brand-blue, #0A58CA);"><i class="fa-solid fa-spinner fa-spin" style="font-size: 1.5rem; margin-bottom: 10px;"></i><br>Generating secure payment link...</div>`;
-            
-            try {
-                // Fire lead off to Web3Forms
-                firePayloadToWeb3Forms(() => {});
-
-                // 1. Call Cloudflare Function
-                const response = await fetch('/create-sumup-checkout', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        amount: finalPrice, 
-                        description: "Initial Clean / One-off Service Payment" 
-                    })
-                });
-                
-                const data = await response.json();
-
-                // 🛑 TEMPORARY DEBUG BLOCK: Print the raw server data to the screen and STOP
-                priceDisplayBox.innerHTML = `
-                    <div style="background: #222; color: #00FF00; padding: 15px; border-radius: 6px; text-align: left; font-family: monospace; font-size: 0.9rem; word-wrap: break-word;">
-                        <strong>RAW CLOUDFLARE RESPONSE:</strong><br><br>
-                        ${JSON.stringify(data, null, 2)}
-                    </div>`;
-                return; // Stops the script here so SumUp doesn't try to load
-
-                // Intercept server-side rejections and display raw data string directly on device screen
-                if (data.error) {
-                    priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px; text-align: left; font-size: 0.95rem; line-height: 1.4;">
-                        <strong>Payment System Error:</strong> ${JSON.stringify(data.error)}<br><br>
-                        <em>Please take a screenshot of this error block to help get it resolved.</em>
-                    </div>`;
-                    return;
-                }
-
-                // 2. Ready to mount - prompt the user
-                priceDisplayBox.innerHTML = `<div style="background: var(--brand-light-sky, #F0F4F8); padding: 15px; border-radius: 8px; text-align: center; font-weight: bold; margin-bottom: 15px;">Please complete your secure payment below to confirm your booking.</div>`;
-
-                // 3. Mount the SumUp Payment Widget (Supports both .id and .checkout_id keys)
-                SumUpCard.mount({
-                    id: 'sumup-payment-container',
-                    checkoutId: data.id || data.checkout_id,
-                    onResponse: function(type, body) {
-                        if (type === 'success') {
-                            priceDisplayBox.style.display = 'none';
-                            paymentContainer.innerHTML = `
-                            <div style="background: #D1E7DD; color: #0F5132; padding: 20px; border: 1px solid #BADBCC; border-radius: 8px; text-align: center;">
-                                <h4 style="margin-top:0; font-size: 1.2rem;">Payment Successful! <i class="fa-solid fa-circle-check"></i></h4>
-                                <p style="margin-bottom: 0;">Thank you! Your initial clean has been securely paid for and your booking is confirmed. We will contact you shortly and text you the evening before we arrive.</p>
-                            </div>`;
-                            
-                            // Send final success email via Web3Forms
-                            updateHiddenFormInput('submission_stage', 'Stage 3: PAYMENT COMPLETED SUCCESSFULLY');
-                            firePayloadToWeb3Forms(() => {});
-                        } else {
-                            paymentContainer.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px;">Payment failed or was closed. Please refresh the page to try again.</div>`;
-                        }
-                    }
-                });
-
-            } catch (error) {
-                console.error("Payment initialization failed:", error);
-                priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px; text-align: left;">
-                    <strong>Network Error:</strong> Could not establish connection to the gateway function.<br><br>
-                    Details: ${error.message}
-                </div>`;
-            }
         }
 
         function nextStep(currentStep) {
