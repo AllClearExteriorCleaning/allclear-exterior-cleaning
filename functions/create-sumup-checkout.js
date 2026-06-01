@@ -26,7 +26,8 @@ export async function onRequestPost(context) {
             return new Response(JSON.stringify({ error: `Invalid amount received: ${amount}` }), { status: 400 });
         }
 
-        // 4. Send the request to SumUp (Updated to use Merchant Code)
+       
+        // 4. Send the request to SumUp with added description and proper amount formatting
         const response = await fetch('https://api.sumup.com/v0.1/checkouts', {
             method: 'POST',
             headers: {
@@ -36,10 +37,12 @@ export async function onRequestPost(context) {
             body: JSON.stringify({
                 amount: cleanAmount,
                 currency: 'GBP',
-                checkout_reference: 'Order-' + Date.now(),
-                merchant_code: env.SUMUP_MERCHANT_CODE // <-- We are now using your Merchant Code!
+                checkout_reference: 'Order-' + Date.now().toString(),
+                merchant_code: env.SUMUP_MERCHANT_CODE,
+                description: 'Exterior Cleaning Service' // Mandatory for many merchant profiles
             })
         });
+
 
         const data = await response.json();
 
