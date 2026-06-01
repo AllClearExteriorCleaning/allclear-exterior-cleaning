@@ -3,58 +3,38 @@ export async function onRequestPost(context) {
         const { request, env } = context;
         
         const token = env.SUMUP_ACCESS_TOKEN;
-        if (!token) {
-            return new Response(JSON.stringify({ error: "SUMUP_ACCESS_TOKEN missing." }), { status: 500 });
-        }
+        const merchantCode = env.SUMUP_MERCHANT_CODE;
 
-        const contentType = request.headers.get("content-type") || "";
-        let amount = 0;
+        const body = await request.json();
+        const amountInPence = Math.round(parseFloat(body.amount) * 100);
 
-        if (contentType.includes("application/json")) {
-            const body = await request.json();
-            amount = body.amount;
-        } else {
-            const formData = await request.formData();
-            amount = formData.get("amount");
-        }
-
-        const cleanAmount = parseFloat(amount);
-        if (isNaN(cleanAmount) || cleanAmount <= 0) {
-            return new Response(JSON.stringify({ error: `Invalid amount: ${amount}` }), { status: 400 });
-        }
-
-        const amountInPence = Math.round(cleanAmount * 100);
-
-        const response = await fetch('https://api.sumup.com/v0.1/checkouts', {
+        // We are using v1.0, which is the current stable API version
+        const response = await fetch('https://api.sumup.com/v1.0/checkouts', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-Merchant-Id': merchantCode // Some accounts require this header instead of body field
             },
             body: JSON.stringify({
-                amount: amountInPence, 
+                amount: amountInPence,
                 currency: 'GBP',
-                checkout_reference: 'ORDER-' + Date.now().toString(),
-                merchant_code: env.SUMUP_MERCHANT_CODE,
+                checkout_reference: 'ORD-' + Date.now().toString(),
                 description: 'Exterior Cleaning Service'
             })
         });
 
         const data = await response.json();
 
-        // 5. MODIFIED: Return the specific error from SumUp if it fails
         if (!response.ok) {
             return new Response(JSON.stringify({ 
-                error: "SumUp Rejected Request", 
-                details: data 
-            }), { 
+                error: "SumUp API Rejected Request", 
                 status: response.status,
-                headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-            });
+                details: data 
+            }), { status: response.status });
         }
 
         return new Response(JSON.stringify(data), {
-            status: response.status,
             headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
         });
 
