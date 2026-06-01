@@ -23,7 +23,6 @@ export async function onRequestPost(context) {
             return new Response(JSON.stringify({ error: `Invalid amount: ${amount}` }), { status: 400 });
         }
 
-        // IMPORTANT: Convert decimal amount to pence (e.g., 10.50 -> 1050)
         const amountInPence = Math.round(cleanAmount * 100);
 
         const response = await fetch('https://api.sumup.com/v0.1/checkouts', {
@@ -43,9 +42,15 @@ export async function onRequestPost(context) {
 
         const data = await response.json();
 
-        // If the request fails, the API response body contains the specific failed constraint
+        // 5. MODIFIED: Return the specific error from SumUp if it fails
         if (!response.ok) {
-            console.error("SumUp API Validation Failure:", JSON.stringify(data));
+            return new Response(JSON.stringify({ 
+                error: "SumUp Rejected Request", 
+                details: data 
+            }), { 
+                status: response.status,
+                headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+            });
         }
 
         return new Response(JSON.stringify(data), {
