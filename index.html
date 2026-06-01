@@ -675,18 +675,22 @@
                 
                 const data = await response.json();
 
+                // Intercept server-side rejections and display raw data string directly on device screen
                 if (data.error) {
-                    priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px;">Payment setup failed. We will contact you directly to arrange payment.</div>`;
+                    priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px; text-align: left; font-size: 0.95rem; line-height: 1.4;">
+                        <strong>Payment System Error:</strong> ${JSON.stringify(data.error)}<br><br>
+                        <em>Please take a screenshot of this error block to help get it resolved.</em>
+                    </div>`;
                     return;
                 }
 
                 // 2. Ready to mount - prompt the user
                 priceDisplayBox.innerHTML = `<div style="background: var(--brand-light-sky, #F0F4F8); padding: 15px; border-radius: 8px; text-align: center; font-weight: bold; margin-bottom: 15px;">Please complete your secure payment below to confirm your booking.</div>`;
 
-                // 3. Mount the SumUp Payment Widget
+                // 3. Mount the SumUp Payment Widget (Supports both .id and .checkout_id keys)
                 SumUpCard.mount({
                     id: 'sumup-payment-container',
-                    checkoutId: data.checkout_id,
+                    checkoutId: data.id || data.checkout_id,
                     onResponse: function(type, body) {
                         if (type === 'success') {
                             priceDisplayBox.style.display = 'none';
@@ -707,7 +711,10 @@
 
             } catch (error) {
                 console.error("Payment initialization failed:", error);
-                priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px;">Could not connect to payment gateway. We will contact you directly to arrange your clean.</div>`;
+                priceDisplayBox.innerHTML = `<div style="color: #721c24; background: #f8d7da; padding: 15px; border-radius: 6px; text-align: left;">
+                    <strong>Network Error:</strong> Could not establish connection to the gateway function.<br><br>
+                    Details: ${error.message}
+                </div>`;
             }
         }
 
